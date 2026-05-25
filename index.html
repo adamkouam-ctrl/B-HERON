@@ -42,6 +42,12 @@
     justify-content: space-between;
     padding: 28px 60px;
     background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    transition: background 0.3s;
+  }
+  
+  nav.scrolled {
+    background: rgba(10, 10, 10, 0.98);
+    border-bottom: 1px solid var(--ash);
   }
 
   .nav-logo {
@@ -55,11 +61,16 @@
 
   .nav-logo span { font-style: italic; color: var(--cream); }
 
+  .nav-right-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
   .nav-links {
     display: flex;
     gap: 40px;
     list-style: none;
-    align-items: center;
   }
 
   .nav-links a {
@@ -74,29 +85,26 @@
 
   .nav-links a:hover { color: var(--gold); }
 
-  /* LANGUAGE SWITCHER BUTTONS */
-  .lang-switcher {
-    display: flex;
-    gap: 10px;
-    border-left: 1px solid var(--ash);
-    padding-left: 20px;
-  }
-
-  .lang-btn {
-    background: none;
-    border: none;
-    color: var(--mist);
+  .lang-selector {
+    background: transparent;
+    border: 1px solid var(--ash);
+    color: var(--silver);
     font-family: 'Barlow', sans-serif;
     font-size: 11px;
     letter-spacing: 0.1em;
+    padding: 6px 10px;
     cursor: pointer;
+    outline: none;
     text-transform: uppercase;
-    transition: color 0.3s;
+    transition: all 0.3s;
   }
-
-  .lang-btn.active {
-    color: var(--gold);
-    font-weight: 500;
+  .lang-selector:hover {
+    border-color: var(--gold);
+    color: var(--white);
+  }
+  .lang-selector option {
+    background: var(--charcoal);
+    color: var(--cream);
   }
 
   .nav-cta {
@@ -111,9 +119,6 @@
   }
 
   .nav-cta:hover { background: var(--gold-light); }
-
-  /* TRANSLATION RENDERING BLOCKS */
-  [lang="it"] { display: none; }
 
   /* HERO */
   .hero {
@@ -209,7 +214,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: brightness(0.7) saturate(0.8);
+    filter: brightness(0.65) saturate(0.85);
   }
 
   .hero-right::after {
@@ -331,6 +336,7 @@
     border: 1px solid var(--ash);
     padding: 32px 40px;
     text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
   .about-stat .num {
@@ -519,6 +525,7 @@
     vertical-align: middle;
   }
 
+  .tier-badge.standard { border-color: #555555; color: #999999; }
   .tier-badge.essential { border-color: var(--mist); color: var(--mist); }
   .tier-badge.grand { border-color: var(--gold-dark); color: var(--gold); }
   .tier-badge.prestige { border-color: var(--gold); color: var(--gold); background: rgba(184,149,106,0.08); }
@@ -532,7 +539,7 @@
     font-style: italic;
   }
 
-  /* FUTURE — AVIATION RE-DESIGN (NO HOUSES) */
+  /* FUTURE — JET */
   .future {
     padding: 140px 60px;
     background: var(--charcoal);
@@ -632,7 +639,7 @@
     width: 100%;
     aspect-ratio: 4/3;
     object-fit: cover;
-    filter: brightness(0.55) saturate(0.6);
+    filter: brightness(0.6) saturate(0.75);
   }
 
   .future-visual-label {
@@ -775,6 +782,13 @@
     outline: none;
     transition: border-color 0.3s;
     appearance: none;
+    border-radius: 0;
+  }
+
+  .form-group select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path fill='%23B8956A' d='M0,3.5 L5,8.5 L10,3.5 Z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) center;
   }
 
   .form-group select option { background: var(--charcoal); }
@@ -807,6 +821,33 @@
     font-weight: 300;
     color: var(--silver);
     line-height: 1.7;
+  }
+
+  /* TOAST SYSTEM */
+  .toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 110;
+  }
+
+  .toast {
+    background: var(--charcoal);
+    border: 1px solid var(--gold);
+    color: var(--cream);
+    padding: 20px 30px;
+    font-size: 13px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .toast.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* FOOTER */
@@ -855,7 +896,8 @@
 
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
-    .nav-links, .nav-cta, .lang-switcher { display: none; }
+    .nav-right-container { gap: 15px; }
+    .nav-links, .nav-cta { display: none; }
     .hero { grid-template-columns: 1fr; }
     .hero-right { display: none; }
     .hero-left { padding: 120px 24px 60px; }
@@ -874,62 +916,59 @@
 </head>
 <body>
 
-<nav>
+<nav id="navbar">
   <a href="#" class="nav-logo">BHER<span>ON</span></a>
-  <ul class="nav-links">
-    <li><a href="#services" class="nav-srv-lbl">Services</a></li>
-    <li><a href="#pricing" class="nav-prc-lbl">Pricing</a></li>
-    <li><a href="#sky">BHERON Sky</a></li>
-    <li><a href="#contact" class="nav-cnt-lbl">Contact</a></li>
-    <li class="lang-switcher">
-      <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
-      <button class="lang-btn" onclick="setLanguage('it')">IT</button>
-    </li>
-  </ul>
-  <a href="#contact" class="nav-cta book-txt">Book Now</a>
+  <div class="nav-right-container">
+    <ul class="nav-links">
+      <li><a href="#services" data-i18n="nav-services">Services</a></li>
+      <li><a href="#pricing" data-i18n="nav-pricing">Pricing</a></li>
+      <li><a href="#sky" data-i18n="nav-sky">BHERON Sky</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
+    </ul>
+    
+    <select class="lang-selector" id="langSelector" title="Select Language">
+      <option value="en" selected>EN</option>
+      <option value="it">IT</option>
+      <option value="fr">FR</option>
+      <option value="de">DE</option>
+    </select>
+
+    <a href="#contact" class="nav-cta" data-i18n="nav-cta">Book Now</a>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="hero-left">
-    <div lang="en">
-      <p class="hero-eyebrow">Luxury Detailing · Italy & Switzerland</p>
-      <h1 class="hero-title">Every detail.<br><em>Immaculate.</em></h1>
-      <p class="hero-sub">BHERON brings concierge-level detailing to the most discerning vehicles in Milan, Rome, Geneva, and Zürich. We come to you — on your schedule, at your standard.</p>
-    </div>
-    <div lang="it">
-      <p class="hero-eyebrow">Detailing di Lusso · Italia & Svizzera</p>
-      <h1 class="hero-title">Ogni dettaglio.<br><em>Impeccabile.</em></h1>
-      <p class="hero-sub">BHERON porta il servizio di detailing a livello di concierge per i veicoli più prestigiosi a Milano, Roma, Ginevra e Zurigo. Veniamo noi da voi — secondo i vostri orari, con i vostri standard.</p>
-    </div>
-    
+    <p class="hero-eyebrow" data-i18n="hero-eyebrow">Luxury Detailing · Italy & Switzerland</p>
+    <h1 class="hero-title" id="heroTitle">Every detail.<br><em>Immaculate.</em></h1>
+    <p class="hero-sub" data-i18n="hero-sub">BHERON brings concierge-level detailing to the most discerning vehicles in Milan, Rome, Geneva, and Zürich. We come to you — on your schedule, at your standard.</p>
     <div class="hero-buttons">
-      <a href="#pricing" class="btn-primary exp-srv-txt">Explore Services</a>
-      <a href="#sky" class="btn-ghost">BHERON Sky →</a>
+      <a href="#pricing" class="btn-primary" data-i18n="btn-explore">Explore Services</a>
+      <a href="#sky" class="btn-ghost" data-i18n="btn-sky">BHERON Sky →</a>
     </div>
   </div>
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1200&q=80" alt="BHERON Detailing Runway">
+    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=80" alt="BHERON Concours Paint Correction Finish">
   </div>
   <div class="hero-badge">
-    <p lang="en">Atelier-grade care<br>for exceptional automobiles.</p>
-    <p lang="it">Cura di livello Atelier<br>per automobili eccezionali.</p>
+    <p id="heroBadgeText">Atelier-grade care<br>for exceptional automobiles.</p>
   </div>
 </section>
 
 <div class="locations-strip">
   <div class="location-item">
     <span class="flag">🇮🇹</span>
-    <span>Milan · Rome · Florence · Turin</span>
+    <span data-i18n="loc-italy">Milan · Rome · Florence · Turin</span>
   </div>
   <div class="location-divider"></div>
   <div class="location-item">
     <span class="flag">🇨🇭</span>
-    <span>Geneva · Zürich · Lugano · Basel</span>
+    <span data-i18n="loc-swiss">Geneva · Zürich · Lugano · Basel</span>
   </div>
   <div class="location-divider"></div>
   <div class="location-item">
     <span>✦</span>
-    <span style="color: var(--gold)" class="mobile-loc-txt">Mobile & On-Site Service</span>
+    <span style="color: var(--gold)" data-i18n="loc-mobile">Mobile & On-Site Service</span>
   </div>
 </div>
 
@@ -937,98 +976,84 @@
 
 <section class="about">
   <div class="about-left">
-    <div lang="en">
-      <p class="section-label">Our Philosophy</p>
-      <h2 class="section-title">Not a wash.<br>A <em>ritual.</em></h2>
-      <p class="section-body">BHERON was founded on a single conviction: exceptional vehicles deserve exceptional care. We reject haste, shortcuts, and compromise — offering instead a meditative process that restores your vehicle to a state of perfection.</p>
-      <p class="section-body">Operating across Italy and Switzerland, our mobile ateliers bring certified master detailers, professional-grade ceramic compounds, and bespoke finishing systems directly to your residence, office, or hangar.</p>
-    </div>
-    <div lang="it">
-      <p class="section-label">La Nostra Filosofia</p>
-      <h2 class="section-title">Non un lavaggio.<br>Un <em>rituale.</em></h2>
-      <p class="section-body">BHERON nasce da una singola convinzione: i veicoli eccezionali meritano una cura eccezionale. Rifiutiamo la fretta, le scorciatoie e i compromessi — offrendo invece un processo meticoloso che restituisce il vostro veicolo ad uno stato di perfezione.</p>
-      <p class="section-body">Operando in tutta Italia e Svizzera, i nostri atelier mobili portano detailer professionisti certificati, composti ceramici di livello industriale e sistemi di finitura su misura direttamente alla vostra residenza, ufficio o hangar.</p>
-    </div>
+    <p class="section-label" data-i18n="about-label">Our Philosophy</p>
+    <h2 class="section-title" id="aboutTitle">Not a wash.<br>A <em>ritual.</em></h2>
+    <p class="section-body" data-i18n="about-body1">BHERON was founded on a single conviction: exceptional vehicles deserve exceptional care. We reject haste, shortcuts, and compromise — offering instead a meditative process that restores your vehicle to a state of perfection.</p>
+    <p class="section-body" data-i18n="about-body2">Operating across Italy and Switzerland, our mobile ateliers bring certified master detailers, professional-grade ceramic compounds, and bespoke finishing systems directly to your residence, office, or hangar.</p>
   </div>
   <div class="about-right">
-    <img class="about-image-main" src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80" alt="Detailing Surface Inspection">
+    <img class="about-image-main" src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=800&q=80" alt="Master detailer executing precise paint correction">
     <div class="about-stat">
       <span class="num">100%</span>
-      <span class="label rate-lbl">Satisfaction Rate</span>
+      <span class="label" data-i18n="about-stat-label">Satisfaction Rate</span>
     </div>
   </div>
 </section>
 
 <section class="services" id="services">
   <div class="services-header">
-    <p class="section-label offer-lbl">What We Offer</p>
-    <h2 class="section-title src-main-tit">Our <em>Services</em></h2>
+    <p class="section-label" data-i18n="services-label">What We Offer</p>
+    <h2 class="section-title" id="servicesTitle">Our <em>Services</em></h2>
   </div>
   <div class="services-grid">
     <div class="service-card">
+      <span class="service-number">00</span>
+      <div class="service-icon">⚡</div>
+      <h3 class="service-name" data-i18n="s0-name">Premium Daily Driver</h3>
+      <p class="service-desc" data-i18n="s0-desc">Designed specifically for normal premium daily vehicles. Precision safe wash, light gloss enhancement polish, interior purification, and hybrid wax defense.</p>
+      <div class="service-price">
+        <span class="price-from" data-i18n="price-from">From</span>
+        <span class="price-amount">€45</span>
+      </div>
+    </div>
+    <div class="service-card">
       <span class="service-number">01</span>
       <div class="service-icon">✦</div>
-      <h3 class="service-name ext-at-tit">Exterior Atelier</h3>
-      <p class="service-desc card1-dsc" lang="en">Full decontamination wash, iron fallout removal, clay bar treatment, and single-stage machine polish. Your paint, renewed.</p>
-      <p class="service-desc card1-dsc" lang="it">Lavaggio completo di decontaminazione, rimozione dei residui ferrosi, trattamento clay bar e lucidatura a macchina a singola fase. La tua vernice, rinnovata.</p>
+      <h3 class="service-name" data-i18n="s1-name">Exterior Atelier</h3>
+      <p class="service-desc" data-i18n="s1-desc">Full decontamination wash, iron fallout removal, clay bar treatment, and single-stage machine polish. Your paint, renewed.</p>
       <div class="service-price">
-        <span class="price-from from-lbl">From</span>
+        <span class="price-from" data-i18n="price-from">From</span>
         <span class="price-amount">€190</span>
       </div>
     </div>
     <div class="service-card">
       <span class="service-number">02</span>
       <div class="service-icon">◇</div>
-      <h3 class="service-name int-sn-tit">Interior Sanctum</h3>
-      <p class="service-desc card2-dsc" lang="en">Deep vacuum, steam cleaning, leather conditioning, fragrance purification, and UV protection treatment. A cabin transformed.</p>
-      <p class="service-desc card2-dsc" lang="it">Aspirazione profonda, pulizia a vapore, condizionamento della pelle, purificazione delle fragranze e trattamento di protezione UV. Un abitacolo trasformato.</p>
+      <h3 class="service-name" data-i18n="s2-name">Interior Sanctum</h3>
+      <p class="service-desc" data-i18n="s2-desc">Deep vacuum, steam cleaning, leather conditioning, fragrance purification, and UV protection treatment. A cabin transformed.</p>
       <div class="service-price">
-        <span class="price-from from-lbl">From</span>
+        <span class="price-from" data-i18n="price-from">From</span>
         <span class="price-amount">€220</span>
       </div>
     </div>
     <div class="service-card">
       <span class="service-number">03</span>
       <div class="service-icon">◈</div>
-      <h3 class="service-name gd-det-tit">Grand Détail</h3>
-      <p class="service-desc card3-dsc" lang="en">Our complete signature service — exterior + interior, 2-stage correction, ceramic coating application, and final hand inspection.</p>
-      <p class="service-desc card3-dsc" lang="it">Il nostro servizio completo esclusivo — esterno + interno, correzione a 2 stadi, applicazione del rivestimento ceramico e ispezione finale a mano.</p>
+      <h3 class="service-name" data-i18n="s3-name">Grand Détail</h3>
+      <p class="service-desc" data-i18n="s3-desc">Our complete signature service — exterior + interior, 2-stage correction, ceramic coating application, and final hand inspection.</p>
       <div class="service-price">
-        <span class="price-from from-lbl">From</span>
+        <span class="price-from" data-i18n="price-from">From</span>
         <span class="price-amount">€650</span>
       </div>
     </div>
     <div class="service-card">
       <span class="service-number">04</span>
       <div class="service-icon">⬡</div>
-      <h3 class="service-name cer-am-tit">Ceramic Armour</h3>
-      <p class="service-desc card4-dsc" lang="en">Professional nano-ceramic coating. Up to 5 years of hydrophobic protection, UV resistance, and depth-enhanced gloss. Guaranteed.</p>
-      <p class="service-desc card4-dsc" lang="it">Rivestimento nano-ceramico professionale. Fino a 5 anni di protezione idrofobica, resistenza ai raggi UV e lucentezza profonda. Garantito.</p>
+      <h3 class="service-name" data-i18n="s4-name">Ceramic Armour</h3>
+      <p class="service-desc" data-i18n="s4-desc">Professional nano-ceramic coating. Up to 5 years of hydrophobic protection, UV resistance, and depth-enhanced gloss. Guaranteed.</p>
       <div class="service-price">
-        <span class="price-from from-lbl">From</span>
+        <span class="price-from" data-i18n="price-from">From</span>
         <span class="price-amount">€980</span>
       </div>
     </div>
     <div class="service-card">
       <span class="service-number">05</span>
       <div class="service-icon">☽</div>
-      <h3 class="service-name">PPF Installation</h3>
-      <p class="service-desc card5-dsc" lang="en">Paint protection film on high-impact zones or full-body coverage. Invisible shield against stone chips, abrasion, and environmental damage.</p>
-      <p class="service-desc card5-dsc" lang="it">Pellicola protettiva trasparente (PPF) sulle zone ad alto impatto o copertura totale della carrozzeria. Scudo invisibile contro sassi e graffi.</p>
+      <h3 class="service-name" data-i18n="s5-name">PPF Installation</h3>
+      <p class="service-desc" data-i18n="s5-desc">Paint protection film on high-impact zones or full-body coverage. Invisible shield against stone chips, abrasion, and environmental damage.</p>
       <div class="service-price">
-        <span class="price-from from-lbl">From</span>
+        <span class="price-from" data-i18n="price-from">From</span>
         <span class="price-amount">€1,400</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <span class="service-number">06</span>
-      <div class="service-icon">◯</div>
-      <h3 class="service-name mem-tit">Monthly Membership</h3>
-      <p class="service-desc card6-dsc" lang="en">Bespoke maintenance programme. Monthly exterior care, quarterly full detail, and priority scheduling — a retainer for your collection.</p>
-      <p class="service-desc card6-dsc" lang="it">Programma di manutenzione su misura. Cura esterna mensile, detailing completo trimestrale e pianificazione prioritaria per la tua collezione.</p>
-      <div class="service-price">
-        <span class="price-from from-lbl">From</span>
-        <span class="price-amount">€380<span class="price-currency mo-lbl">/mo</span></span>
       </div>
     </div>
   </div>
@@ -1036,120 +1061,110 @@
 
 <section class="pricing" id="pricing">
   <div class="pricing-header">
-    <p class="section-label trans-lbl">Transparent Pricing</p>
-    <h2 class="section-title inv-tit">Investment in <em>Perfection</em></h2>
-    <p class="section-body tbl-sub" lang="en" style="max-width:520px; margin:0 auto; text-align:center;">All pricing is fixed and inclusive. No hidden fees. Final cost confirmed at booking based on vehicle size and condition.</p>
-    <p class="section-body tbl-sub" lang="it" style="max-width:520px; margin:0 auto; text-align:center;">Tutti i prezzi sono fissi e tutto incluso. Nessun costo nascosto. Prezzo finale confermato al momento della prenotazione in base alle dimensioni.</p>
+    <p class="section-label" data-i18n="table-label">Transparent Pricing</p>
+    <h2 class="section-title" id="pricingTitle">Investment in <em>Perfection</em></h2>
+    <p class="section-body" style="max-width:520px; margin:0 auto; text-align:center;" data-i18n="table-sub">All pricing is fixed and inclusive. No hidden fees. Final cost confirmed at booking based on vehicle size and condition.</p>
   </div>
 
   <table class="pricing-table">
     <thead>
       <tr>
-        <th class="th-srv">Service</th>
-        <th class="th-inc">Includes</th>
-        <th class="th-dur">Duration</th>
-        <th class="th-prc">Price (€)</th>
+        <th data-i18n="th-service">Service</th>
+        <th data-i18n="th-includes">Includes</th>
+        <th data-i18n="th-duration">Duration</th>
+        <th data-i18n="th-price">Price (€)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Express Exterior <span class="tier-badge essential">Essential</span></td>
-        <td class="t-inc-1">Hand wash, dry, tyre shine</td>
+        <td><span data-i18n="s0-name">Premium Daily Driver</span> <span class="tier-badge standard" data-i18n="tier-standard">Standard</span></td>
+        <td data-i18n="t0-inc">Gloss protection wash, deep vacuum, hybrid sealant protection</td>
+        <td>1.5 – 2 h</td>
+        <td>€ 45 – 75</td>
+      </tr>
+      <tr>
+        <td><span data-i18n="t1-name">Express Exterior</span> <span class="tier-badge essential" data-i18n="tier-essential">Essential</span></td>
+        <td data-i18n="t1-inc">Hand wash, dry, tyre shine</td>
         <td>45 min</td>
         <td>€ 95 – 130</td>
       </tr>
       <tr>
-        <td>Exterior Atelier <span class="tier-badge essential">Essential</span></td>
-        <td class="t-inc-2">Decontamination, clay, polish</td>
+        <td><span data-i18n="s1-name">Exterior Atelier</span> <span class="tier-badge essential" data-i18n="tier-essential">Essential</span></td>
+        <td data-i18n="t2-inc">Decontamination, clay, polish</td>
         <td>3–4 h</td>
         <td>€ 190 – 280</td>
       </tr>
       <tr>
-        <td>Interior Sanctum <span class="tier-badge essential">Essential</span></td>
-        <td class="t-inc-3">Full interior deep clean</td>
+        <td><span data-i18n="s2-name">Interior Sanctum</span> <span class="tier-badge essential" data-i18n="tier-essential">Essential</span></td>
+        <td data-i18n="t3-inc">Full interior deep clean</td>
         <td>3–5 h</td>
         <td>€ 220 – 320</td>
       </tr>
       <tr>
-        <td>Grand Détail <span class="tier-badge grand">Grand</span></td>
-        <td class="t-inc-4">Full ext. + int. + 2-stage correction</td>
-        <td class="t-dur-1">1 day</td>
+        <td><span data-i18n="s3-name">Grand Détail</span> <span class="tier-badge grand" data-i18n="tier-grand">Grand</span></td>
+        <td data-i18n="t4-inc">Full ext. + int. + 2-stage correction</td>
+        <td>1 day</td>
         <td>€ 650 – 950</td>
       </tr>
       <tr>
-        <td>Ceramic Armour (2yr) <span class="tier-badge grand">Grand</span></td>
-        <td class="t-inc-5">Nano-ceramic coating + prep</td>
-        <td class="t-dur-2">1–2 days</td>
+        <td><span data-i18n="t5-name">Ceramic Armour (2yr)</span> <span class="tier-badge grand" data-i18n="tier-grand">Grand</span></td>
+        <td data-i18n="t5-inc">Nano-ceramic coating + prep</td>
+        <td>1–2 days</td>
         <td>€ 980 – 1,400</td>
       </tr>
       <tr>
-        <td>Ceramic Armour (5yr) <span class="tier-badge prestige">Prestige</span></td>
-        <td class="t-inc-6">Premium ceramic + full correction</td>
-        <td class="t-dur-3">2 days</td>
+        <td><span data-i18n="t6-name">Ceramic Armour (5yr)</span> <span class="tier-badge prestige" data-i18n="tier-prestige">Prestige</span></td>
+        <td data-i18n="t6-inc">Premium ceramic + full correction</td>
+        <td>2 days</td>
         <td>€ 1,800 – 2,400</td>
       </tr>
       <tr>
-        <td>PPF Partial Coverage <span class="tier-badge prestige">Prestige</span></td>
-        <td class="t-inc-7">Bonnet, bumper, mirrors</td>
-        <td class="t-dur-1">1 day</td>
+        <td><span data-i18n="t7-name">PPF Partial Coverage</span> <span class="tier-badge prestige" data-i18n="tier-prestige">Prestige</span></td>
+        <td data-i18n="t7-inc">Bonnet, bumper, mirrors</td>
+        <td>1 day</td>
         <td>€ 1,400 – 1,900</td>
       </tr>
       <tr>
-        <td>PPF Full Body <span class="tier-badge prestige">Prestige</span></td>
-        <td class="t-inc-8">Complete vehicle coverage</td>
-        <td class="t-dur-4">3–5 days</td>
+        <td><span data-i18n="t8-name">PPF Full Body</span> <span class="tier-badge prestige" data-i18n="tier-prestige">Prestige</span></td>
+        <td data-i18n="t8-inc">Complete vehicle coverage</td>
+        <td>3–5 days</td>
         <td>€ 4,200 – 6,500</td>
       </tr>
       <tr>
-        <td>Monthly Membership <span class="tier-badge grand">Grand</span></td>
-        <td class="t-inc-9">Monthly care + quarterly detail</td>
-        <td class="t-dur-5">Ongoing</td>
-        <td class="t-prc-mo">€ 380 – 580/mo</td>
+        <td><span data-i18n="s6-name">Monthly Membership</span> <span class="tier-badge grand" data-i18n="tier-grand">Grand</span></td>
+        <td data-i18n="t9-inc">Monthly care + quarterly detail</td>
+        <td data-i18n="t-ongoing">Ongoing</td>
+        <td>€ 380 – 580/mo</td>
       </tr>
     </tbody>
   </table>
-  <p class="pricing-note p-note-lbl">Prices may vary for SUVs, larger models, and heavily soiled vehicles. All prices include travel within service areas. CHF pricing available for Swiss clients.</p>
+  <p class="pricing-note" data-i18n="pricing-note">Prices may vary for SUVs, larger models, and heavily soiled vehicles. All prices include travel within service areas. CHF pricing available for Swiss clients.</p>
 </section>
 
 <section class="future" id="sky">
   <div class="future-inner">
     <div class="future-left">
-      <p class="future-label cm-lbl">Coming Soon</p>
-      <div class="coming-soon-pill">BHERON Sky — 2026</div>
-      <h2 class="future-title" lang="en">Detailing<br>beyond the<br><em>runway.</em></h2>
-      <h2 class="future-title" lang="it">Detailing<br>oltre la<br><em>pista di volo.</em></h2>
-      
-      <p class="future-body" lang="en">BHERON Sky is our forthcoming division dedicated to private aviation. We are extending our atelier-grade philosophy from asphalt to apron — bringing the same obsessive precision to business jets, turboprops, and helicopters stationed across European FBOs.</p>
-      <p class="future-body" lang="it">BHERON Sky è la nostra prossima divisione dedicata all'aviazione privata. Estendiamo la nostra filosofia dal manto stradale alle piste di volo — portando la stessa precisione maniacale su jet privati ed elicotteri posizionati nei principali FBO europei.</p>
-      
-      <ul class="future-features" lang="en">
-        <li>Exterior aircraft wash, polish, and detailing — approved products for all composite and metal finishes</li>
-        <li>Interior cabin deep cleaning, leather conditioning, and odour elimination</li>
-        <li>Cockpit glass treatment and instrument panel care</li>
-        <li>Engine nacelle cosmetic cleaning (cosmetic, non-mechanical)</li>
-        <li>Hangar-based service in Milan Linate, Geneva, Lugano, and Zürich airports</li>
-        <li>Subscription programmes for fleet operators and charter companies</li>
+      <p class="future-label" data-i18n="future-label">Coming Soon</p>
+      <div class="coming-soon-pill" data-i18n="future-pill">BHERON Sky — 2026</div>
+      <h2 class="future-title" id="futureTitle">Detailing<br>beyond the<br><em>runway.</em></h2>
+      <p class="future-body" data-i18n="future-body">BHERON Sky is our forthcoming division dedicated to private aviation. We are extending our atelier-grade philosophy from asphalt to apron — bringing the same obsessive precision to business jets, turboprops, and helicopters stationed across European FBOs.</p>
+      <ul class="future-features">
+        <li data-i18n="f-li1">Exterior aircraft wash, polish, and detailing — approved products for all composite and metal finishes</li>
+        <li data-i18n="f-li2">Interior cabin deep cleaning, leather conditioning, and odour elimination</li>
+        <li data-i18n="f-li3">Cockpit glass treatment and instrument panel care</li>
+        <li data-i18n="f-li4">Engine nacelle cosmetic cleaning (cosmetic, non-mechanical)</li>
+        <li data-i18n="f-li5">Hangar-based service in Milan Linate, Geneva, Lugano, and Zürich airports</li>
+        <li data-i18n="f-li6">Subscription programmes for fleet operators and charter companies</li>
       </ul>
-
-      <ul class="future-features" lang="it">
-        <li>Lavaggio esterno, lucidatura e detailing aeronautico — prodotti approvati per finiture in metallo e materiali compositi</li>
-        <li>Pulizia profonda della cabina interna, trattamento pelle ed eliminazione degli odori</li>
-        <li>Trattamento dei vetri della cabina di pilotaggio e cura dei pannelli di controllo</li>
-        <li>Pulizia estetica delle carlinghe dei motori (puramente cosmetica, non meccanica)</li>
-        <li>Servizi direttamente in hangar a Milano Linate, Ginevra, Lugano e Zurigo</li>
-        <li>Programmi di abbonamento per operatori di flotta e compagnie di voli charter</li>
-      </ul>
-      
-      <form action="https://formspree.io/f/xanykgbe" method="POST" class="notify-form">
-        <input type="email" name="email" placeholder="Your email address" required>
-        <button type="submit" class="ntf-btn-lbl">Notify Me</button>
+      <form class="notify-form" id="notifyForm">
+        <input type="email" id="notifyEmail" placeholder="Your email address" required>
+        <button type="submit" data-i18n="btn-notify">Notify Me</button>
       </form>
     </div>
     <div class="future-visual">
-      <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80" alt="Private Jet Detailing Hangar operations">
+      <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80" alt="BHERON Sky Private Jet Exterior Refinement Portfolio">
       <div class="future-visual-label">
-        <p lang="en">Atelier care, elevated at altitude.</p>
-        <p lang="it">La cura dell'atelier, elevata ad alta quota.</p>
+        <p data-i18n="future-vlabel">Atelier care, elevated at altitude.</p>
       </div>
     </div>
   </div>
@@ -1158,19 +1173,19 @@
 <section class="testimonials">
   <div class="testimonial">
     <div class="testimonial-stars">★★★★★</div>
-    <p class="testimonial-text">"They treated my 812 Superfast as though it were their own. The correction work was extraordinary — paint I'd never seen that way before."</p>
+    <p class="testimonial-text" data-i18n="test1-text">"They treated my 812 Superfast as though it were their own. The correction work was extraordinary — paint I'd never seen that way before."</p>
     <p class="testimonial-author">Marco A.</p>
     <p class="testimonial-location">Milan, Ferrari 812 Superfast</p>
   </div>
   <div class="testimonial">
     <div class="testimonial-stars">★★★★★</div>
-    <p class="testimonial-text">"In Geneva it's difficult to find real perfectionists. BHERON came to my garage and the result was — without exaggeration — concours level."</p>
+    <p class="testimonial-text" data-i18n="test2-text">"In Geneva it's difficult to find real perfectionists. BHERON came to my garage and the result was — without exaggeration — concours level."</p>
     <p class="testimonial-author">Stefan K.</p>
     <p class="testimonial-location">Geneva, Porsche 911 GT3</p>
   </div>
   <div class="testimonial">
     <div class="testimonial-stars">★★★★★</div>
-    <p class="testimonial-text">"The membership programme means I never think about the condition of my Cullinan. It simply always looks perfect. That is what I pay for."</p>
+    <p class="testimonial-text" data-i18n="test3-text">"The membership programme means I never think about the condition of my Cullinan. It simply always looks perfect. That is what I pay for."</p>
     <p class="testimonial-author">Riccardo F.</p>
     <p class="testimonial-location">Rome, Rolls-Royce Cullinan</p>
   </div>
@@ -1178,51 +1193,51 @@
 
 <section class="contact" id="contact">
   <div>
-    <p class="section-label rsv-lbl">Reserve Your Service</p>
-    <h2 class="section-title contact-tit">Begin your<br><em>enquiry.</em></h2>
-    <p class="section-body form-sub-txt" lang="en">Our concierge team will confirm availability and provide a tailored quote within 2 hours during business hours.</p>
-    <p class="section-body form-sub-txt" lang="it">Il nostro team di concierge confermerà la disponibilità e fornirà un preventivo personalizzato entro 2 ore durante l'orario lavorativo.</p>
+    <p class="section-label" data-i18n="contact-label">Reserve Your Service</p>
+    <h2 class="section-title" id="contactTitle">Begin your<br><em>enquiry.</em></h2>
+    <p class="section-body" data-i18n="contact-sub">Our concierge team will confirm availability and provide a tailored quote within 2 hours during business hours.</p>
 
     <div class="contact-info" style="margin-top: 56px;">
       <div class="info-block">
-        <p class="info-label">Italy</p>
+        <p class="info-label" data-i18n="lbl-italy">Italy</p>
         <p class="info-value">+39 02 8734 5210<br>italia@bheron.com</p>
       </div>
       <div class="info-block">
-        <p class="info-label">Switzerland</p>
+        <p class="info-label" data-i18n="lbl-swiss">Switzerland</p>
         <p class="info-value">+41 22 900 4430<br>suisse@bheron.com</p>
       </div>
       <div class="info-block">
-        <p class="info-label hrs-lbl">Hours</p>
-        <p class="info-value work-hrs-val">Monday – Saturday<br>08:00 – 20:00 (CET)</p>
+        <p class="info-label" data-i18n="lbl-hours">Hours</p>
+        <p class="info-value" data-i18n="val-hours">Monday – Saturday<br>08:00 – 20:00 (CET)</p>
       </div>
     </div>
   </div>
 
   <div>
-    <form action="https://formspree.io/f/xanykgbe" method="POST" class="contact-form">
+    <form class="contact-form" id="enquiryForm">
       <div class="form-row">
         <div class="form-group">
-          <label class="lbl-fn">First Name</label>
-          <input type="text" name="first_name" placeholder="Marco" required>
+          <label for="firstName" data-i18n="f-name">First Name</label>
+          <input type="text" id="firstName" placeholder="Marco" required>
         </div>
         <div class="form-group">
-          <label class="lbl-ln">Last Name</label>
-          <input type="text" name="last_name" placeholder="Rossi" required>
+          <label for="lastName" data-i18n="f-lname">Last Name</label>
+          <input type="text" id="lastName" placeholder="Rossi" required>
         </div>
       </div>
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="marco@example.com" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="marco@example.com" required>
       </div>
       <div class="form-group">
-        <label class="lbl-vhc">Vehicle</label>
-        <input type="text" name="vehicle" placeholder="e.g. Ferrari Roma, Bentley Continental" required>
+        <label for="vehicle" data-i18n="f-model">Vehicle / Aircraft Model</label>
+        <input type="text" id="vehicle" placeholder="e.g. Audi RS6, Ferrari Roma, Gulfstream" required>
       </div>
       <div class="form-group">
-        <label class="lbl-srv-f">Service</label>
-        <select name="service" required>
-          <option value="" class="lbl-sel-srv">Select a service…</option>
+        <label for="service" data-i18n="th-service">Service</label>
+        <select id="service" required>
+          <option value="" data-i18n="opt-select">Select a service…</option>
+          <option value="Premium Daily Driver">Premium Daily Driver (Normal Car)</option>
           <option value="Express Exterior">Express Exterior</option>
           <option value="Exterior Atelier">Exterior Atelier</option>
           <option value="Interior Sanctum">Interior Sanctum</option>
@@ -1234,9 +1249,9 @@
         </select>
       </div>
       <div class="form-group">
-        <label class="lbl-loc">Location</label>
-        <select name="location" required>
-          <option value="" class="lbl-sel-cty">Your city…</option>
+        <label for="location" data-i18n="f-loc">Location</label>
+        <select id="location" required>
+          <option value="" data-i18n="opt-city">Your city…</option>
           <option value="Milan">Milan</option>
           <option value="Rome">Rome</option>
           <option value="Florence">Florence</option>
@@ -1248,143 +1263,211 @@
         </select>
       </div>
       <div class="form-group">
-        <label class="lbl-msg">Message (optional)</label>
-        <textarea name="message" placeholder="Any specific requirements or notes…"></textarea>
+        <label for="message" data-i18n="f-msg">Message (optional)</label>
+        <textarea id="message" placeholder="Any specific requirements or notes…"></textarea>
       </div>
-      <button type="submit" class="btn-primary form-btn-sub" style="width: 100%; text-align: center; display: block; padding: 18px;">Submit Enquiry</button>
+      <button type="submit" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 18px;" data-i18n="btn-submit">Submit Enquiry</button>
     </form>
   </div>
 </section>
 
 <footer>
   <div class="footer-left">
-    <p>© 2025 BHERON Detailing SRL<br>
+    <p>© 2026 BHERON Detailing SRL<br>
     Luxury mobile detailing — Italy & Switzerland<br>
     VAT IT12345678901 / CHE-123.456.789</p>
   </div>
   <div class="footer-logo">BHERON</div>
   <div class="footer-right">
-    <a href="#services" class="nav-srv-lbl">Services</a>
-    <a href="#pricing" class="nav-prc-lbl">Pricing</a>
-    <a href="#sky">BHERON Sky</a>
-    <a href="#contact" class="nav-cnt-lbl">Contact</a>
+    <a href="#services" data-i18n="nav-services">Services</a>
+    <a href="#pricing" data-i18n="nav-pricing">Pricing</a>
+    <a href="#sky" data-i18n="nav-sky">BHERON Sky</a>
+    <a href="#contact" data-i18n="nav-contact">Contact</a>
   </div>
 </footer>
 
+<div class="toast-container" id="toastContainer">
+  <div class="toast" id="successToast"></div>
+</div>
+
 <script>
-  // High performance localization dictionary routing engine
-  const translations = {
+  // Complete Translation Dictionary Module
+  const i18nData = {
     en: {
-      srv: "Services", prc: "Pricing", cnt: "Contact", book: "Book Now", expSrv: "Explore Services",
-      mobileLoc: "Mobile & On-Site Service", rate: "Satisfaction Rate", offer: "What We Offer",
-      srcMain: "Our Services", extAt: "Exterior Atelier", intSn: "Interior Sanctum", gdDet: "Grand Détail",
-      cerAm: "Ceramic Armour", mem: "Monthly Membership", from: "From", mo: "/mo", trans: "Transparent Pricing",
-      inv: "Investment in Perfection", thSrv: "Service", thInc: "Includes", thDur: "Duration", thPrc: "Price (€)",
-      inc1: "Hand wash, dry, tyre shine", inc2: "Decontamination, clay, polish", inc3: "Full interior deep clean",
-      inc4: "Full ext. + int. + 2-stage correction", inc5: "Nano-ceramic coating + prep", inc6: "Premium ceramic + full correction",
-      inc7: "Bonnet, bumper, mirrors", inc8: "Complete vehicle coverage", inc9: "Monthly care + quarterly detail",
-      dur1: "1 day", dur2: "1–2 days", dur3: "2 days", dur4: "3–5 days", dur5: "Ongoing", prcMo: "€ 380 – 580/mo",
-      pNote: "Prices may vary for SUVs, larger models, and heavily soiled vehicles. All prices include travel within service areas. CHF pricing available for Swiss clients.",
-      cm: "Coming Soon", ntf: "Notify Me", rsv: "Reserve Your Service", contactTit: "Begin your enquiry.",
-      hrs: "Hours", workHrs: "Monday – Saturday<br>08:00 – 20:00 (CET)", fn: "First Name", ln: "Last Name",
-      vhc: "Vehicle", srvF: "Service", selSrv: "Select a service…", loc: "Location", selCty: "Your city…",
-      msg: "Message (optional)", btnSub: "Submit Enquiry"
+      "nav-services": "Services", "nav-pricing": "Pricing", "nav-sky": "BHERON Sky", "nav-contact": "Contact", "nav-cta": "Book Now",
+      "hero-eyebrow": "Luxury Detailing · Italy & Switzerland", "hero-sub": "BHERON brings concierge-level detailing to the most discerning vehicles in Milan, Rome, Geneva, and Zürich. We come to you — on your schedule, at your standard.",
+      "btn-explore": "Explore Services", "btn-sky": "BHERON Sky →", "loc-italy": "Milan · Rome · Florence · Turin", "loc-swiss": "Geneva · Zürich · Lugano · Basel", "loc-mobile": "Mobile & On-Site Service",
+      "about-label": "Our Philosophy", "about-body1": "BHERON was founded on a single conviction: exceptional vehicles deserve exceptional care. We reject haste, shortcuts, and compromise — offering instead a meditative process that restores your vehicle to a state of perfection.",
+      "about-body2": "Operating across Italy and Switzerland, our mobile ateliers bring certified master detailers, professional-grade ceramic compounds, and bespoke finishing systems directly to your residence, office, or hangar.", "about-stat-label": "Satisfaction Rate",
+      "services-label": "What We Offer", "price-from": "From",
+      "s0-name": "Premium Daily Driver", "s0-desc": "Designed specifically for normal premium daily vehicles. Precision safe wash, light gloss enhancement polish, interior purification, and hybrid wax defense.",
+      "s1-name": "Exterior Atelier", "s1-desc": "Full decontamination wash, iron fallout removal, clay bar treatment, and single-stage machine polish. Your paint, renewed.",
+      "s2-name": "Interior Sanctum", "s2-desc": "Deep vacuum, steam cleaning, leather conditioning, fragrance purification, and UV protection treatment. A cabin transformed.",
+      "s3-name": "Grand Détail", "s3-desc": "Our complete signature service — exterior + interior, 2-stage correction, ceramic coating application, and final hand inspection.",
+      "s4-name": "Ceramic Armour", "s4-desc": "Professional nano-ceramic coating. Up to 5 years of hydrophobic protection, UV resistance, and depth-enhanced gloss. Guaranteed.",
+      "s5-name": "PPF Installation", "s5-desc": "Paint protection film on high-impact zones or full-body coverage. Invisible shield against stone chips, abrasion, and environmental damage.",
+      "s6-name": "Monthly Membership", "table-label": "Transparent Pricing", "table-sub": "All pricing is fixed and inclusive. No hidden fees. Final cost confirmed at booking based on vehicle size and condition.",
+      "th-service": "Service", "th-includes": "Includes", "th-duration": "Duration", "th-price": "Price (€)", "tier-standard": "Standard", "tier-essential": "Essential", "tier-grand": "Grand", "tier-prestige": "Prestige",
+      "t0-inc": "Gloss protection wash, deep vacuum, hybrid sealant protection", "t1-name": "Express Exterior", "t1-inc": "Hand wash, dry, tyre shine", "t2-inc": "Decontamination, clay, polish", "t3-inc": "Full interior deep clean", "t4-inc": "Full ext. + int. + 2-stage correction", "t5-name": "Ceramic Armour (2yr)", "t5-inc": "Nano-ceramic coating + prep", "t6-name": "Ceramic Armour (5yr)", "t6-inc": "Premium ceramic + full correction", "t7-name": "PPF Partial Coverage", "t7-inc": "Bonnet, bumper, mirrors", "t8-name": "PPF Full Body", "t8-inc": "Complete vehicle coverage", "t9-inc": "Monthly care + quarterly detail", "t-ongoing": "Ongoing", "pricing-note": "Prices may vary for SUVs, larger models, and heavily soiled vehicles. All prices include travel within service areas. CHF pricing available for Swiss clients.",
+      "future-label": "Coming Soon", "future-pill": "BHERON Sky — 2026", "future-body": "BHERON Sky is our forthcoming division dedicated to private aviation. We are extending our atelier-grade philosophy from asphalt to apron — bringing the same obsessive precision to business jets, turboprops, and helicopters stationed across European FBOs.",
+      "f-li1": "Exterior aircraft wash, polish, and detailing — approved products for all composite and metal finishes", "f-li2": "Interior cabin deep cleaning, leather conditioning, and odour elimination", "f-li3": "Cockpit glass treatment and instrument panel care", "f-li4": "Engine nacelle cosmetic cleaning (cosmetic, non-mechanical)", "f-li5": "Hangar-based service in Milan Linate, Geneva, Lugano, and Zürich airports", "f-li6": "Subscription programmes for fleet operators and charter companies", "btn-notify": "Notify Me", "future-vlabel": "Atelier care, elevated at altitude.",
+      "test1-text": "\"They treated my 812 Superfast as though it were their own. The correction work was extraordinary — paint I'd never seen that way before.\"", "test2-text": "\"In Geneva it's difficult to find real perfectionists. BHERON came to my garage and the result was — without exaggeration — concours level.\"", "test3-text": "\"The membership programme means I never think about the condition of my Cullinan. It simply always looks perfect. That is what I pay for.\"",
+      "contact-label": "Reserve Your Service", "contact-sub": "Our concierge team will confirm availability and provide a tailored quote within 2 hours during business hours.",
+      "lbl-italy": "Italy", "lbl-swiss": "Switzerland", "lbl-hours": "Hours", "val-hours": "Monday – Saturday<br>08:00 – 20:00 (CET)",
+      "f-name": "First Name", "f-lname": "Last Name", "f-model": "Vehicle / Aircraft Model", "f-loc": "Location", "f-msg": "Message (optional)", "btn-submit": "Submit Enquiry", "opt-select": "Select a service…", "opt-city": "Your city…"
     },
     it: {
-      srv: "Servizi", prc: "Prezzi", cnt: "Contatti", book: "Prenota Ora", expSrv: "Scopri i Servizi",
-      mobileLoc: "Servizio Mobile & Sul Posto", rate: "Tasso di Soddisfazione", offer: "La Nostra Offerta",
-      srcMain: "I Nostri Servizi", extAt: "Atelier Esterni", intSn: "Sanctum Interni", gdDet: "Grand Détail",
-      cerAm: "Armatura Ceramica", mem: "Membership Mensile", from: "Da", mo: "/mese", trans: "Prezzi Trasparenti",
-      inv: "Investimento nella Perfezione", thSrv: "Servizio", thInc: "Include", thDur: "Durata", thPrc: "Prezzo (€)",
-      inc1: "Lavaggio a mano, asciugatura, nero gomme", inc2: "Decontaminazione, clay bar, lucidatura", inc3: "Pulizia profonda interni completa",
-      inc4: "Esterno comp. + interno + correzione a 2 stadi", inc5: "Rivestimento nano-ceramico + preparazione", inc6: "Ceramica Premium + correzione completa",
-      inc7: "Cofano, paraurti, specchietti", inc8: "Copertura completa del veicolo", inc9: "Cura mensile + detailing trimestrale",
-      dur1: "1 giorno", dur2: "1–2 giorni", dur3: "2 giorni", dur4: "3–5 giorni", dur5: "In corso", prcMo: "€ 380 – 580/mese",
-      pNote: "I prezzi possono variare per i SUV, i modelli più grandi e i veicoli molto sporchi. Tutti i prezzi includono lo spostamento. Prezzi in CHF per i clienti svizzeri.",
-      cm: "Prossimamente", ntf: "Avvisami", rsv: "Riserva il tuo Servizio", contactTit: "Inizia la tua richiesta.",
-      hrs: "Orari", workHrs: "Lunedì – Sabato<br>08:00 – 20:00 (CET)", fn: "Nome", ln: "Cognome",
-      vhc: "Veicolo", srvF: "Servizio", selSrv: "Seleziona un servizio…", loc: "Località", selCty: "La tua città…",
-      msg: "Messaggio (opzionale)", btnSub: "Invia Richiesta"
+      "nav-services": "Servizi", "nav-pricing": "Listino", "nav-sky": "BHERON Sky", "nav-contact": "Contatti", "nav-cta": "Prenota",
+      "hero-eyebrow": "Detailing di Lusso · Italia e Svizzera", "hero-sub": "BHERON offre detailing di livello concierge per i veicoli più esclusivi a Milano, Roma, Ginevra e Zurigo. Veniamo da voi — secondo i vostri orari e standard.",
+      "btn-explore": "Scopri i Servizi", "btn-sky": "BHERON Sky →", "loc-italy": "Milano · Roma · Firenze · Torino", "loc-swiss": "Ginevra · Zurigo · Lugano · Basilea", "loc-mobile": "Servizio Mobile a Domicilio",
+      "about-label": "La Nostra Filosofia", "about-body1": "BHERON nasce da una convinzione: i veicoli eccezionali meritano cure eccezionali. Rifiutiamo la fretta, le scorciatoie e i compromessi, offrendo un processo rituale che restituisce perfezione.",
+      "about-body2": "Operando in Italia e Svizzera, i nostri atelier mobili portano detailer certificati e composti ceramici professionali direttamente al vostro domicilio, ufficio o hangar.", "about-stat-label": "Tasso Soddisfazione",
+      "services-label": "Cosa Offriamo", "price-from": "Da",
+      "s0-name": "Premium Auto Normale", "s0-desc": "Progettato per auto quotidiane. Lavaggio accurato di sicurezza, leggera lucidatura per esaltare la brillantezza, sanificazione interni e protezione con cera ibrida.",
+      "s1-name": "Atelier Esterni", "s1-desc": "Lavaggio decontaminante completo, rimozione ferro, trattamento clay bar e lucidatura monostadio a macchina. Vernice rinnovata.",
+      "s2-name": "Sancta Sanctorum Interni", "s2-desc": "Aspirazione profonda, pulizia a vapore, nutrimento pelle, purificazione dell'abitacolo e protezione UV. Cabina trasformata.",
+      "s3-name": "Grand Détail", "s3-desc": "Il nostro servizio completo esclusivo — esterni + interni, correzione a 2 stadi, nanoceramica e ispezione finale a mano.",
+      "s4-name": "Armatura Ceramica", "s4-desc": "Trattamento nanoceramico professionale. Fino a 5 anni di protezione idrofobica, resistenza UV e massima lucentezza garantita.",
+      "s5-name": "Installazione PPF", "s5-desc": "Pellicola protettiva trasparente invisibile contro sassi, graffi e danni ambientali. Copertura parziale o totale della carrozzeria.",
+      "s6-name": "Abbonamento Mensile", "table-label": "Prezzi Trasparenti", "table-sub": "Tutti i prezzi sono fissi e trasparenti. Nessun costo nascosto. Preventivo finale confermato in base alle dimensioni dell'auto.",
+      "th-service": "Servizio", "th-includes": "Include", "th-duration": "Durata", "th-price": "Prezzo (€)", "tier-standard": "Standard", "tier-essential": "Essenziale", "tier-grand": "Grand", "tier-prestige": "Prestige",
+      "t0-inc": "Lavaggio protettivo lucido, aspirazione profonda, sigillante ibrido", "t1-name": "Express Exterior", "t1-inc": "Lavaggio a mano, asciugatura, nero gomme", "t2-inc": "Decontaminazione, clay bar, lucidatura", "t3-inc": "Pulizia profonda interni completa", "t4-inc": "Esterni + interni + correzione 2 stadi", "t5-name": "Ceramic Armour (2 anni)", "t5-inc": "Trattamento nanoceramico + preparazione", "t6-name": "Ceramic Armour (5 anni)", "t6-inc": "Ceramica premium + correzione completa", "t7-name": "PPF Copertura Parziale", "t7-inc": "Cofano, paraurti, specchietti", "t8-name": "PPF Full Body", "t8-inc": "Copertura totale del veicolo", "t9-inc": "Cura mensile + detailing trimestrale", "t-ongoing": "Continuo", "pricing-note": "I prezzi possono variare per SUV, veicoli d'epoca o molto sporchi. Spostamenti inclusi nelle aree servite. Tariffe in CHF disponibili.",
+      "future-label": "Prossimamente", "future-pill": "BHERON Sky — 2026", "future-body": "BHERON Sky è la divisione dedicata all'aviazione privata. Estendiamo la nostra filosofia dall'asfalto alla pista, portando la massima precisione su jet privati, elicotteri e turboprop negli FBO europei.",
+      "f-li1": "Lavaggio esterno aeromobili e lucidatura con prodotti approvati aeronautici per metallo e compositi", "f-li2": "Pulizia profonda cabina, rigenerazione pelle e rimozione odori", "f-li3": "Cura del parabrezza cockpit e pulizia dei pannelli strumentazione", "f-li4": "Pulizia estetica dei vani motore (puramente estetica, non meccanica)", "f-li5": "Servizio in hangar a Milano Linate, Ginevra, Lugano e Zurigo", "f-li6": "Programmi personalizzati per operatori di flotta e compagnie charter", "btn-notify": "Avvisami", "future-vlabel": "Cura artigianale ad alta quota.",
+      "test1-text": "\"Hanno trattato la mia 812 Superfast come se fosse la loro. Il lavoro sulla vernice è stato straordinario.\"", "test2-text": "\"A Ginevra è difficile trovare veri perfezionisti. Risultato da concorso d'eleganza direttamente nel mio garage.\"", "test3-text": "\"L'abbonamento mensile mi toglie ogni pensiero. La mia Cullinan è semplicemente sempre perfetta.\"",
+      "contact-label": "Richiedi un Servizio", "contact-sub": "Il nostro team risponde con un preventivo personalizzato entro 2 ore durante l'orario d'ufficio.",
+      "lbl-italy": "Italia", "lbl-swiss": "Svizzera", "lbl-hours": "Orari", "val-hours": "Lunedì – Sabato<br>08:00 – 20:00 (CET)",
+      "f-name": "Nome", "f-lname": "Cognome", "f-model": "Modello Veicolo / Aereo", "f-loc": "Località", "f-msg": "Messaggio (opzionale)", "btn-submit": "Invia Richiesta", "opt-select": "Seleziona servizio…", "opt-city": "La tua città…"
+    },
+    fr: {
+      "nav-services": "Services", "nav-pricing": "Tarifs", "nav-sky": "BHERON Sky", "nav-contact": "Contact", "nav-cta": "Réserver",
+      "hero-eyebrow": "Detailing de Luxe · Italie & Suisse", "hero-sub": "BHERON apporte un service de detailing de conciergerie aux véhicules d'exception à Milan, Rome, Genève et Zürich. Nous nous déplaçons selon vos exigences.",
+      "btn-explore": "Découvrir nos Services", "btn-sky": "BHERON Sky →", "loc-italy": "Milan · Rome · Florence · Turin", "loc-swiss": "Genève · Zürich · Lugano · Bâle", "loc-mobile": "Service Mobile Privé à Domicile",
+      "about-label": "Notre Philosophie", "about-body1": "BHERON a été fondé sur une conviction : les véhicules d'exception méritent un soin d'exception. Nous refusons la hâte et les compromis pour offrir un véritable rituel de perfection.",
+      "about-body2": "Opérant en Italie et en Suisse, nos ateliers mobiles déploient des maîtres detailers certifiés et des traitements céramiques professionnels directement chez vous ou dans votre hangar.", "about-stat-label": "Taux de Satisfaction",
+      "services-label": "Notre Offre", "price-from": "À partir de",
+      "s0-name": "Premium Voiture Normale", "s0-desc": "Conçu pour les véhicules du quotidien. Lavage de sécurité minutieux, léger polissage d'éclat, purification de l'habitacle et protection cire hybride.",
+      "s1-name": "Atelier Extérieur", "s1-desc": "Lavage décontaminant complet, traitement clay bar et polissage machine monostade. Votre peinture, comme neuve.",
+      "s2-name": "Sanctuaire Intérieur", "s2-desc": "Aspiration en profondeur, nettoyage vapeur, soin des cuirs, purification odeur et traitement anti-UV. Un habitacle métamorphosé.",
+      "s3-name": "Grand Détail", "s3-desc": "Notre signature ultime — extérieur + intérieur, correction complète à deux étapes, revêtement céramique et inspection finale manuelle.",
+      "s4-name": "Armure Céramique", "s4-desc": "Protection nano-céramique professionnelle. Jusqu'à 5 ans de protection hydrophobe, résistance UV et brillance miroir garantie.",
+      "s5-name": "Installation de PPF", "s5-desc": "Film de protection de peinture invisible contre les éclats de pierre et rayures. Couverture partielle ou complète.",
+      "s6-name": "Abonnement Mensuel", "table-label": "Tarification Transparente", "table-sub": "Tous nos tarifs sont fixes et transparents. Aucun frais caché. Prix final validé selon la taille du véhicule.",
+      "th-service": "Service", "th-includes": "Comprend", "th-duration": "Durée", "th-price": "Tarif (€)", "tier-standard": "Standard", "tier-essential": "Essentiel", "tier-grand": "Grand", "tier-prestige": "Prestige",
+      "t0-inc": "Lavage protection brillance, aspiration, scellant hybride", "t1-name": "Express Exterior", "t1-inc": "Lavage main, séchage, soin pneus", "t2-inc": "Décontamination, argile, polissage", "t3-inc": "Nettoyage intérieur complet en profondeur", "t4-inc": "Extérieur + intérieur + correction 2 étapes", "t5-name": "Ceramic Armour (2 ans)", "t5-inc": "Traitement céramique + préparation", "t6-name": "Ceramic Armour (5 ans)", "t6-inc": "Céramique premium + correction totale", "t7-name": "PPF Couverture Partielle", "t7-inc": "Capot, pare-chocs, rétroviseurs", "t8-name": "PPF Full Body", "t8-inc": "Protection intégrale du véhicule", "t9-inc": "Entretien mensuel + detailing trimestriel", "t-ongoing": "En continu", "pricing-note": "Les prix varient selon les SUV ou l'état. Déplacements inclus. Tarifs disponibles en CHF pour la Suisse.",
+      "future-label": "Bientôt Disponible", "future-pill": "BHERON Sky — 2026", "future-body": "BHERON Sky est notre future division dédiée à l'aviation privée. Nous déclinons notre savoir-faire de l'asphalte au tarmac pour les jets d'affaires et hélicoptères dans les FBO européens.",
+      "f-li1": "Lavage aéronautique externe et polissage avec produits certifiés composites et métaux", "f-li2": "Nettoyage cabine cabine, traitement des cuirs d'origine et désodorisation", "f-li3": "Soin des vitres du cockpit et dépoussiérage des instruments de bord", "f-li4": "Nettoyage cosmétique extérieur des nacelles moteurs (esthétique uniquement)", "f-li5": "Service disponible en hangar à Milan Linate, Genève, Lugano et Zürich", "f-li6": "Abonnements sur-mesure pour exploitants de flotte et compagnies charter", "btn-notify": "M'informer", "future-vlabel": "Le soin de haute manufacture, à haute altitude.",
+      "test1-text": "\"Ils ont soigné ma 812 Superfast comme si c'était la leur. Le travail sur la peinture est magistral.\"", "test2-text": "\"Difficile de trouver de vrais perfectionnistes à Genève. Résultat de concours directement à la maison.\"", "test3-text": "\"L'abonnement mensuel m'offre une sérénité totale. Ma Cullinan est tout simplement toujours impeccable.\"",
+      "contact-label": "Demande de Réservation", "contact-sub": "Notre équipe conciergerie vous répond avec une offre personnalisée sous 2 heures.",
+      "lbl-italy": "Italie", "lbl-swiss": "Suisse", "lbl-hours": "Horaires", "val-hours": "Lundi – Samedi<br>08:00 – 20:00 (CET)",
+      "f-name": "Prénom", "f-lname": "Nom", "f-model": "Modèle Véhicule / Avion", "f-loc": "Localisation", "f-msg": "Message (optionnel)", "btn-submit": "Envoyer la Demande", "opt-select": "Choisir un service…", "opt-city": "Votre ville…"
+    },
+    de: {
+      "nav-services": "Services", "nav-pricing": "Preise", "nav-sky": "BHERON Sky", "nav-contact": "Kontakt", "nav-cta": "Buchen",
+      "hero-eyebrow": "Luxus Detailing · Italien & Schweiz", "hero-sub": "BHERON bringt erstklassiges Detailing auf Concierge-Niveau zu den exklusivsten Fahrzeugen in Mailand, Rom, Genf und Zürich. Wir kommen zu Ihnen.",
+      "btn-explore": "Services Entdecken", "btn-sky": "BHERON Sky →", "loc-italy": "Mailand · Rom · Florenz · Turin", "loc-swiss": "Genf · Zürich · Lugano · Basel", "loc-mobile": "Mobiler Vor-Ort Service am Stellplatz",
+      "about-label": "Unsere Philosophie", "about-body1": "BHERON wurde aus einer Überzeugung heraus gegründet: Außergewöhnliche Fahrzeuge verdienen außergewöhnliche Pflege. Wir meiden Hektik und Kompromisse.",
+      "about-body2": "Unsere mobilen Ateliers in Italien und der Schweiz bringen zertifizierte Detailer und professionelle Keramikbeschichtungen direkt zu Ihnen oder in Ihren Hangar.", "about-stat-label": "Zufriedenheitsrate",
+      "services-label": "Unser Angebot", "price-from": "Ab",
+      "s0-name": "Premium Normales Auto", "s0-desc": "Speziell für Alltagsfahrzeuge entwickelt. Präzise Sicherheitswäsche, leichte Glanzpolitur, Innenraumreinigung und Hybrid-Wachsschutz.",
+      "s1-name": "Exterieur Atelier", "s1-desc": "Komplette Dekontaminationswäsche, Flugrostentfernung, Knetbehandlung und einstufige Maschinenpolitur. Lack wie neu.",
+      "s2-name": "Interieur Heiligtum", "s2-desc": "Tiefenstaubsaugen, Dampfreinigung, Lederpflege, Geruchsentfernung und UV-Schutz für das Cockpit. Kabinentransformation.",
+      "s3-name": "Grand Détail", "s3-desc": "Unser vollumfänglicher Signature-Service — Exterieur + Interieur, 2-stufige Lackkorrektur, Keramikversiegelung und Handkontrolle.",
+      "s4-name": "Keramik-Panzerung", "s4-desc": "Professionelle Nano-Keramikbeschichtung. Bis zu 5 Jahre hydrophober Schutz, UV-Resistenz und extremer Tiefenglanz.",
+      "s5-name": "PPF Lackschutzfolie", "s5-desc": "Unsichtbare Steinschlag- und Kratzschutzfolie für beanspruchte Zonen oder die gesamte Karosserie.",
+      "s6-name": "Monatliche Mitgliedschaft", "table-label": "Transparente Preise", "table-sub": "Alle Preise sind Festpreise. Keine versteckten Kosten. Endpreis wird basierend auf der Fahrzeuggröße ermittelt.",
+      "th-service": "Service", "th-includes": "Beinhaltet", "th-duration": "Dauer", "th-price": "Preis (€)", "tier-standard": "Standard", "tier-essential": "Essential", "tier-grand": "Grand", "tier-prestige": "Prestige",
+      "t0-inc": "Glanzschutzwäsche, Tiefensaugen, Hybrid-Versiegelungsschutz", "t1-name": "Express Exterior", "t1-inc": "Handwäsche, Trocknen, Reifenpflege", "t2-inc": "Dekontamination, Knetbehandlung, Politur", "t3-inc": "Komplette Tiefenreinigung des Innenraums", "t4-inc": "Exterieur + Interieur + 2-stufige Korrektur", "t5-name": "Ceramic Armour (2 J.)", "t5-inc": "Nano-Keramikbeschichtung + Vorbereitung", "t6-name": "Ceramic Armour (5 J.)", "t6-inc": "Premium-Keramik + volle Lackkorrektur", "t7-name": "PPF Teilfolierung", "t7-inc": "Motorhaube, Stoßstange, Spiegel", "t8-name": "PPF Komplettfolierung", "t8-inc": "Vollständige Folierung des Fahrzeugs", "t9-inc": "Monatliche Pflege + vierteljährliches Detailing", "t-ongoing": "Laufend", "pricing-note": "Preise können für SUVs oder starke Verschmutzungen variieren. Anfahrt inklusive. Preise in CHF für Schweizer Kunden verfügbar.",
+      "future-label": "Demnächst Verfügbar", "future-pill": "BHERON Sky — 2026", "future-body": "BHERON Sky ist unsere kommende Abteilung für Privatluftfahrt. Wir erweitern unsere Präzision auf Business-Jets und Helikopter an europäischen FBO-Flughäfen.",
+      "f-li1": "Externe Flugzeugwäsche und Politur mit zugelassenen Luftfahrtprodukten für Metalle und Verbundwerkstoffe", "f-li2": "Tiefenreinigung der Kabine, Lederaufbereitung und Geruchseliminierung", "f-li3": "Cockpit-Glaspflege und Reinigung der Instrumententafeln", "f-li4": "Kosmetische Außenreinigung der Triebwerksgondeln (rein optisch)", "f-li5": "Hangar-Service in Mailand Linate, Genf, Lugano und Zürich verfügbar", "f-li6": "Maßgeschneiderte Abonnements für Flottenbetreiber und Charterunternehmen", "btn-notify": "Benachrichtigen", "future-vlabel": "Atelier-Pflege, auf Flughöhe gehoben.",
+      "test1-text": "\"Sie haben meinen 812 Superfast behandelt, als wäre es ihr eigener. Das Lackergebnis war atemberaubend.\"", "test2-text": "\"In Genf ist es schwer, Perfektionisten zu finden. Ergebnis auf Concours-Niveau direkt bei mir zu Hause.\"", "test3-text": "\"Die monatliche Mitgliedschaft nimmt mir alle Sorgen. Mein Cullinan sieht einfach immer absolut makellos aus.\"",
+      "contact-label": "Service Anfragen", "contact-sub": "Unser Concierge-Team antwortet Ihnen werktags innerhalb von 2 Stunden mit einem Angebot.",
+      "lbl-italy": "Italien", "lbl-swiss": "Schweiz", "lbl-hours": "Öffnungszeiten", "val-hours": "Montag – Samstag<br>08:00 – 20:00 (CET)",
+      "f-name": "Vorname", "f-lname": "Nachname", "f-model": "Fahrzeug- / Flugzeugmodell", "f-loc": "Standort", "f-msg": "Nachricht (optional)", "btn-submit": "Anfrage Senden", "opt-select": "Service wählen…", "opt-city": "Ihre Stadt…"
     }
   };
 
-  function setLanguage(lang) {
-    // Handle toggle blocks
-    document.querySelectorAll('[lang="en"]').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
-    document.querySelectorAll('[lang="it"]').forEach(el => el.style.display = lang === 'it' ? 'block' : 'none');
+  // Complex multi-layered structural headings translation module
+  function translateStructure(lang) {
+    const titles = {
+      en: { hero: "Every detail.<br><em>Immaculate.</em>", about: "Not a wash.<br>A <em>ritual.</em>", services: "Our <em>Services</em>", pricing: "Investment in <em>Perfection</em>", future: "Detailing<br>beyond the<br><em>runway.</em>", contact: "Begin your<br><em>enquiry.</em>", badge: "Atelier-grade care<br>for exceptional automobiles." },
+      it: { hero: "Ogni dettaglio.<br><em>Immacolato.</em>", about: "Non un lavaggio.<br>Un <em>rituale.</em>", services: "I Nostri <em>Servizi</em>", pricing: "Investimento nella <em>Perfezione</em>", future: "Detailing<br>oltre la<br><em>pista.</em>", contact: "Inizia la tua<br><em>richiesta.</em>", badge: "Cura artigianale<br>per automobili eccezionali." },
+      fr: { hero: "Chaque détail.<br><em>Immaculé.</em>", about: "Pas un lavage.<br>Un <em>rituel.</em>", services: "Nos <em>Services</em>", pricing: "L'investissement dans la <em>Perfection</em>", future: "Le detailing<br>au-delà de la<br><em>piste.</em>", contact: "Commencez votre<br><em>demande.</em>", badge: "Soin de haute manufacture<br>pour automobiles d'exception." },
+      de: { hero: "Jedes Detail.<br><em>Makellos.</em>", about: "Keine Wäsche.<br>Ein <em>Ritual.</em>", services: "Unsere <em>Services</em>", pricing: "Investition in <em>Perfektion</em>", future: "Detailing<br>über die<br><em>Startbahn hinaus.</em>", contact: "Beginnen Sie Ihre<br><em>Anfrage.</em>", badge: "Atelier-Pflege<br>für außergewöhnliche Automobile." }
+    };
     
-    // Set UI elements
-    document.querySelectorAll('.nav-srv-lbl').forEach(el => el.textContent = translations[lang].srv);
-    document.querySelectorAll('.nav-prc-lbl').forEach(el => el.textContent = translations[lang].prc);
-    document.querySelectorAll('.nav-cnt-lbl').forEach(el => el.textContent = translations[lang].cnt);
-    document.querySelectorAll('.book-txt').forEach(el => el.textContent = translations[lang].book);
-    document.querySelectorAll('.exp-srv-txt').forEach(el => el.textContent = translations[lang].expSrv);
-    document.querySelector('.mobile-loc-txt').textContent = translations[lang].mobileLoc;
-    document.querySelector('.rate-lbl').textContent = translations[lang].rate;
-    document.querySelector('.offer-lbl').textContent = translations[lang].offer;
-    document.querySelector('.src-main-tit').innerHTML = lang === 'en' ? 'Our <em>Services</em>' : 'I Nostri <em>Servizi</em>';
-    document.querySelector('.ext-at-tit').textContent = translations[lang].extAt;
-    document.querySelector('.int-sn-tit').textContent = translations[lang].intSn;
-    document.querySelector('.gd-det-tit').textContent = translations[lang].gdDet;
-    document.querySelector('.cer-am-tit').textContent = translations[lang].cerAm;
-    document.querySelector('.mem-tit').textContent = translations[lang].mem;
-    document.querySelectorAll('.from-lbl').forEach(el => el.textContent = translations[lang].from);
-    document.querySelectorAll('.mo-lbl').forEach(el => el.textContent = translations[lang].mo);
-    document.querySelector('.trans-lbl').textContent = translations[lang].trans;
-    document.querySelector('.inv-tit').innerHTML = lang === 'en' ? 'Investment in <em>Perfection</em>' : 'Investimento nella <em>Perfezione</em>';
-    
-    // Table heads
-    document.querySelector('.th-srv').textContent = translations[lang].thSrv;
-    document.querySelector('.th-inc').textContent = translations[lang].thInc;
-    document.querySelector('.th-dur').textContent = translations[lang].thDur;
-    document.querySelector('.th-prc').textContent = translations[lang].thPrc;
-    
-    // Table content cells
-    document.querySelector('.t-inc-1').textContent = translations[lang].inc1;
-    document.querySelector('.t-inc-2').textContent = translations[lang].inc2;
-    document.querySelector('.t-inc-3').textContent = translations[lang].inc3;
-    document.querySelector('.t-inc-4').textContent = translations[lang].inc4;
-    document.querySelector('.t-inc-5').textContent = translations[lang].inc5;
-    document.querySelector('.t-inc-6').textContent = translations[lang].inc6;
-    document.querySelector('.t-inc-7').textContent = translations[lang].inc7;
-    document.querySelector('.t-inc-8').textContent = translations[lang].inc8;
-    document.querySelector('.t-inc-9').textContent = translations[lang].inc9;
-    
-    document.querySelectorAll('.t-dur-1').forEach(el => el.textContent = translations[lang].dur1);
-    document.querySelector('.t-dur-2').textContent = translations[lang].dur2;
-    document.querySelector('.t-dur-3').textContent = translations[lang].dur3;
-    document.querySelector('.t-dur-4').textContent = translations[lang].dur4;
-    document.querySelector('.t-dur-5').textContent = translations[lang].dur5;
-    document.querySelector('.t-prc-mo').textContent = translations[lang].prcMo;
-    document.querySelector('.p-note-lbl').textContent = translations[lang].pNote;
-    
-    document.querySelector('.cm-lbl').textContent = translations[lang].cm;
-    document.querySelector('.ntf-btn-lbl').textContent = translations[lang].ntf;
-    document.querySelector('.rsv-lbl').textContent = translations[lang].rsv;
-    document.querySelector('.contact-tit').innerHTML = lang === 'en' ? 'Begin your<br><em>enquiry.</em>' : 'Inizia la tua<br><em>richiesta.</em>';
-    document.querySelector('.hrs-lbl').textContent = translations[lang].hrs;
-    document.querySelector('.work-hrs-val').innerHTML = translations[lang].workHrs;
-    
-    // Forms
-    document.querySelector('.lbl-fn').textContent = translations[lang].fn;
-    document.querySelector('.lbl-ln').textContent = translations[lang].ln;
-    document.querySelector('.lbl-vhc').textContent = translations[lang].vhc;
-    document.querySelector('.lbl-srv-f').textContent = translations[lang].srvF;
-    document.querySelector('.lbl-sel-srv').textContent = translations[lang].selSrv;
-    document.querySelector('.lbl-loc').textContent = translations[lang].loc;
-    document.querySelector('.lbl-sel-cty').textContent = translations[lang].selCty;
-    document.querySelector('.lbl-msg').textContent = translations[lang].msg;
-    document.querySelector('.form-btn-sub').textContent = translations[lang].btnSub;
-
-    // Active button toggles
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    document.getElementById('heroTitle').innerHTML = titles[lang].hero;
+    document.getElementById('aboutTitle').innerHTML = titles[lang].about;
+    document.getElementById('servicesTitle').innerHTML = titles[lang].services;
+    document.getElementById('pricingTitle').innerHTML = titles[lang].pricing;
+    document.getElementById('futureTitle').innerHTML = titles[lang].future;
+    document.getElementById('contactTitle').innerHTML = titles[lang].contact;
+    document.getElementById('heroBadgeText').innerHTML = titles[lang].badge;
   }
-  
-  // Set explicit default layout fallback
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('[lang="en"]').forEach(el => el.style.display = 'block');
+
+  // Active translation driver execution
+  function applyLanguage(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18nData[lang] && i18nData[lang][key]) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = i18nData[lang][key];
+        } else {
+          el.innerHTML = i18nData[lang][key];
+        }
+      }
+    });
+    translateStructure(lang);
+    document.documentElement.lang = lang;
+  }
+
+  // Language Dropdown Selector Listener Event
+  document.getElementById('langSelector').addEventListener('change', function() {
+    applyLanguage(this.value);
+    const langNames = { en: 'English', it: 'Italiano', fr: 'Français', de: 'Deutsch' };
+    triggerNotification(`Interface localized to ${langNames[this.value]}.`);
+  });
+
+  // Dynamic navigation visual scroll treatment
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 40) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Central Notification Toast Handler
+  function triggerNotification(text) {
+    const toast = document.getElementById('successToast');
+    toast.innerText = text;
+    toast.classList.add('visible');
+    
+    setTimeout(() => {
+      toast.classList.remove('visible');
+    }, 4500);
+  }
+
+  // Functional Form Assignment: Service Booking Request Form
+  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('firstName').value;
+    const model = document.getElementById('vehicle').value;
+    
+    triggerNotification(`Thank you, ${name}. Your request for the ${model} has been securely transmitted. Our concierge desk will contact you within 2 hours.`);
+    this.reset();
+  });
+
+  // Functional Form Assignment: Aviation Newsletter Sign-up Form
+  document.getElementById('notifyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('notifyEmail').value;
+    
+    triggerNotification(`Success. ${email} has been prioritized for the BHERON Sky deployment brief.`);
+    this.reset();
   });
 </script>
+
 </body>
 </html>
