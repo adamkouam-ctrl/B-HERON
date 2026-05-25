@@ -61,6 +61,12 @@
 
   .nav-logo span { font-style: italic; color: var(--cream); }
 
+  .nav-right-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
   .nav-links {
     display: flex;
     gap: 40px;
@@ -78,6 +84,29 @@
   }
 
   .nav-links a:hover { color: var(--gold); }
+
+  /* LANGUAGE SELECTOR STYLE */
+  .lang-selector {
+    background: transparent;
+    border: 1px solid var(--ash);
+    color: var(--silver);
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 6px 10px;
+    cursor: pointer;
+    outline: none;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .lang-selector:hover {
+    border-color: var(--gold);
+    color: var(--white);
+  }
+  .lang-selector option {
+    background: var(--charcoal);
+    color: var(--cream);
+  }
 
   .nav-cta {
     font-size: 11px;
@@ -497,6 +526,7 @@
     vertical-align: middle;
   }
 
+  .tier-badge.standard { border-color: #555555; color: #999999; }
   .tier-badge.essential { border-color: var(--mist); color: var(--mist); }
   .tier-badge.grand { border-color: var(--gold-dark); color: var(--gold); }
   .tier-badge.prestige { border-color: var(--gold); color: var(--gold); background: rgba(184,149,106,0.08); }
@@ -867,6 +897,7 @@
 
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
+    .nav-right-container { gap: 15px; }
     .nav-links, .nav-cta { display: none; }
     .hero { grid-template-columns: 1fr; }
     .hero-right { display: none; }
@@ -888,13 +919,23 @@
 
 <nav id="navbar">
   <a href="#" class="nav-logo">BHER<span>ON</span></a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#sky">BHERON Sky</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Book Now</a>
+  <div class="nav-right-container">
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#sky">BHERON Sky</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    
+    <select class="lang-selector" id="langSelector" title="Select Language">
+      <option value="en" selected>EN</option>
+      <option value="it">IT</option>
+      <option value="fr">FR</option>
+      <option value="de">DE</option>
+    </select>
+
+    <a href="#contact" class="nav-cta">Book Now</a>
+  </div>
 </nav>
 
 <section class="hero">
@@ -972,6 +1013,16 @@
   </div>
   <div class="services-grid">
     <div class="service-card">
+      <span class="service-number">00</span>
+      <div class="service-icon">⚡</div>
+      <h3 class="service-name">Premium Daily Driver</h3>
+      <p class="service-desc">Designed specifically for normal premium daily vehicles. Precision safe wash, light gloss enhancement polish, interior purification, and hybrid wax defense.</p>
+      <div class="service-price">
+        <span class="price-from">From</span>
+        <span class="price-amount">€130</span>
+      </div>
+    </div>
+    <div class="service-card">
       <span class="service-number">01</span>
       <div class="service-icon">✦</div>
       <h3 class="service-name">Exterior Atelier</h3>
@@ -1021,16 +1072,6 @@
         <span class="price-amount">€1,400</span>
       </div>
     </div>
-    <div class="service-card">
-      <span class="service-number">06</span>
-      <div class="service-icon">◯</div>
-      <h3 class="service-name">Monthly Membership</h3>
-      <p class="service-desc">Bespoke maintenance programme. Monthly exterior care, quarterly full detail, and priority scheduling — a retainer for your collection.</p>
-      <div class="service-price">
-        <span class="price-from">From</span>
-        <span class="price-amount">€380<span class="price-currency">/mo</span></span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1051,6 +1092,12 @@
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td>Premium Daily Driver <span class="tier-badge standard">Standard</span></td>
+        <td>Gloss protection wash, deep vacuum, hybrid sealant protection</td>
+        <td>1.5 – 2 h</td>
+        <td>€ 130 – 170</td>
+      </tr>
       <tr>
         <td>Express Exterior <span class="tier-badge essential">Essential</span></td>
         <td>Hand wash, dry, tyre shine</td>
@@ -1206,12 +1253,13 @@
       </div>
       <div class="form-group">
         <label for="vehicle">Vehicle / Aircraft Model</label>
-        <input type="text" id="vehicle" placeholder="e.g. Ferrari Roma, Gulfstream G650" required>
+        <input type="text" id="vehicle" placeholder="e.g. Audi RS6, Ferrari Roma, Gulfstream" required>
       </div>
       <div class="form-group">
         <label for="service">Service</label>
         <select id="service" required>
           <option value="">Select a service…</option>
+          <option value="Premium Daily Driver">Premium Daily Driver (Normal Car)</option>
           <option value="Express Exterior">Express Exterior</option>
           <option value="Exterior Atelier">Exterior Atelier</option>
           <option value="Interior Sanctum">Interior Sanctum</option>
@@ -1285,6 +1333,12 @@
       toast.classList.remove('visible');
     }, 4500);
   }
+
+  // Language Change Alert Handler
+  document.getElementById('langSelector').addEventListener('change', function() {
+    const langNames = { en: 'English', it: 'Italiano', fr: 'Français', de: 'Deutsch' };
+    triggerNotification(`Language switched to ${langNames[this.value]}. Loading localization modules...`);
+  });
 
   // Functional Form Assignment: Service Booking Request Form
   document.getElementById('enquiryForm').addEventListener('submit', function(e) {
