@@ -92,66 +92,39 @@
 
   .nav-cta:hover { background: var(--gold-light); }
 
-  /* CINEMATIC HERO (Rolls-Royce Style) */
+  /* HERO */
   .hero {
     min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    padding: 120px 24px 80px 24px;
-    background-color: var(--obsidian);
-  }
-
-  /* Full screen background image container */
-  .hero-bg-container {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  .hero-bg-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.45) saturate(0.75);
-  }
-
-  /* Dramatic gradients overlaying the image */
-  .hero-bg-container::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, transparent 20%, rgba(10,10,10,0.8) 100%),
-                linear-gradient(to bottom, transparent 70%, var(--obsidian) 100%);
-  }
-
-  .hero-content {
+    padding: 160px 80px 80px 60px;
     position: relative;
     z-index: 2;
-    max-width: 900px;
   }
 
   .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.5em;
+    font-size: 10px;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(44px, 7vw, 86px);
+    font-size: clamp(52px, 6vw, 80px);
     font-weight: 300;
-    line-height: 1.1;
+    line-height: 1.05;
     color: var(--white);
     margin-bottom: 32px;
-    letter-spacing: -0.01em;
   }
 
   .hero-title em {
@@ -160,20 +133,18 @@
   }
 
   .hero-sub {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 300;
-    color: var(--cream);
-    line-height: 1.9;
-    max-width: 600px;
-    margin: 0 auto 56px auto;
-    opacity: 0.9;
+    color: var(--silver);
+    line-height: 1.8;
+    max-width: 400px;
+    margin-bottom: 56px;
   }
 
   .hero-buttons {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     align-items: center;
-    justify-content: center;
   }
 
   .btn-primary {
@@ -182,7 +153,7 @@
     text-transform: uppercase;
     color: var(--obsidian);
     background: var(--gold);
-    padding: 18px 40px;
+    padding: 16px 36px;
     text-decoration: none;
     transition: all 0.3s;
     display: inline-block;
@@ -196,8 +167,8 @@
     font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--white);
-    border-bottom: 1px solid var(--gold-dark);
+    color: var(--silver);
+    border-bottom: 1px solid var(--ash);
     text-decoration: none;
     padding-bottom: 4px;
     transition: color 0.3s, border-color 0.3s;
@@ -205,22 +176,48 @@
 
   .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
 
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.65) saturate(0.85);
+  }
+
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--obsidian) 0%, transparent 40%);
+  }
+
   .hero-badge {
     position: absolute;
-    bottom: 40px;
+    bottom: 60px;
     left: 60px;
     z-index: 3;
     border-left: 2px solid var(--gold);
     padding-left: 20px;
-    text-align: left;
   }
 
   .hero-badge p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
+    font-size: 12px;
     font-style: italic;
     color: var(--silver);
     line-height: 1.7;
+  }
+
+  /* DIVIDER */
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
+    margin: 0 60px;
   }
 
   /* LOCATIONS */
@@ -231,8 +228,6 @@
     gap: 60px;
     padding: 32px 60px;
     background: var(--charcoal);
-    position: relative;
-    z-index: 5;
   }
 
   .location-item {
@@ -241,7 +236,9 @@
     gap: 12px;
   }
 
-  .location-item .flag { font-size: 20px; }
+  .location-item .flag {
+    font-size: 20px;
+  }
 
   .location-item span {
     font-size: 10px;
@@ -256,19 +253,12 @@
     background: var(--ash);
   }
 
-  /* DIVIDER */
-  .gold-rule {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
-    margin: 0 60px;
-  }
-
-  /* STORYTELLING ABOUT SECTION */
+  /* ABOUT */
   .about {
-    padding: 160px 60px;
+    padding: 140px 60px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 120px;
+    gap: 100px;
     align-items: center;
   }
 
@@ -296,43 +286,29 @@
     font-weight: 300;
     color: var(--silver);
     line-height: 1.9;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .about-right {
     position: relative;
   }
 
-  /* Immersive Storytelling Image Block */
-  .story-image-wrap {
+  .about-image-main {
     width: 100%;
-    aspect-ratio: 4/5;
-    background-color: var(--charcoal);
-    overflow: hidden;
-    border: 1px solid var(--ash);
-  }
-
-  .story-image-wrap img {
-    width: 100%;
-    height: 100%;
+    aspect-ratio: 3/4;
     object-fit: cover;
-    filter: brightness(0.7) saturate(0.75);
-    transition: transform 0.6s ease;
-  }
-
-  .story-image-wrap:hover img {
-    transform: scale(1.03);
+    filter: brightness(0.75) saturate(0.7);
   }
 
   .about-stat {
     position: absolute;
-    bottom: -40px;
-    left: -40px;
+    bottom: -30px;
+    right: -30px;
     background: var(--charcoal);
     border: 1px solid var(--ash);
-    padding: 36px 44px;
+    padding: 32px 40px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
   .about-stat .num {
@@ -405,7 +381,10 @@
 
   .service-card:hover .service-number { color: var(--smoke); }
 
-  .service-icon { font-size: 32px; margin-bottom: 32px; }
+  .service-icon {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
 
   .service-name {
     font-family: 'Cormorant Garamond', serif;
@@ -443,10 +422,15 @@
     color: var(--gold);
   }
 
-  .price-currency { font-size: 14px; color: var(--mist); }
+  .price-currency {
+    font-size: 14px;
+    color: var(--mist);
+  }
 
   /* PRICING TABLE */
-  .pricing { padding: 140px 60px; }
+  .pricing {
+    padding: 140px 60px;
+  }
 
   .pricing-header {
     text-align: center;
@@ -458,7 +442,9 @@
     border-collapse: collapse;
   }
 
-  .pricing-table thead tr { border-bottom: 1px solid var(--ash); }
+  .pricing-table thead tr {
+    border-bottom: 1px solid var(--ash);
+  }
 
   .pricing-table th {
     font-size: 10px;
@@ -616,13 +602,15 @@
     margin-top: 0px;
   }
 
-  .future-visual { position: relative; }
+  .future-visual {
+    position: relative;
+  }
 
   .future-visual img {
     width: 100%;
     aspect-ratio: 4/3;
     object-fit: cover;
-    filter: brightness(0.6) saturate(0.5);
+    filter: brightness(0.6) saturate(0.75);
   }
 
   .future-visual-label {
@@ -806,55 +794,89 @@
     line-height: 1.7;
   }
 
-  /* LUXURY FEEDBACK POPUP SYSTEM */
-  .toast-notification {
+  /* TOAST SYSTEM */
+  .toast-container {
     position: fixed;
-    bottom: 40px;
-    right: 40px;
+    bottom: 30px;
+    right: 30px;
+    z-index: 110;
+  }
+
+  .toast {
     background: var(--charcoal);
     border: 1px solid var(--gold);
-    padding: 20px 32px;
-    z-index: 1000;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-    transform: translateY(100px);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    max-width: 400px;
-  }
-
-  .toast-notification.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .toast-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .toast-message {
-    font-size: 12px;
-    color: var(--silver);
+    color: var(--cream);
+    padding: 20px 30px;
+    font-size: 13px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    letter-spacing: 0.05em;
     line-height: 1.5;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* RESPONSIVE STYLES */
+  .toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px;
+    background: var(--obsidian);
+    border-top: 1px solid var(--ash);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .footer-left p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--mist);
+    line-height: 1.7;
+  }
+
+  .footer-logo {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+
+  .footer-right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+
+  .footer-right a {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-right a:hover { color: var(--gold); }
+
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
     .nav-links, .nav-cta { display: none; }
-    .hero { padding: 140px 24px 80px 24px; }
-    .hero-badge { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 24px 60px; }
     .about, .future-inner, .contact { grid-template-columns: 1fr; gap: 60px; padding: 80px 24px; }
-    .about-stat { position: static; margin-top: 24px; display: inline-block; transform: none; }
     .services { padding: 80px 24px; }
     .services-grid { grid-template-columns: 1fr; }
     .pricing { padding: 80px 24px; }
-    .pricing-table th, .pricing-table td { padding: 12px 8px; font-size: 12px; }
-    .pricing-table td:first-child { font-size: 14px; }
-    .pricing-table td:last-child { font-size: 15px; }
     .testimonials { grid-template-columns: 1fr; padding: 80px 24px; }
+    .about-stat { position: static; margin-top: 24px; display: inline-block; }
     footer { grid-template-columns: 1fr; text-align: center; padding: 40px 24px; }
     .footer-right { justify-content: center; }
     .locations-strip { gap: 24px; padding: 24px; flex-wrap: wrap; }
@@ -864,7 +886,7 @@
 </head>
 <body>
 
-<nav id="mainNav">
+<nav id="navbar">
   <a href="#" class="nav-logo">BHER<span>ON</span></a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
@@ -876,11 +898,7 @@
 </nav>
 
 <section class="hero">
-  <div class="hero-bg-container">
-    <img src="hero-bg.jpg" alt="BHERON Luxury Detailing Cinematic Background" onerror="this.src='https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1600&q=80'">
-  </div>
-  
-  <div class="hero-content">
+  <div class="hero-left">
     <p class="hero-eyebrow">Luxury Detailing · Italy & Switzerland</p>
     <h1 class="hero-title">
       Every detail.<br>
@@ -894,7 +912,9 @@
       <a href="#sky" class="btn-ghost">BHERON Sky →</a>
     </div>
   </div>
-  
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=80" alt="BHERON Concours Paint Correction Finish">
+  </div>
   <div class="hero-badge">
     <p>
       Atelier-grade care<br>
@@ -937,9 +957,7 @@
     </p>
   </div>
   <div class="about-right">
-    <div class="story-image-wrap">
-      <img src="about-story.jpg" alt="BHERON Detailing Ritual Craftsmanship" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'">
-    </div>
+    <img class="about-image-main" src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=800&q=80" alt="Master detailer executing precise paint correction">
     <div class="about-stat">
       <span class="num">100%</span>
       <span class="label">Satisfaction Rate</span>
@@ -1113,13 +1131,13 @@
         <li>Hangar-based service in Milan Linate, Geneva, Lugano, and Zürich airports</li>
         <li>Subscription programmes for fleet operators and charter companies</li>
       </ul>
-      <form class="notify-form" id="skyNotifyForm">
-        <input type="email" id="skyEmail" placeholder="Your email address" required>
+      <form class="notify-form" id="notifyForm">
+        <input type="email" id="notifyEmail" placeholder="Your email address" required>
         <button type="submit">Notify Me</button>
       </form>
     </div>
     <div class="future-visual">
-      <img src="bheron-sky.jpg" alt="Private jet interior luxury treatment" onerror="this.src='https://images.unsplash.com/photo-1436891620584-47fd0e565afb?w=800&q=80'">
+      <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80" alt="BHERON Sky Private Jet Exterior Refinement Portfolio">
       <div class="future-visual-label">
         <p>Atelier care, elevated at altitude.</p>
       </div>
@@ -1187,12 +1205,12 @@
         <input type="email" id="email" placeholder="marco@example.com" required>
       </div>
       <div class="form-group">
-        <label for="vehicle">Vehicle</label>
-        <input type="text" id="vehicle" placeholder="e.g. Ferrari Roma, Bentley Continental" required>
+        <label for="vehicle">Vehicle / Aircraft Model</label>
+        <input type="text" id="vehicle" placeholder="e.g. Ferrari Roma, Gulfstream G650" required>
       </div>
       <div class="form-group">
-        <label for="serviceSelect">Service</label>
-        <select id="serviceSelect" required>
+        <label for="service">Service</label>
+        <select id="service" required>
           <option value="">Select a service…</option>
           <option value="Express Exterior">Express Exterior</option>
           <option value="Exterior Atelier">Exterior Atelier</option>
@@ -1205,8 +1223,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="locationSelect">Location</label>
-        <select id="locationSelect" required>
+        <label for="location">Location</label>
+        <select id="location" required>
           <option value="">Your city…</option>
           <option value="Milan">Milan</option>
           <option value="Rome">Rome</option>
@@ -1242,60 +1260,48 @@
   </div>
 </footer>
 
-<div class="toast-notification" id="toast">
-  <div class="toast-title" id="toastTitle">Enquiry Received</div>
-  <div class="toast-message" id="toastMessage">Thank you. Our concierge desk will contact you shortly.</div>
+<div class="toast-container" id="toastContainer">
+  <div class="toast" id="successToast"></div>
 </div>
 
 <script>
-  // Dynamic navigation styling adjustment during scroll events
+  // Dynamic navigation visual scroll treatment
   window.addEventListener('scroll', () => {
-    const nav = document.getElementById('mainNav');
-    if (window.scrollY > 50) {
-      nav.classList.add('scrolled');
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 40) {
+      navbar.classList.add('scrolled');
     } else {
-      nav.classList.remove('scrolled');
+      navbar.classList.remove('scrolled');
     }
   });
 
-  // Reusable function to display bespoke notification confirmations
-  function displayToast(title, message) {
-    const toast = document.getElementById('toast');
-    document.getElementById('toastTitle').innerText = title;
-    document.getElementById('toastMessage').innerText = message;
+  // Central Notification Toast Handler
+  function triggerNotification(text) {
+    const toast = document.getElementById('successToast');
+    toast.innerText = text;
+    toast.classList.add('visible');
     
-    toast.classList.add('show');
     setTimeout(() => {
-      toast.classList.remove('show');
-    }, 5000);
+      toast.classList.remove('visible');
+    }, 4500);
   }
 
-  // Hooking functionality into the main Contact Form
+  // Functional Form Assignment: Service Booking Request Form
   document.getElementById('enquiryForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    const name = document.getElementById('firstName').value;
+    const model = document.getElementById('vehicle').value;
     
-    const clientName = document.getElementById('firstName').value;
-    const vehicleSelected = document.getElementById('vehicle').value;
-    
-    displayToast(
-      `Enquiry Initiated`, 
-      `Thank you, ${clientName}. An atelier assignment expert will connect with you in under 2 hours regarding your ${vehicleSelected}.`
-    );
-    
+    triggerNotification(`Thank you, ${name}. Your request for the ${model} has been securely transmitted. Our concierge desk will contact you within 2 hours.`);
     this.reset();
   });
 
-  // Hooking functionality into the Aviation Waiting List form
-  document.getElementById('skyNotifyForm').addEventListener('submit', function(e) {
+  // Functional Form Assignment: Aviation Newsletter Sign-up Form
+  document.getElementById('notifyForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    const email = document.getElementById('notifyEmail').value;
     
-    const userEmail = document.getElementById('skyEmail').value;
-    
-    displayToast(
-      `Priority Access Registered`, 
-      `Communication channels established for: ${userEmail}. Welcome to BHERON Sky.`
-    );
-    
+    triggerNotification(`Success. ${email} has been prioritized for the BHERON Sky deployment brief.`);
     this.reset();
   });
 </script>
