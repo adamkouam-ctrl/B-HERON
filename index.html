@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BHERON — Luxury Detailing. Italy & Switzerland.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8956A;
+    --gold-light: #D4AF86;
+    --gold-dark: #8C6940;
+    --obsidian: #0A0A0A;
+    --charcoal: #141414;
+    --smoke: #1E1E1E;
+    --ash: #2A2A2A;
+    --mist: #6B6B6B;
+    --silver: #A8A8A8;
+    --cream: #F5F0EB;
+    --white: #FAFAF8;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--obsidian);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 60px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    transition: background 0.3s;
+  }
+  
+  nav.scrolled {
+    background: rgba(10, 10, 10, 0.98);
+    border-bottom: 1px solid var(--ash);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-logo span { font-style: italic; color: var(--cream); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--obsidian);
+    background: var(--gold);
+    padding: 12px 28px;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* CINEMATIC HERO (Rolls-Royce Style) */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 120px 24px 80px 24px;
+    background-color: var(--obsidian);
+  }
+
+  /* Full screen background image container */
+  .hero-bg-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hero-bg-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.45) saturate(0.75);
+  }
+
+  /* Dramatic gradients overlaying the image */
+  .hero-bg-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 20%, rgba(10,10,10,0.8) 100%),
+                linear-gradient(to bottom, transparent 70%, var(--obsidian) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 7vw, 86px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.9;
+    max-width: 600px;
+    margin: 0 auto 56px auto;
+    opacity: 0.9;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--obsidian);
+    background: var(--gold);
+    padding: 18px 40px;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    border-bottom: 1px solid var(--gold-dark);
+    text-decoration: none;
+    padding-bottom: 4px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    z-index: 3;
+    border-left: 2px solid var(--gold);
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  .hero-badge p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--silver);
+    line-height: 1.7;
+  }
+
+  /* LOCATIONS */
+  .locations-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 32px 60px;
+    background: var(--charcoal);
+    position: relative;
+    z-index: 5;
+  }
+
+  .location-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .location-item .flag { font-size: 20px; }
+
+  .location-item span {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--silver);
+  }
+
+  .location-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--ash);
+  }
+
+  /* DIVIDER */
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
+    margin: 0 60px;
+  }
+
+  /* STORYTELLING ABOUT SECTION */
+  .about {
+    padding: 160px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: center;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--silver);
+    line-height: 1.9;
+    margin-bottom: 24px;
+  }
+
+  .about-right {
+    position: relative;
+  }
+
+  /* Immersive Storytelling Image Block */
+  .story-image-wrap {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background-color: var(--charcoal);
+    overflow: hidden;
+    border: 1px solid var(--ash);
+  }
+
+  .story-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7) saturate(0.75);
+    transition: transform 0.6s ease;
+  }
+
+  .story-image-wrap:hover img {
+    transform: scale(1.03);
+  }
+
+  .about-stat {
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    background: var(--charcoal);
+    border: 1px solid var(--ash);
+    padding: 36px 44px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+
+  .about-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .about-stat .label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 140px 60px;
+    background: var(--charcoal);
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--smoke);
+    padding: 56px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .service-card:hover { background: var(--ash); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: var(--ash);
+    position: absolute;
+    top: 20px;
+    right: 32px;
+    line-height: 1;
+  }
+
+  .service-card:hover .service-number { color: var(--smoke); }
+
+  .service-icon { font-size: 32px; margin-bottom: 32px; }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .service-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--mist);
+    line-height: 1.8;
+    margin-bottom: 28px;
+  }
+
+  .service-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .price-from {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  .price-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .price-currency { font-size: 14px; color: var(--mist); }
+
+  /* PRICING TABLE */
+  .pricing { padding: 140px 60px; }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .pricing-table thead tr { border-bottom: 1px solid var(--ash); }
+
+  .pricing-table th {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 16px 24px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .pricing-table th:last-child { text-align: right; }
+
+  .pricing-table tbody tr {
+    border-bottom: 1px solid var(--ash);
+    transition: background 0.2s;
+  }
+
+  .pricing-table tbody tr:hover { background: var(--charcoal); }
+
+  .pricing-table td {
+    padding: 24px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--silver);
+  }
+
+  .pricing-table td:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--white);
+  }
+
+  .pricing-table td:last-child {
+    text-align: right;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--gold);
+  }
+
+  .tier-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid;
+    margin-left: 12px;
+    vertical-align: middle;
+  }
+
+  .tier-badge.essential { border-color: var(--mist); color: var(--mist); }
+  .tier-badge.grand { border-color: var(--gold-dark); color: var(--gold); }
+  .tier-badge.prestige { border-color: var(--gold); color: var(--gold); background: rgba(184,149,106,0.08); }
+
+  .pricing-note {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--mist);
+    font-style: italic;
+  }
+
+  /* FUTURE — JET */
+  .future {
+    padding: 140px 60px;
+    background: var(--charcoal);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .future::before {
+    content: 'BHERON SKY';
+    position: absolute;
+    top: 40px; right: 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 300;
+    color: rgba(184,149,106,0.04);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .future-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .future-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .coming-soon-pill {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--obsidian);
+    background: var(--gold);
+    padding: 6px 16px;
+    margin-bottom: 28px;
+  }
+
+  .future-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+
+  .future-title em { font-style: italic; color: var(--gold); }
+
+  .future-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--silver);
+    line-height: 1.9;
+    margin-bottom: 40px;
+  }
+
+  .future-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .future-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--silver);
+    line-height: 1.6;
+  }
+
+  .future-features li::before {
+    content: '—';
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0px;
+  }
+
+  .future-visual { position: relative; }
+
+  .future-visual img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    filter: brightness(0.6) saturate(0.5);
+  }
+
+  .future-visual-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 40px 32px 32px;
+    background: linear-gradient(transparent, rgba(10,10,10,0.9));
+  }
+
+  .future-visual-label p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--silver);
+  }
+
+  .notify-form {
+    display: flex;
+    gap: 0;
+    margin-top: 40px;
+    max-width: 420px;
+  }
+
+  .notify-form input {
+    flex: 1;
+    background: var(--smoke);
+    border: 1px solid var(--ash);
+    border-right: none;
+    color: var(--cream);
+    padding: 14px 20px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    outline: none;
+  }
+
+  .notify-form input::placeholder { color: var(--mist); }
+  .notify-form input:focus { border-color: var(--gold-dark); }
+
+  .notify-form button {
+    background: var(--gold);
+    border: none;
+    color: var(--obsidian);
+    padding: 14px 24px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .notify-form button:hover { background: var(--gold-light); }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 120px 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .testimonial {
+    padding: 48px 36px;
+    background: var(--charcoal);
+  }
+
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 4px;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .testimonial-author {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .testimonial-location {
+    font-size: 11px;
+    color: var(--mist);
+    margin-top: 4px;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 140px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--charcoal);
+    border: 1px solid var(--ash);
+    color: var(--cream);
+    padding: 14px 20px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.3s;
+    appearance: none;
+    border-radius: 0;
+  }
+
+  .form-group select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path fill='%23B8956A' d='M0,3.5 L5,8.5 L10,3.5 Z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) center;
+  }
+
+  .form-group select option { background: var(--charcoal); }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold-dark);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .contact-info .info-block {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--ash);
+  }
+
+  .contact-info .info-block:first-child { border-top: 1px solid var(--ash); }
+
+  .info-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .info-value {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--silver);
+    line-height: 1.7;
+  }
+
+  /* LUXURY FEEDBACK POPUP SYSTEM */
+  .toast-notification {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background: var(--charcoal);
+    border: 1px solid var(--gold);
+    padding: 20px 32px;
+    z-index: 1000;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    max-width: 400px;
+  }
+
+  .toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .toast-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .toast-message {
+    font-size: 12px;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  /* RESPONSIVE STYLES */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links, .nav-cta { display: none; }
+    .hero { padding: 140px 24px 80px 24px; }
+    .hero-badge { display: none; }
+    .about, .future-inner, .contact { grid-template-columns: 1fr; gap: 60px; padding: 80px 24px; }
+    .about-stat { position: static; margin-top: 24px; display: inline-block; transform: none; }
+    .services { padding: 80px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .pricing { padding: 80px 24px; }
+    .pricing-table th, .pricing-table td { padding: 12px 8px; font-size: 12px; }
+    .pricing-table td:first-child { font-size: 14px; }
+    .pricing-table td:last-child { font-size: 15px; }
+    .testimonials { grid-template-columns: 1fr; padding: 80px 24px; }
+    footer { grid-template-columns: 1fr; text-align: center; padding: 40px 24px; }
+    .footer-right { justify-content: center; }
+    .locations-strip { gap: 24px; padding: 24px; flex-wrap: wrap; }
+    .future { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="#" class="nav-logo">BHER<span>ON</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#sky">BHERON Sky</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book Now</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-container">
+    <img src="hero-bg.jpg" alt="BHERON Luxury Detailing Cinematic Background" onerror="this.src='https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1600&q=80'">
+  </div>
+  
+  <div class="hero-content">
+    <p class="hero-eyebrow">Luxury Detailing · Italy & Switzerland</p>
+    <h1 class="hero-title">
+      Every detail.<br>
+      <em>Immaculate.</em>
+    </h1>
+    <p class="hero-sub">
+      BHERON brings concierge-level detailing to the most discerning vehicles in Milan, Rome, Geneva, and Zürich. We come to you — on your schedule, at your standard.
+    </p>
+    <div class="hero-buttons">
+      <a href="#pricing" class="btn-primary">Explore Services</a>
+      <a href="#sky" class="btn-ghost">BHERON Sky →</a>
+    </div>
+  </div>
+  
+  <div class="hero-badge">
+    <p>
+      Atelier-grade care<br>
+      for exceptional automobiles.
+    </p>
+  </div>
+</section>
+
+<div class="locations-strip">
+  <div class="location-item">
+    <span class="flag">🇮🇹</span>
+    <span>Milan · Rome · Florence · Turin</span>
+  </div>
+  <div class="location-divider"></div>
+  <div class="location-item">
+    <span class="flag">🇨🇭</span>
+    <span>Geneva · Zürich · Lugano · Basel</span>
+  </div>
+  <div class="location-divider"></div>
+  <div class="location-item">
+    <span>✦</span>
+    <span style="color: var(--gold)">Mobile & On-Site Service</span>
+  </div>
+</div>
+
+<div class="gold-rule"></div>
+
+<section class="about">
+  <div class="about-left">
+    <p class="section-label">Our Philosophy</p>
+    <h2 class="section-title">
+      Not a wash.<br>
+      A <em>ritual.</em>
+    </h2>
+    <p class="section-body">
+      BHERON was founded on a single conviction: exceptional vehicles deserve exceptional care. We reject haste, shortcuts, and compromise — offering instead a meditative process that restores your vehicle to a state of perfection.
+    </p>
+    <p class="section-body">
+      Operating across Italy and Switzerland, our mobile ateliers bring certified master detailers, professional-grade ceramic compounds, and bespoke finishing systems directly to your residence, office, or hangar.
+    </p>
+  </div>
+  <div class="about-right">
+    <div class="story-image-wrap">
+      <img src="about-story.jpg" alt="BHERON Detailing Ritual Craftsmanship" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'">
+    </div>
+    <div class="about-stat">
+      <span class="num">100%</span>
+      <span class="label">Satisfaction Rate</span>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="services-header">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Our <em>Services</em></h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-number">01</span>
+      <div class="service-icon">✦</div>
+      <h3 class="service-name">Exterior Atelier</h3>
+      <p class="service-desc">Full decontamination wash, iron fallout removal, clay bar treatment, and single-stage machine polish. Your paint, renewed.</p>
+      <div class="service-price">
+        <span class="price-from">From</span>
+        <span class="price-amount">€190</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">02</span>
+      <div class="service-icon">◇</div>
+      <h3 class="service-name">Interior Sanctum</h3>
+      <p class="service-desc">Deep vacuum, steam cleaning, leather conditioning, fragrance purification, and UV protection treatment. A cabin transformed.</p>
+      <div class="service-price">
+        <span class="price-from">From</span>
+        <span class="price-amount">€220</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">03</span>
+      <div class="service-icon">◈</div>
+      <h3 class="service-name">Grand Détail</h3>
+      <p class="service-desc">Our complete signature service — exterior + interior, 2-stage correction, ceramic coating application, and final hand inspection.</p>
+      <div class="service-price">
+        <span class="price-from">From</span>
+        <span class="price-amount">€650</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">04</span>
+      <div class="service-icon">⬡</div>
+      <h3 class="service-name">Ceramic Armour</h3>
+      <p class="service-desc">Professional nano-ceramic coating. Up to 5 years of hydrophobic protection, UV resistance, and depth-enhanced gloss. Guaranteed.</p>
+      <div class="service-price">
+        <span class="price-from">From</span>
+        <span class="price-amount">€980</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">05</span>
+      <div class="service-icon">☽</div>
+      <h3 class="service-name">PPF Installation</h3>
+      <p class="service-desc">Paint protection film on high-impact zones or full-body coverage. Invisible shield against stone chips, abrasion, and environmental damage.</p>
+      <div class="service-price">
+        <span class="price-from">From</span>
+        <span class="price-amount">€1,400</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">06</span>
+      <div class="service-icon">◯</div>
+      <h3 class="service-name">Monthly Membership</h3>
+      <p class="service-desc">Bespoke maintenance programme. Monthly exterior care, quarterly full detail, and priority scheduling — a retainer for your collection.</p>
+      <div class="service-price">
+        <span class="price-from">From</span>
+        <span class="price-amount">€380<span class="price-currency">/mo</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="pricing-header">
+    <p class="section-label">Transparent Pricing</p>
+    <h2 class="section-title">Investment in <em>Perfection</em></h2>
+    <p class="section-body" style="max-width:520px; margin:0 auto; text-align:center;">All pricing is fixed and inclusive. No hidden fees. Final cost confirmed at booking based on vehicle size and condition.</p>
+  </div>
+
+  <table class="pricing-table">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Includes</th>
+        <th>Duration</th>
+        <th>Price (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Express Exterior <span class="tier-badge essential">Essential</span></td>
+        <td>Hand wash, dry, tyre shine</td>
+        <td>45 min</td>
+        <td>€ 95 – 130</td>
+      </tr>
+      <tr>
+        <td>Exterior Atelier <span class="tier-badge essential">Essential</span></td>
+        <td>Decontamination, clay, polish</td>
+        <td>3–4 h</td>
+        <td>€ 190 – 280</td>
+      </tr>
+      <tr>
+        <td>Interior Sanctum <span class="tier-badge essential">Essential</span></td>
+        <td>Full interior deep clean</td>
+        <td>3–5 h</td>
+        <td>€ 220 – 320</td>
+      </tr>
+      <tr>
+        <td>Grand Détail <span class="tier-badge grand">Grand</span></td>
+        <td>Full ext. + int. + 2-stage correction</td>
+        <td>1 day</td>
+        <td>€ 650 – 950</td>
+      </tr>
+      <tr>
+        <td>Ceramic Armour (2yr) <span class="tier-badge grand">Grand</span></td>
+        <td>Nano-ceramic coating + prep</td>
+        <td>1–2 days</td>
+        <td>€ 980 – 1,400</td>
+      </tr>
+      <tr>
+        <td>Ceramic Armour (5yr) <span class="tier-badge prestige">Prestige</span></td>
+        <td>Premium ceramic + full correction</td>
+        <td>2 days</td>
+        <td>€ 1,800 – 2,400</td>
+      </tr>
+      <tr>
+        <td>PPF Partial Coverage <span class="tier-badge prestige">Prestige</span></td>
+        <td>Bonnet, bumper, mirrors</td>
+        <td>1 day</td>
+        <td>€ 1,400 – 1,900</td>
+      </tr>
+      <tr>
+        <td>PPF Full Body <span class="tier-badge prestige">Prestige</span></td>
+        <td>Complete vehicle coverage</td>
+        <td>3–5 days</td>
+        <td>€ 4,200 – 6,500</td>
+      </tr>
+      <tr>
+        <td>Monthly Membership <span class="tier-badge grand">Grand</span></td>
+        <td>Monthly care + quarterly detail</td>
+        <td>Ongoing</td>
+        <td>€ 380 – 580/mo</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="pricing-note">Prices may vary for SUVs, larger models, and heavily soiled vehicles. All prices include travel within service areas. CHF pricing available for Swiss clients.</p>
+</section>
+
+<section class="future" id="sky">
+  <div class="future-inner">
+    <div class="future-left">
+      <p class="future-label">Coming Soon</p>
+      <div class="coming-soon-pill">BHERON Sky — 2026</div>
+      <h2 class="future-title">
+        Detailing<br>
+        beyond the<br>
+        <em>runway.</em>
+      </h2>
+      <p class="future-body">
+        BHERON Sky is our forthcoming division dedicated to private aviation. We are extending our atelier-grade philosophy from asphalt to apron — bringing the same obsessive precision to business jets, turboprops, and helicopters stationed across European FBOs.
+      </p>
+      <ul class="future-features">
+        <li>Exterior aircraft wash, polish, and detailing — approved products for all composite and metal finishes</li>
+        <li>Interior cabin deep cleaning, leather conditioning, and odour elimination</li>
+        <li>Cockpit glass treatment and instrument panel care</li>
+        <li>Engine nacelle cosmetic cleaning (cosmetic, non-mechanical)</li>
+        <li>Hangar-based service in Milan Linate, Geneva, Lugano, and Zürich airports</li>
+        <li>Subscription programmes for fleet operators and charter companies</li>
+      </ul>
+      <form class="notify-form" id="skyNotifyForm">
+        <input type="email" id="skyEmail" placeholder="Your email address" required>
+        <button type="submit">Notify Me</button>
+      </form>
+    </div>
+    <div class="future-visual">
+      <img src="bheron-sky.jpg" alt="Private jet interior luxury treatment" onerror="this.src='https://images.unsplash.com/photo-1436891620584-47fd0e565afb?w=800&q=80'">
+      <div class="future-visual-label">
+        <p>Atelier care, elevated at altitude.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="testimonial">
+    <div class="testimonial-stars">★★★★★</div>
+    <p class="testimonial-text">"They treated my 812 Superfast as though it were their own. The correction work was extraordinary — paint I'd never seen that way before."</p>
+    <p class="testimonial-author">Marco A.</p>
+    <p class="testimonial-location">Milan, Ferrari 812 Superfast</p>
+  </div>
+  <div class="testimonial">
+    <div class="testimonial-stars">★★★★★</div>
+    <p class="testimonial-text">"In Geneva it's difficult to find real perfectionists. BHERON came to my garage and the result was — without exaggeration — concours level."</p>
+    <p class="testimonial-author">Stefan K.</p>
+    <p class="testimonial-location">Geneva, Porsche 911 GT3</p>
+  </div>
+  <div class="testimonial">
+    <div class="testimonial-stars">★★★★★</div>
+    <p class="testimonial-text">"The membership programme means I never think about the condition of my Cullinan. It simply always looks perfect. That is what I pay for."</p>
+    <p class="testimonial-author">Riccardo F.</p>
+    <p class="testimonial-location">Rome, Rolls-Royce Cullinan</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div>
+    <p class="section-label">Reserve Your Service</p>
+    <h2 class="section-title">Begin your<br><em>enquiry.</em></h2>
+    <p class="section-body">Our concierge team will confirm availability and provide a tailored quote within 2 hours during business hours.</p>
+
+    <div class="contact-info" style="margin-top: 56px;">
+      <div class="info-block">
+        <p class="info-label">Italy</p>
+        <p class="info-value">+39 02 8734 5210<br>italia@bheron.com</p>
+      </div>
+      <div class="info-block">
+        <p class="info-label">Switzerland</p>
+        <p class="info-value">+41 22 900 4430<br>suisse@bheron.com</p>
+      </div>
+      <div class="info-block">
+        <p class="info-label">Hours</p>
+        <p class="info-value">Monday – Saturday<br>08:00 – 20:00 (CET)</p>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <form class="contact-form" id="enquiryForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" placeholder="Marco" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" placeholder="Rossi" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="marco@example.com" required>
+      </div>
+      <div class="form-group">
+        <label for="vehicle">Vehicle</label>
+        <input type="text" id="vehicle" placeholder="e.g. Ferrari Roma, Bentley Continental" required>
+      </div>
+      <div class="form-group">
+        <label for="serviceSelect">Service</label>
+        <select id="serviceSelect" required>
+          <option value="">Select a service…</option>
+          <option value="Express Exterior">Express Exterior</option>
+          <option value="Exterior Atelier">Exterior Atelier</option>
+          <option value="Interior Sanctum">Interior Sanctum</option>
+          <option value="Grand Détail">Grand Détail</option>
+          <option value="Ceramic Armour">Ceramic Armour</option>
+          <option value="PPF Installation">PPF Installation</option>
+          <option value="Monthly Membership">Monthly Membership</option>
+          <option value="BHERON Sky (Aviation)">BHERON Sky (Aviation)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="locationSelect">Location</label>
+        <select id="locationSelect" required>
+          <option value="">Your city…</option>
+          <option value="Milan">Milan</option>
+          <option value="Rome">Rome</option>
+          <option value="Florence">Florence</option>
+          <option value="Turin">Turin</option>
+          <option value="Geneva">Geneva</option>
+          <option value="Zürich">Zürich</option>
+          <option value="Lugano">Lugano</option>
+          <option value="Basel">Basel</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" placeholder="Any specific requirements or notes…"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 18px;">Submit Enquiry</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <p>© 2026 BHERON Detailing SRL<br>
+    Luxury mobile detailing — Italy & Switzerland<br>
+    VAT IT12345678901 / CHE-123.456.789</p>
+  </div>
+  <div class="footer-logo">BHERON</div>
+  <div class="footer-right">
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#sky">BHERON Sky</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<div class="toast-notification" id="toast">
+  <div class="toast-title" id="toastTitle">Enquiry Received</div>
+  <div class="toast-message" id="toastMessage">Thank you. Our concierge desk will contact you shortly.</div>
+</div>
+
+<script>
+  // Dynamic navigation styling adjustment during scroll events
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // Reusable function to display bespoke notification confirmations
+  function displayToast(title, message) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastTitle').innerText = title;
+    document.getElementById('toastMessage').innerText = message;
+    
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 5000);
+  }
+
+  // Hooking functionality into the main Contact Form
+  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const clientName = document.getElementById('firstName').value;
+    const vehicleSelected = document.getElementById('vehicle').value;
+    
+    displayToast(
+      `Enquiry Initiated`, 
+      `Thank you, ${clientName}. An atelier assignment expert will connect with you in under 2 hours regarding your ${vehicleSelected}.`
+    );
+    
+    this.reset();
+  });
+
+  // Hooking functionality into the Aviation Waiting List form
+  document.getElementById('skyNotifyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const userEmail = document.getElementById('skyEmail').value;
+    
+    displayToast(
+      `Priority Access Registered`, 
+      `Communication channels established for: ${userEmail}. Welcome to BHERON Sky.`
+    );
+    
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
