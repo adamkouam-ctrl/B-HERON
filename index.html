@@ -1226,8 +1226,8 @@
         <li data-i18n="f-li5">Hangar-based service in Milan Linate, Geneva, Lugano, and Zürich airports</li>
         <li data-i18n="f-li6">Subscription programmes for fleet operators and charter companies</li>
       </ul>
-      <form class="notify-form" id="notifyForm">
-        <input type="email" id="notifyEmail" placeholder="Your email address" required>
+      <form class="notify-form" id="notifyForm" action="https://formspree.io/f/mjgzaelz" method="POST">
+  <input type="email" id="notifyEmail" name="subscriber_email" placeholder="Enter your email address..." required>
         <button type="submit" data-i18n="btn-notify">Notify Me</button>
       </form>
     </div>
@@ -1284,7 +1284,7 @@
   </div>
 
   <div>
-    <form class="contact-form" id="enquiryForm">
+    <form class="contact-form" id="enquiryForm" action="https://formspree.io/f/mjgzaelz" method="POST">
       <div class="form-row">
         <div class="form-group">
           <label for="firstName" data-i18n="f-name">First Name</label>
