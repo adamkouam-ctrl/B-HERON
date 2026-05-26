@@ -550,19 +550,75 @@
 
   
 
-  <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" class="notify-form">
+  <form action="https://formsubmit.co/ajax/adamkouam@gmail.com" method="POST" class="notify-form" id="skyNotifyForm">
+  <input type="hidden" name="_subject" value="BHERON Sky - VIP Waiting List Entry">
+  <input type="hidden" name="_template" value="box">
 
-    <input type="hidden" name="_subject" value="BHERON Sky - VIP Waiting List Entry">
-
-    <input type="email" name="email" placeholder="Enter your corporate or personal email" required>
-
-    <button type="submit">Request Access</button>
-
-  </form>
+  <input type="email" id="skyEmail" name="Aviation Subscriber Email" placeholder="Enter your corporate or personal email" required>
+  <button type="submit">Request Access</button>
+</form>
 
 </section>
 
+<script>
+  // Central Notification Toast Animation Engine
+  function triggerNotification(text) {
+    const toast = document.getElementById('successToast');
+    toast.innerText = text;
+    toast.classList.add('visible');
+    
+    setTimeout(() => {
+      toast.classList.remove('visible');
+    }, 4500);
+  }
 
+  // Functional Form Assignment: Aviation Waiting List Form Submit Handler
+  document.getElementById('skyNotifyForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents default browser redirection page load
+    
+    const form = this;
+    const email = document.getElementById('skyEmail').value;
+    
+    // Visually manage loading state on the button
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerText;
+    submitBtn.disabled = true;
+    submitBtn.innerText = "...";
+
+    // Asynchronously submit the payload directly to FormSubmit
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response failure.');
+    })
+    .then(data => {
+      if (data.success === "true" || data.success === true) {
+        // Fire custom corporate luxury toast alert
+        triggerNotification(`Access Requested. ${email} has been prioritized for the BHERON Sky apron briefing.`);
+        form.reset();
+      } else {
+        triggerNotification("Could not register access. Please try again.");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      triggerNotification("Connection timeout. Please verify network status.");
+    })
+    .finally(() => {
+      // Re-enable interactive elements
+      submitBtn.disabled = false;
+      submitBtn.innerText = originalBtnText;
+    });
+  });
+</script>
 
 <footer>
 
@@ -593,7 +649,32 @@
 </footer>
 
 
+<div id="successToast" class="toast"></div>
 
+<style>
+  .toast {
+    position: fixed;
+    bottom: -100px;
+    right: 30px;
+    background: var(--charcoal);
+    border: 1px solid var(--gold);
+    color: var(--white);
+    padding: 18px 24px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    max-width: 450px;
+    opacity: 0;
+  }
+  .toast.visible {
+    bottom: 30px;
+    opacity: 1;
+  }
+</style>
 </body>
 
 </html> 
