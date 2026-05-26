@@ -1522,14 +1522,53 @@
     }, 4500);
   }
 
-  // Functional Form Assignment: Service Booking Request Form
+  // Functional Form Assignment: Service Booking Request Form (FormSubmit AJAX implementation)
   document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = document.getElementById('firstName').value;
-    const model = document.getElementById('vehicle').value;
+    e.preventDefault(); // Blocks default form page-redirection
     
-    triggerNotification(`Thank you, ${name}. Your request for the ${model} has been securely transmitted. Our concierge desk will contact you within 2 hours.`);
-    this.reset();
+    const form = this;
+    const name = document.getElementById('firstName').value || 'there';
+    const selectedService = document.getElementById('service').value || 'service';
+    
+    // Visually manage submission processing state
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerText;
+    submitBtn.disabled = true;
+    submitBtn.innerText = "...";
+
+    // Silently send the form payloads straight to FormSubmit
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network error during submission.');
+    })
+    .then(data => {
+      // FormSubmit sends back a validation flag via JSON
+      if (data.success === "true" || data.success === true) {
+        // Trigger your native premium gold aesthetic notification alert
+        triggerNotification(`Thank you, ${name}. Your request for the ${selectedService} has been securely transmitted. Our concierge desk will contact you within 2 hours.`);
+        form.reset();
+      } else {
+        triggerNotification("Could not complete submission. Please review inputs and try again.");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      triggerNotification("Connection timeout. Please verify connectivity and re-submit.");
+    })
+    .finally(() => {
+      // Re-enable primary action interactions
+      submitBtn.disabled = false;
+      submitBtn.innerText = originalBtnText;
+    });
   });
 
   // Functional Form Assignment: Aviation Newsletter Sign-up Form
