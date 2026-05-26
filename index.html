@@ -1226,10 +1226,13 @@
         <li data-i18n="f-li5">Hangar-based service in Milan Linate, Geneva, Lugano, and Zürich airports</li>
         <li data-i18n="f-li6">Subscription programmes for fleet operators and charter companies</li>
       </ul>
-      <form class="notify-form" id="notifyForm" action="https://formspree.io/f/mjgzaelz" method="POST">
-  <input type="email" id="notifyEmail" name="subscriber_email" placeholder="Enter your email address..." required>
-        <button type="submit" data-i18n="btn-notify">Notify Me</button>
-      </form>
+      <form class="notify-form" id="notifyForm" action="https://formsubmit.co/ajax/adamkouam@gmail.COM" method="POST">
+  <input type="hidden" name="_subject" value="New BHERON Sky Newsletter Subscription">
+  <input type="hidden" name="_template" value="box">
+
+  <input type="email" id="notifyEmail" name="Newsletter Subscriber Email" placeholder="Enter your email address..." required>
+  <button type="submit">Notify Me</button>
+</form>
     </div>
     <div class="future-visual">
       <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80" alt="BHERON Sky Private Jet Exterior Refinement Portfolio">
@@ -1571,13 +1574,51 @@
     });
   });
 
-  // Functional Form Assignment: Aviation Newsletter Sign-up Form
+  // Functional Form Assignment: Aviation Newsletter Sign-up Form (FormSubmit AJAX implementation)
   document.getElementById('notifyForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+    e.preventDefault(); // Blocks default form page-redirection
+    
+    const form = this;
     const email = document.getElementById('notifyEmail').value;
     
-    triggerNotification(`Success. ${email} has been prioritized for the BHERON Sky deployment brief.`);
-    this.reset();
+    // Visually manage submission processing state for the newsletter button
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerText;
+    submitBtn.disabled = true;
+    submitBtn.innerText = "...";
+
+    // Silently send the newsletter subscription payload straight to FormSubmit
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network error during newsletter submission.');
+    })
+    .then(data => {
+      if (data.success === "true" || data.success === true) {
+        // Trigger your native premium gold aesthetic notification alert
+        triggerNotification(`Success. ${email} has been prioritized for the BHERON Sky deployment brief.`);
+        form.reset();
+      } else {
+        triggerNotification("Could not complete subscription. Please try again.");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      triggerNotification("Connection timeout. Please verify connectivity and re-submit.");
+    })
+    .finally(() => {
+      // Re-enable newsletter button interactions
+      submitBtn.disabled = false;
+      submitBtn.innerText = originalBtnText;
+    });
   });
 </script>
 
