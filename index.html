@@ -1285,59 +1285,59 @@
 
   <div>
     <form class="contact-form" id="enquiryForm" action="https://formspree.io/f/mjgzaelz" method="POST">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="firstName" data-i18n="f-name">First Name</label>
-          <input type="text" id="firstName" placeholder="Marco" required>
-        </div>
-        <div class="form-group">
-          <label for="lastName" data-i18n="f-lname">Last Name</label>
-          <input type="text" id="lastName" placeholder="Rossi" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="marco@example.com" required>
-      </div>
-      <div class="form-group">
-        <label for="vehicle" data-i18n="f-model">Vehicle / Aircraft Model</label>
-        <input type="text" id="vehicle" placeholder="e.g. Audi RS6, Ferrari Roma, Gulfstream" required>
-      </div>
-      <div class="form-group">
-        <label for="service" data-i18n="th-service">Service</label>
-        <select id="service" required>
-          <option value="" data-i18n="opt-select">Select a service…</option>
-          <option value="Premium Daily Driver">Premium Daily Driver (Normal Car)</option>
-          <option value="Express Exterior">Express Exterior</option>
-          <option value="Exterior Atelier">Exterior Atelier</option>
-          <option value="Interior Sanctum">Interior Sanctum</option>
-          <option value="Grand Détail">Grand Détail</option>
-          <option value="Ceramic Armour">Ceramic Armour</option>
-          <option value="PPF Installation">PPF Installation</option>
-          <option value="Monthly Membership">Monthly Membership</option>
-          <option value="BHERON Sky (Aviation)">BHERON Sky (Aviation)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="location" data-i18n="f-loc">Location</label>
-        <select id="location" required>
-          <option value="" data-i18n="opt-city">Your city…</option>
-          <option value="Milan">Milan</option>
-          <option value="Rome">Rome</option>
-          <option value="Florence">Florence</option>
-          <option value="Turin">Turin</option>
-          <option value="Geneva">Geneva</option>
-          <option value="Zürich">Zürich</option>
-          <option value="Lugano">Lugano</option>
-          <option value="Basel">Basel</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="message" data-i18n="f-msg">Message (optional)</label>
-        <textarea id="message" placeholder="Any specific requirements or notes…"></textarea>
-      </div>
-      <button type="submit" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 18px;" data-i18n="btn-submit">Submit Enquiry</button>
-    </form>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="firstName" data-i18n="f-name">First Name</label>
+      <input type="text" id="firstName" name="first_name" data-fs-field placeholder="Marco" required>
+    </div>
+    <div class="form-group">
+      <label for="lastName" data-i18n="f-lname">Last Name</label>
+      <input type="text" id="lastName" name="last_name" data-fs-field placeholder="Rossi" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" data-fs-field placeholder="marco@example.com" required>
+  </div>
+  <div class="form-group">
+    <label for="vehicle" data-i18n="f-model">Vehicle / Aircraft Model</label>
+    <input type="text" id="vehicle" name="vehicle_model" data-fs-field placeholder="e.g. Audi RS6, Ferrari Roma, Gulfstream" required>
+  </div>
+  <div class="form-group">
+    <label for="service" data-i18n="th-service">Service</label>
+    <select id="service" name="requested_service" data-fs-field required>
+      <option value="" data-i18n="opt-select">Select a service…</option>
+      <option value="Premium Daily Driver">Premium Daily Driver (Normal Car)</option>
+      <option value="Express Exterior">Express Exterior</option>
+      <option value="Exterior Atelier">Exterior Atelier</option>
+      <option value="Interior Sanctum">Interior Sanctum</option>
+      <option value="Grand Détail">Grand Détail</option>
+      <option value="Ceramic Armour">Ceramic Armour</option>
+      <option value="PPF Installation">PPF Installation</option>
+      <option value="Monthly Membership">Monthly Membership</option>
+      <option value="BHERON Sky (Aviation)">BHERON Sky (Aviation)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="location" data-i18n="f-loc">Location</label>
+    <select id="location" name="location" data-fs-field required>
+      <option value="" data-i18n="opt-city">Your city…</option>
+      <option value="Milan">Milan</option>
+      <option value="Rome">Rome</option>
+      <option value="Florence">Florence</option>
+      <option value="Turin">Turin</option>
+      <option value="Geneva">Geneva</option>
+      <option value="Zürich">Zürich</option>
+      <option value="Lugano">Lugano</option>
+      <option value="Basel">Basel</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="message" data-i18n="f-msg">Message (optional)</label>
+    <textarea id="message" name="message" data-fs-field placeholder="Any specific requirements or notes…"></textarea>
+  </div>
+  <button type="submit" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 18px;" data-i18n="btn-submit" data-fs-submit-btn>Submit Enquiry</button>
+</form>
   </div>
 </section>
 
