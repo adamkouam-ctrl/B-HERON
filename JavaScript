@@ -1,57 +1,25 @@
-// Functional Form Assignment: Service Booking Request Form
-  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevents the page from redirecting
-    const form = this;
-    const name = document.getElementById('firstName').value;
-    const model = document.getElementById('vehicle').value;
-    
-    const formData = new FormData(form);
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
-    fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        // Triggers your luxury toast alert seamlessly
-        triggerNotification(`Thank you, ${name}. Your request for the ${model} has been securely transmitted. Our concierge desk will contact you within 2 hours.`);
-        form.reset();
-      } else {
-        triggerNotification("There was an issue transmitting your request. Please try again.");
-      }
-    })
-    .catch(error => {
-      triggerNotification("Network connection error. Please try again.");
-    });
+<script>
+  // ... (Leave your language switching and window scroll scripts intact here) ...
+
+  // Initialize Formspree Engine
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+
+  // Connect your live Enquiry Form to Formspree
+  formspree('initForm', {
+    formElement: '#enquiryForm',
+    formId: 'mjgzaelz',
+    onSuccess: function(formElement) {
+      // Pull form choices to pass them dynamically into your premium notification toast alert
+      const name = document.getElementById('firstName').value || 'there';
+      const selectedService = document.getElementById('service').value || 'service';
+      
+      // Fire your custom luxury notification popup safely
+      triggerNotification(`Thank you, ${name}. Your request for the ${selectedService} has been securely transmitted. Our concierge desk will contact you within 2 hours.`);
+      
+      // Blank out fields safely after submission finishes
+      formElement.reset();
+    }
   });
-
-  // Functional Form Assignment: Aviation Newsletter Sign-up Form
-  document.getElementById('notifyForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevents the page from redirecting
-    const form = this;
-    const email = document.getElementById('notifyEmail').value;
-    
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        triggerNotification(`Success. ${email} has been prioritized for the BHERON Sky deployment brief.`);
-        form.reset();
-      } else {
-        triggerNotification("There was an issue saving your subscription.");
-      }
-    })
-    .catch(error => {
-      triggerNotification("Network connection error. Please try again.");
-    });
-  });
+</script>
