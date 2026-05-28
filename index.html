@@ -1064,157 +1064,674 @@ input[type="date"] {
   </div>
 </section>
 
+<!-- SERVICES -->
 <section class="services" id="services">
   <div class="services-header">
-    <p class="section-label" data-i18n="services-label">What We Offer</p>
-    <h2 class="section-title" id="servicesTitle">Our <em>Services</em></h2>
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Our <em>Services</em></h2>
+    <p class="section-body" style="max-width:560px;margin:0 auto;text-align:center;">Every service uses our professional steam station — only 3 litres of water per vehicle, with medical-grade microfibre cloths laundered after every use.</p>
   </div>
-  <div class="services-grid">
-    <div class="service-card">
-      <span class="service-number">00</span>
-      <div class="service-icon">⚡</div>
-      <h3 class="service-name" data-i18n="s0-name">Premium Daily Driver</h3>
-      <p class="service-desc" data-i18n="s0-desc">Designed specifically for normal premium daily vehicles. Precision safe wash, light gloss enhancement polish, interior purification, and hybrid wax defense.</p>
-      <div class="service-price">
-        <span class="price-from" data-i18n="price-from">From</span>
-        <span class="price-amount">€45</span>
+ 
+  <div class="steam-badge">
+    <span>♻</span>
+    <span>Eco Steam Technology — 97% less water than traditional car wash</span>
+  </div>
+ 
+  <!-- TABS -->
+  <div class="service-tabs">
+    <button class="service-tab active" onclick="showTab('exterior')">Exterior</button>
+    <button class="service-tab" onclick="showTab('interior')">Interior</button>
+    <button class="service-tab" onclick="showTab('combined')">Combined Packages</button>
+    <button class="service-tab" onclick="showTab('protection')">Protection</button>
+    <button class="service-tab" onclick="showTab('addons')">Add-Ons</button>
+    <button class="service-tab" onclick="showTab('environment')">Environmental Objects</button>
+  </div>
+ 
+  <!-- EXTERIOR -->
+  <div id="tab-exterior" class="service-panel active">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">✦</span>
+        <h3 class="service-name">Express Steam Wash</h3>
+        <p class="service-desc">A rapid exterior refresh using our steam station. Bodywork, windows, and door jambs — pristine in under an hour.</p>
+        <ul class="service-includes">
+          <li>Steam body wash (all panels)</li>
+          <li>Window and glass cleaning</li>
+          <li>Door jamb steam clean</li>
+          <li>Tyre dressing</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€65</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">02</span>
+        <span class="service-icon">◇</span>
+        <h3 class="service-name">Exterior Atelier</h3>
+        <p class="service-desc">Full decontamination, iron fallout removal, clay bar treatment, and single-stage machine polish. Your paint, renewed.</p>
+        <ul class="service-includes">
+          <li>Pre-wash foam & contact wash</li>
+          <li>Iron fallout + tar removal</li>
+          <li>Clay bar decontamination</li>
+          <li>Single-stage machine polish</li>
+          <li>Wheel arch steam clean</li>
+          <li>Tyre and rim dressing</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€190</span>
+        </div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">03</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Exterior Prestige</h3>
+        <p class="service-desc">Our most thorough exterior treatment. Two-stage paint correction with compound and polish, leaving flawless depth and gloss.</p>
+        <ul class="service-includes">
+          <li>Everything in Exterior Atelier</li>
+          <li>2-stage machine correction</li>
+          <li>Engine bay steam cleaning</li>
+          <li>Exhaust tip polish</li>
+          <li>Final detail inspection under light</li>
+          <li>QD sealant layer applied</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€320</span>
+        </div>
       </div>
     </div>
-    <div class="service-card">
-      <span class="service-number">01</span>
-      <div class="service-icon">✦</div>
-      <h3 class="service-name" data-i18n="s1-name">Exterior Atelier</h3>
-      <p class="service-desc" data-i18n="s1-desc">Full decontamination wash, iron fallout removal, clay bar treatment, and single-stage machine polish. Your paint, renewed.</p>
-      <div class="service-price">
-        <span class="price-from" data-i18n="price-from">From</span>
-        <span class="price-amount">€190</span>
+    <!-- Hood / headlights / wheels breakdown -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2px;">
+      <div class="addon-card">
+        <p class="addon-name">Bonnet & Hood Detailing</p>
+        <p class="addon-desc">Steam clean, polish, and sealant application on bonnet panel only. Removes light oxidation and tree-sap contamination.</p>
+        <span class="addon-price">€45</span>
       </div>
-    </div>
-    <div class="service-card">
-      <span class="service-number">02</span>
-      <div class="service-icon">◇</div>
-      <h3 class="service-name" data-i18n="s2-name">Interior Sanctum</h3>
-      <p class="service-desc" data-i18n="s2-desc">Deep vacuum, steam cleaning, leather conditioning, fragrance purification, and UV protection treatment. A cabin transformed.</p>
-      <div class="service-price">
-        <span class="price-from" data-i18n="price-from">From</span>
-        <span class="price-amount">€220</span>
+      <div class="addon-card">
+        <p class="addon-name">Headlight Restoration</p>
+        <p class="addon-desc">Machine polish foggy or yellowed polycarbonate lenses back to crystal clarity. UV coating applied to prevent re-hazing.</p>
+        <span class="addon-price">€70</span>
       </div>
-    </div>
-    <div class="service-card">
-      <span class="service-number">03</span>
-      <div class="service-icon">◈</div>
-      <h3 class="service-name" data-i18n="s3-name">Grand Détail</h3>
-      <p class="service-desc" data-i18n="s3-desc">Our complete signature service — exterior + interior, 2-stage correction, ceramic coating application, and final hand inspection.</p>
-      <div class="service-price">
-        <span class="price-from" data-i18n="price-from">From</span>
-        <span class="price-amount">€650</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <span class="service-number">04</span>
-      <div class="service-icon">⬡</div>
-      <h3 class="service-name" data-i18n="s4-name">Ceramic Armour</h3>
-      <p class="service-desc" data-i18n="s4-desc">Professional nano-ceramic coating. Up to 5 years of hydrophobic protection, UV resistance, and depth-enhanced gloss. Guaranteed.</p>
-      <div class="service-price">
-        <span class="price-from" data-i18n="price-from">From</span>
-        <span class="price-amount">€980</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <span class="service-number">05</span>
-      <div class="service-icon">☽</div>
-      <h3 class="service-name" data-i18n="s5-name">PPF Installation</h3>
-      <p class="service-desc" data-i18n="s5-desc">Paint protection film on high-impact zones or full-body coverage. Invisible shield against stone chips, abrasion, and environmental damage.</p>
-      <div class="service-price">
-        <span class="price-from" data-i18n="price-from">From</span>
-        <span class="price-amount">€1,400</span>
+      <div class="addon-card">
+        <p class="addon-name">Wheel & Tyre Detail</p>
+        <p class="addon-desc">Steam blast, iron remover, brush clean of spokes and calipers, tyre conditioner. Per set of four wheels.</p>
+        <span class="addon-price">€60</span>
       </div>
     </div>
   </div>
+ 
+  <!-- INTERIOR -->
+  <div id="tab-interior" class="service-panel">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">◯</span>
+        <h3 class="service-name">Interior Express</h3>
+        <p class="service-desc">A quick but thorough cabin refresh — vacuum, wipe-down, and glass clean. Ideal as a regular maintenance service.</p>
+        <ul class="service-includes">
+          <li>Full vacuum (seats, mats, boot)</li>
+          <li>Dashboard and console wipe</li>
+          <li>Interior glass clean</li>
+          <li>Door pocket clean-out</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€75</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">02</span>
+        <span class="service-icon">☽</span>
+        <h3 class="service-name">Interior Sanctum</h3>
+        <p class="service-desc">Deep steam cleaning of every cabin surface. Brushes, microfibre, and steam nozzles access every crease and vent.</p>
+        <ul class="service-includes">
+          <li>Full steam clean of all surfaces</li>
+          <li>Seat seam and crevice cleaning</li>
+          <li>Air vent steam purification</li>
+          <li>Pedal and footwell clean</li>
+          <li>Leather conditioning (if applicable)</li>
+          <li>Odour neutralisation treatment</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€150</span>
+        </div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">03</span>
+        <span class="service-icon">⬡</span>
+        <h3 class="service-name">Interior Prestige</h3>
+        <p class="service-desc">The complete interior transformation. Full disinfection, leather treatment system, fragrance, and UV protection throughout.</p>
+        <ul class="service-includes">
+          <li>Everything in Interior Sanctum</li>
+          <li>Leather deep clean + conditioner</li>
+          <li>Alcantara & fabric steam lift</li>
+          <li>Dashboard UV protectant</li>
+          <li>Bespoke cabin fragrance</li>
+          <li>Full cabin disinfection (antibacterial)</li>
+          <li>Boot liner and spare tyre bay</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€260</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2px;">
+      <div class="addon-card">
+        <p class="addon-name">Leather Restoration</p>
+        <p class="addon-desc">Multi-step deep clean, colour refresh, and conditioner for aged or cracked hides. Restores suppleness and lustre.</p>
+        <span class="addon-price">€120</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Odour Elimination</p>
+        <p class="addon-desc">Ozone treatment neutralises embedded odours (smoke, pet, mildew) at molecular level. 2–3 hour treatment cycle.</p>
+        <span class="addon-price">€90</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Fabric & Carpet Shampoo</p>
+        <p class="addon-desc">Hot water extraction on all fabric seats and carpets. Removes deep staining, allergens, and ingrained soiling.</p>
+        <span class="addon-price">€110</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- COMBINED PACKAGES -->
+  <div id="tab-combined" class="service-panel">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">◇</span>
+        <h3 class="service-name">Essenziale</h3>
+        <p class="service-desc">Our entry combination package. Exterior steam wash and interior express clean — the perfect weekly or bi-weekly rhythm.</p>
+        <ul class="service-includes">
+          <li>Express Steam Wash (exterior)</li>
+          <li>Interior Express (vacuum & wipe)</li>
+          <li>Window clean inside & out</li>
+          <li>Tyre dressing</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€120</span>
+        </div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">02</span>
+        <span class="service-icon">✦</span>
+        <h3 class="service-name">Grand Détail</h3>
+        <p class="service-desc">Our signature full-day service. Exterior Atelier + Interior Sanctum with final hand inspection by our lead detailer.</p>
+        <ul class="service-includes">
+          <li>Full Exterior Atelier service</li>
+          <li>Full Interior Sanctum service</li>
+          <li>Engine bay steam clean</li>
+          <li>All glass inside & out</li>
+          <li>Tyre, rim & caliper detail</li>
+          <li>QD sealant layer</li>
+          <li>Final multi-point inspection</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€580</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">03</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Grand Prestige</h3>
+        <p class="service-desc">Our maximum two-day immersion. Full 2-stage correction, Interior Prestige, and ceramic coating — a complete transformation.</p>
+        <ul class="service-includes">
+          <li>Full Exterior Prestige (2-stage)</li>
+          <li>Full Interior Prestige service</li>
+          <li>Headlight restoration</li>
+          <li>Leather restoration treatment</li>
+          <li>Ceramic coating (2yr protection)</li>
+          <li>Photo documentation</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€1,150</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:40px;padding:40px;background:var(--charcoal);border-left:2px solid var(--gold-dark);">
+      <p class="section-label" style="margin-bottom:12px;">Monthly Membership</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:16px;">A retainer for your <em style="color:var(--gold)">collection.</em></h3>
+      <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.8;max-width:680px;margin-bottom:24px;">Priority scheduling, a dedicated detailer, and a structured maintenance calendar. Choose from Argento (1 vehicle) or Oro (up to 3 vehicles). Includes monthly exterior, quarterly Grand Détail, and annual protection inspection.</p>
+      <div style="display:flex;gap:32px;align-items:center;flex-wrap:wrap;">
+        <div>
+          <p style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--mist);margin-bottom:4px;">Argento — 1 vehicle</p>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);">€380<span style="font-size:16px;color:var(--mist);">/mo</span></span>
+        </div>
+        <div style="width:1px;height:48px;background:var(--ash);"></div>
+        <div>
+          <p style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--mist);margin-bottom:4px;">Oro — up to 3 vehicles</p>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);">€850<span style="font-size:16px;color:var(--mist);">/mo</span></span>
+        </div>
+        <a href="#contact" class="btn-primary" style="margin-left:auto;">Enquire About Membership</a>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- PROTECTION -->
+  <div id="tab-protection" class="service-panel">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">⬡</span>
+        <h3 class="service-name">Ceramic Armour 2yr</h3>
+        <p class="service-desc">Entry nano-ceramic coating. Hydrophobic, self-cleaning surface with UV resistance. Requires paint in good condition.</p>
+        <ul class="service-includes">
+          <li>Paint preparation + decontamination</li>
+          <li>Single-stage polish</li>
+          <li>Professional ceramic coating</li>
+          <li>2-year protection warranty</li>
+          <li>Aftercare kit included</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€980</span>
+        </div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">02</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Ceramic Armour 5yr</h3>
+        <p class="service-desc">Professional-grade multi-layer ceramic system with full 2-stage correction preparation. Exceptional depth and long-term protection.</p>
+        <ul class="service-includes">
+          <li>Full 2-stage paint correction</li>
+          <li>Multi-layer ceramic system</li>
+          <li>Wheel ceramic coating</li>
+          <li>Glass hydrophobic coating</li>
+          <li>5-year protection warranty</li>
+          <li>Annual inspection included</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€1,800</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">03</span>
+        <span class="service-icon">☽</span>
+        <h3 class="service-name">PPF Partial</h3>
+        <p class="service-desc">Paint protection film on high-impact zones. Self-healing, optically clear — invisible armour against stone chips and road debris.</p>
+        <ul class="service-includes">
+          <li>Front bonnet (full or partial)</li>
+          <li>Front bumper</li>
+          <li>Door edge guards</li>
+          <li>Wing mirrors</li>
+          <li>A-pillar sections</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€1,400</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2px;">
+      <div class="service-card">
+        <span class="service-number">04</span>
+        <span class="service-icon">✦</span>
+        <h3 class="service-name">PPF Full Body</h3>
+        <p class="service-desc">Complete vehicle coverage in self-healing paint protection film. The ultimate defence for cars that demand perfection.</p>
+        <ul class="service-includes">
+          <li>Entire painted surface coverage</li>
+          <li>Custom computer-cut patterns</li>
+          <li>Headlamp and lens coverage</li>
+          <li>10-year film warranty</li>
+          <li>Ceramic coating over PPF (optional)</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€4,200</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">05</span>
+        <span class="service-icon">◯</span>
+        <h3 class="service-name">Glass & Window Coating</h3>
+        <p class="service-desc">Hydrophobic nano-coating applied to all exterior glass. Rain beads and disperses at speed — dramatically improving visibility.</p>
+        <ul class="service-includes">
+          <li>All exterior glass surfaces</li>
+          <li>Windscreen, side, rear windows</li>
+          <li>Hydrophobic nano-coating</li>
+          <li>Improves night driving safety</li>
+          <li>2-year durability</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">From</span>
+          <span class="price-amount">€180</span>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ADD-ONS -->
+  <div id="tab-addons" class="service-panel">
+    <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.8;margin-bottom:36px;max-width:620px;">
+      All add-on services can be combined with any main package. Simply note your requirements at booking and we will confirm inclusion.
+    </p>
+    <div class="addons-grid">
+      <div class="addon-card">
+        <p class="addon-name">Engine Bay Steam Clean</p>
+        <p class="addon-desc">High-pressure steam degreasing and detailing of the engine compartment.</p>
+        <span class="addon-price">€60</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Headlight Restoration</p>
+        <p class="addon-desc">Polish + UV coat for yellowed or foggy polycarbonate headlight lenses.</p>
+        <span class="addon-price">€70</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Wheel & Caliper Detail</p>
+        <p class="addon-desc">Steam blast, iron removal, brush detail of spokes and painted calipers.</p>
+        <span class="addon-price">€60</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Tyre Dressing</p>
+        <p class="addon-desc">Long-lasting satin-finish tyre conditioner. Protects against cracking and UV.</p>
+        <span class="addon-price">€20</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Leather Conditioning</p>
+        <p class="addon-desc">pH-balanced deep conditioner for all leather seating and trim surfaces.</p>
+        <span class="addon-price">€55</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Odour Ozone Treatment</p>
+        <p class="addon-desc">2-hour ozone neutralisation. Eliminates smoke, pet, and mildew odours.</p>
+        <span class="addon-price">€90</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Fabric Shampoo</p>
+        <p class="addon-desc">Hot water extraction on fabric seats and carpets. Deep stain removal.</p>
+        <span class="addon-price">€110</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Dashboard UV Protection</p>
+        <p class="addon-desc">UV-blocking protectant applied to all plastics and vinyl trim surfaces.</p>
+        <span class="addon-price">€30</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Boot & Luggage Compartment</p>
+        <p class="addon-desc">Steam clean, vacuum, and liner shampoo of boot area and spare tyre bay.</p>
+        <span class="addon-price">€40</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Glass Hydrophobic Coating</p>
+        <p class="addon-desc">Nano water-repellent on all exterior glass for improved all-weather clarity.</p>
+        <span class="addon-price">€80</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Pet Hair Removal</p>
+        <p class="addon-desc">Specialist tool extraction of embedded pet hair from all upholstery surfaces.</p>
+        <span class="addon-price">€50</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Gift Certificate</p>
+        <p class="addon-desc">Any service or fixed amount. Presented in our luxury BHERON envelope.</p>
+        <span class="addon-price" style="color:var(--silver);font-size:15px;">Custom</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ENVIRONMENTAL OBJECTS -->
+  <div id="tab-environment" class="service-panel">
+    <p style="font-size:14px;font-weight:300;color:var(--silver);line-height:1.9;margin-bottom:12px;max-width:680px;">
+      BHERON's steam operators service more than vehicles. Our mobile steam stations are deployed for the cleaning and disinfection of outdoor and urban infrastructure — ideal for property managers, municipalities, and businesses.
+    </p>
+    <p style="font-size:13px;font-weight:300;color:var(--mist);line-height:1.7;margin-bottom:40px;max-width:600px;font-style:italic;">
+      We come to your location within our Italy and Switzerland service areas. All quotes for environmental services are custom — please contact us for a site visit.
+    </p>
+    <div class="env-grid">
+      <ul class="env-list">
+        <li>Advertising and signage stands — steam clean of branded display units, light boxes, and outdoor panels</li>
+        <li>EV charging points — safe steam disinfection of public and private vehicle charging stations</li>
+        <li>Poles, bollards and road signs — removal of grime, graffiti residue, and weathering from metal and composite structures</li>
+        <li>Solar panels — gentle steam cleaning to restore energy output efficiency without abrasives</li>
+        <li>Outdoor furniture and terraces — hotels, restaurants, and private estates</li>
+        <li>Garage floors and parking structures — degreasing and steam clean of concrete and sealed surfaces</li>
+      </ul>
+      <div>
+        <div style="background:var(--charcoal);padding:36px;border-top:2px solid var(--gold-dark);">
+          <p class="section-label" style="margin-bottom:16px;">Why Steam?</p>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
+              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">Only 3 litres of water per wash.</strong> Steam cleaning consumes a fraction of the water of pressure washers or hoses.</p>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
+              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">No chemical runoff.</strong> Steam is the cleaning agent — no detergents or chemicals required for most applications.</p>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
+              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">Disinfection included.</strong> Steam at 160°C eliminates bacteria, mould, and pathogens on contact surfaces.</p>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
+              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">Safe on delicate surfaces.</strong> Electronics, coatings, vinyl graphics, and sensors are all safe under our controlled steam technique.</p>
+            </div>
+          </div>
+        </div>
+        <a href="#contact" class="btn-primary" style="display:block;text-align:center;margin-top:16px;padding:18px;">Request Site Quote</a>
+      </div>
+    </div>
+  </div>
+ 
 </section>
-
+ 
+<!-- PRICING TABLE -->
 <section class="pricing" id="pricing">
   <div class="pricing-header">
-    <p class="section-label" data-i18n="table-label">Transparent Pricing</p>
-    <h2 class="section-title" id="pricingTitle">Investment in <em>Perfection</em></h2>
-    <p class="section-body" style="max-width:520px; margin:0 auto; text-align:center;" data-i18n="table-sub">All pricing is fixed and inclusive. No hidden fees. Final cost confirmed at booking based on vehicle size and condition.</p>
+    <p class="section-label">Transparent Pricing</p>
+    <h2 class="section-title">Investment in <em>Perfection</em></h2>
+    <p class="section-body" style="max-width:520px; margin:0 auto; text-align:center;">All pricing is fixed and inclusive. No hidden fees. Final cost confirmed at booking based on vehicle size and condition. CHF pricing available for Swiss clients.</p>
   </div>
-
-  <table class="pricing-table">
+ 
+  <!-- EXTERIOR -->
+  <p style="font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Exterior Services</p>
+  <table class="pricing-table" style="margin-bottom:40px;">
     <thead>
       <tr>
-        <th data-i18n="th-service">Service</th>
-        <th data-i18n="th-includes">Includes</th>
-        <th data-i18n="th-duration">Duration</th>
-        <th data-i18n="th-price">Price (€)</th>
+        <th>Service</th>
+        <th>Includes</th>
+        <th>Duration</th>
+        <th>Price (€)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span data-i18n="s0-name">Premium Daily Driver</span> <span class="tier-badge standard" data-i18n="tier-standard">Standard</span></td>
-        <td data-i18n="t0-inc">Gloss protection wash, deep vacuum, hybrid sealant protection</td>
-        <td>1.5 – 2 h</td>
-        <td>€ 45 – 75</td>
+        <td>Express Steam Wash <span class="tier-badge essential">Essential</span></td>
+        <td>Body steam, windows, door jambs, tyre dressing</td>
+        <td>45–60 min</td>
+        <td>€ 65 – 95</td>
       </tr>
       <tr>
-        <td><span data-i18n="t1-name">Express Exterior</span> <span class="tier-badge essential" data-i18n="tier-essential">Essential</span></td>
-        <td data-i18n="t1-inc">Hand wash, dry, tyre shine</td>
-        <td>45 min</td>
-        <td>€ 95 – 130</td>
-      </tr>
-      <tr>
-        <td><span data-i18n="s1-name">Exterior Atelier</span> <span class="tier-badge essential" data-i18n="tier-essential">Essential</span></td>
-        <td data-i18n="t2-inc">Decontamination, clay, polish</td>
+        <td>Exterior Atelier <span class="tier-badge essential">Essential</span></td>
+        <td>Decontamination, clay bar, single-stage polish, rims</td>
         <td>3–4 h</td>
         <td>€ 190 – 280</td>
       </tr>
       <tr>
-        <td><span data-i18n="s2-name">Interior Sanctum</span> <span class="tier-badge essential" data-i18n="tier-essential">Essential</span></td>
-        <td data-i18n="t3-inc">Full interior deep clean</td>
+        <td>Exterior Prestige <span class="tier-badge grand">Grand</span></td>
+        <td>2-stage correction, engine bay, exhaust, QD sealant</td>
+        <td>5–7 h</td>
+        <td>€ 320 – 480</td>
+      </tr>
+      <tr>
+        <td>Bonnet & Hood Detail <span class="tier-badge essential">Add-On</span></td>
+        <td>Polish + sealant, bonnet panel only</td>
+        <td>1 h</td>
+        <td>€ 45</td>
+      </tr>
+      <tr>
+        <td>Headlight Restoration <span class="tier-badge essential">Add-On</span></td>
+        <td>Polish + UV coat, pair of headlights</td>
+        <td>1–2 h</td>
+        <td>€ 70</td>
+      </tr>
+      <tr>
+        <td>Wheel & Tyre Detail <span class="tier-badge essential">Add-On</span></td>
+        <td>Steam, iron removal, caliper brush, tyre dressing</td>
+        <td>1 h</td>
+        <td>€ 60</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <!-- INTERIOR -->
+  <p style="font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Interior Services</p>
+  <table class="pricing-table" style="margin-bottom:40px;">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Includes</th>
+        <th>Duration</th>
+        <th>Price (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Interior Express <span class="tier-badge essential">Essential</span></td>
+        <td>Vacuum, wipe-down, interior glass, door pockets</td>
+        <td>1 h</td>
+        <td>€ 75 – 95</td>
+      </tr>
+      <tr>
+        <td>Interior Sanctum <span class="tier-badge essential">Essential</span></td>
+        <td>Full steam, leather condition, odour treatment</td>
         <td>3–5 h</td>
-        <td>€ 220 – 320</td>
+        <td>€ 150 – 220</td>
       </tr>
       <tr>
-        <td><span data-i18n="s3-name">Grand Détail</span> <span class="tier-badge grand" data-i18n="tier-grand">Grand</span></td>
-        <td data-i18n="t4-inc">Full ext. + int. + 2-stage correction</td>
+        <td>Interior Prestige <span class="tier-badge grand">Grand</span></td>
+        <td>Full steam + leather restore + disinfection + fragrance</td>
+        <td>5–7 h</td>
+        <td>€ 260 – 380</td>
+      </tr>
+      <tr>
+        <td>Leather Restoration <span class="tier-badge essential">Add-On</span></td>
+        <td>Multi-step deep clean + colour refresh + conditioner</td>
+        <td>2 h</td>
+        <td>€ 120</td>
+      </tr>
+      <tr>
+        <td>Odour Ozone Treatment <span class="tier-badge essential">Add-On</span></td>
+        <td>2–3 h ozone molecular elimination</td>
+        <td>2–3 h</td>
+        <td>€ 90</td>
+      </tr>
+      <tr>
+        <td>Fabric & Carpet Shampoo <span class="tier-badge essential">Add-On</span></td>
+        <td>Hot water extraction, all fabric seats and carpets</td>
+        <td>2 h</td>
+        <td>€ 110</td>
+      </tr>
+      <tr>
+        <td>Pet Hair Removal <span class="tier-badge essential">Add-On</span></td>
+        <td>Specialist extraction from all upholstery</td>
+        <td>1 h</td>
+        <td>€ 50</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <!-- PACKAGES -->
+  <p style="font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Combined Packages</p>
+  <table class="pricing-table" style="margin-bottom:40px;">
+    <thead>
+      <tr>
+        <th>Package</th>
+        <th>Includes</th>
+        <th>Duration</th>
+        <th>Price (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Essenziale <span class="tier-badge essential">Essential</span></td>
+        <td>Express Exterior + Interior Express + all glass</td>
+        <td>2–3 h</td>
+        <td>€ 120 – 160</td>
+      </tr>
+      <tr>
+        <td>Grand Détail <span class="tier-badge grand">Grand</span></td>
+        <td>Exterior Atelier + Interior Sanctum + engine bay + QD sealant</td>
         <td>1 day</td>
-        <td>€ 650 – 950</td>
+        <td>€ 580 – 820</td>
       </tr>
       <tr>
-        <td><span data-i18n="t5-name">Ceramic Armour (2yr)</span> <span class="tier-badge grand" data-i18n="tier-grand">Grand</span></td>
-        <td data-i18n="t5-inc">Nano-ceramic coating + prep</td>
+        <td>Grand Prestige <span class="tier-badge prestige">Prestige</span></td>
+        <td>Exterior Prestige + Interior Prestige + ceramic 2yr + leather restore</td>
+        <td>2 days</td>
+        <td>€ 1,150 – 1,600</td>
+      </tr>
+      <tr>
+        <td>Membership — Argento <span class="tier-badge grand">Grand</span></td>
+        <td>Monthly exterior + quarterly Grand Détail, 1 vehicle</td>
+        <td>Ongoing</td>
+        <td>€ 380/mo</td>
+      </tr>
+      <tr>
+        <td>Membership — Oro <span class="tier-badge prestige">Prestige</span></td>
+        <td>Monthly exterior + quarterly Grand Détail, up to 3 vehicles</td>
+        <td>Ongoing</td>
+        <td>€ 850/mo</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <!-- PROTECTION -->
+  <p style="font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Protection Services</p>
+  <table class="pricing-table" style="margin-bottom:40px;">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Includes</th>
+        <th>Duration</th>
+        <th>Price (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Glass Hydrophobic Coating <span class="tier-badge essential">Essential</span></td>
+        <td>All exterior glass, nano water-repellent, 2yr durability</td>
+        <td>2 h</td>
+        <td>€ 180</td>
+      </tr>
+      <tr>
+        <td>Ceramic Armour 2yr <span class="tier-badge grand">Grand</span></td>
+        <td>Prep + single-stage polish + ceramic coating + warranty</td>
         <td>1–2 days</td>
         <td>€ 980 – 1,400</td>
       </tr>
       <tr>
-        <td><span data-i18n="t6-name">Ceramic Armour (5yr)</span> <span class="tier-badge prestige" data-i18n="tier-prestige">Prestige</span></td>
-        <td data-i18n="t6-inc">Premium ceramic + full correction</td>
+        <td>Ceramic Armour 5yr <span class="tier-badge prestige">Prestige</span></td>
+        <td>Full correction + multi-layer ceramic + wheel + glass coating</td>
         <td>2 days</td>
         <td>€ 1,800 – 2,400</td>
       </tr>
       <tr>
-        <td><span data-i18n="t7-name">PPF Partial Coverage</span> <span class="tier-badge prestige" data-i18n="tier-prestige">Prestige</span></td>
-        <td data-i18n="t7-inc">Bonnet, bumper, mirrors</td>
+        <td>PPF Partial Coverage <span class="tier-badge prestige">Prestige</span></td>
+        <td>Bonnet, bumper, mirrors, door edges, A-pillars</td>
         <td>1 day</td>
         <td>€ 1,400 – 1,900</td>
       </tr>
       <tr>
-        <td><span data-i18n="t8-name">PPF Full Body</span> <span class="tier-badge prestige" data-i18n="tier-prestige">Prestige</span></td>
-        <td data-i18n="t8-inc">Complete vehicle coverage</td>
+        <td>PPF Full Body <span class="tier-badge prestige">Prestige</span></td>
+        <td>Complete vehicle coverage + headlamps + 10yr warranty</td>
         <td>3–5 days</td>
         <td>€ 4,200 – 6,500</td>
       </tr>
-      <tr>
-        <td><span data-i18n="s6-name">Monthly Membership</span> <span class="tier-badge grand" data-i18n="tier-grand">Grand</span></td>
-        <td data-i18n="t9-inc">Monthly care + quarterly detail</td>
-        <td data-i18n="t-ongoing">Ongoing</td>
-        <td>€ 380 – 580/mo</td>
-      </tr>
     </tbody>
   </table>
-  <p class="pricing-note" data-i18n="pricing-note">Prices may vary for SUVs, larger models, and heavily soiled vehicles. All prices include travel within service areas. CHF pricing available for Swiss clients.</p>
+ 
+  <p class="pricing-note">All prices are indicative. Final cost confirmed at booking based on vehicle size (Compact / Saloon / SUV / Supercar), condition, and location. SUV / large vehicles carry a 15–25% supplement. CHF pricing available — ask at booking. Environmental object services are quoted individually.</p>
 </section>
-
 <section class="future" id="sky">
   <div class="future-inner">
     <div class="future-left">
