@@ -415,31 +415,79 @@
     display: block;
   }
 
-  /* SERVICES */
+/* SERVICES */
   .services {
     padding: 140px 60px;
     background: var(--charcoal);
   }
-
+ 
   .services-header {
     text-align: center;
     margin-bottom: 80px;
   }
-
+ 
+  /* SERVICE TABS */
+  .service-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--ash);
+    overflow-x: auto;
+  }
+ 
+  .service-tab {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    background: none;
+    border: none;
+    padding: 16px 28px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    transition: color 0.3s, border-color 0.3s;
+    font-family: 'Barlow', sans-serif;
+  }
+ 
+  .service-tab:hover { color: var(--silver); }
+  .service-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+ 
+  .service-panel { display: none; }
+  .service-panel.active { display: block; }
+ 
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
   }
-
+ 
+  .services-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+ 
+  .services-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+ 
   .service-card {
     background: var(--smoke);
-    padding: 56px 40px;
+    padding: 48px 36px;
     position: relative;
     overflow: hidden;
     transition: background 0.4s;
   }
-
+ 
+  .service-card.featured {
+    background: var(--charcoal);
+    border-top: 2px solid var(--gold);
+  }
+ 
   .service-card::before {
     content: '';
     position: absolute;
@@ -450,10 +498,12 @@
     transform-origin: left;
     transition: transform 0.4s;
   }
-
+ 
+  .service-card.featured::before { display: none; }
+ 
   .service-card:hover { background: var(--ash); }
   .service-card:hover::before { transform: scaleX(1); }
-
+ 
   .service-number {
     font-family: 'Cormorant Garamond', serif;
     font-size: 72px;
@@ -464,74 +514,185 @@
     right: 32px;
     line-height: 1;
   }
-
+ 
   .service-card:hover .service-number { color: var(--smoke); }
-
+ 
   .service-icon {
-    font-size: 32px;
-    margin-bottom: 32px;
+    font-size: 28px;
+    margin-bottom: 28px;
+    display: block;
   }
-
+ 
   .service-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 400;
     color: var(--white);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
-
+ 
   .service-desc {
     font-size: 13px;
     font-weight: 300;
     color: var(--mist);
     line-height: 1.8;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
-
+ 
+  .service-includes {
+    list-style: none;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+ 
+  .service-includes li {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--silver);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+ 
+  .service-includes li::before {
+    content: '—';
+    color: var(--gold-dark);
+    flex-shrink: 0;
+  }
+ 
   .service-price {
     display: flex;
     align-items: baseline;
     gap: 6px;
+    margin-top: auto;
   }
-
+ 
   .price-from {
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--mist);
   }
-
+ 
   .price-amount {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 300;
     color: var(--gold);
   }
-
+ 
   .price-currency {
     font-size: 14px;
     color: var(--mist);
   }
-
+ 
+  /* ADD-ONS */
+  .addons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 2px;
+  }
+ 
+  .addon-card {
+    background: var(--charcoal);
+    padding: 28px 24px;
+    border-top: 1px solid var(--ash);
+    transition: background 0.3s;
+  }
+ 
+  .addon-card:hover { background: var(--smoke); }
+ 
+  .addon-name {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+ 
+  .addon-desc {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--mist);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+ 
+  .addon-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--gold);
+  }
+ 
+  /* STEAM BADGE */
+  .steam-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,149,106,0.08);
+    border: 1px solid var(--gold-dark);
+    padding: 8px 16px;
+    margin-bottom: 40px;
+  }
+ 
+  .steam-badge span {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+ 
+  /* ENV section */
+  .env-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 20px;
+  }
+ 
+  .env-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+ 
+  .env-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--silver);
+    line-height: 1.6;
+    padding: 16px 20px;
+    background: var(--smoke);
+    border-left: 2px solid var(--gold-dark);
+  }
+ 
   /* PRICING TABLE */
   .pricing {
     padding: 140px 60px;
   }
-
+ 
   .pricing-header {
     text-align: center;
     margin-bottom: 80px;
   }
-
+ 
   .pricing-table {
     width: 100%;
     border-collapse: collapse;
   }
-
+ 
   .pricing-table thead tr {
     border-bottom: 1px solid var(--ash);
   }
-
+ 
   .pricing-table th {
     font-size: 10px;
     letter-spacing: 0.3em;
@@ -541,37 +702,37 @@
     text-align: left;
     font-weight: 400;
   }
-
+ 
   .pricing-table th:last-child { text-align: right; }
-
+ 
   .pricing-table tbody tr {
     border-bottom: 1px solid var(--ash);
     transition: background 0.2s;
   }
-
+ 
   .pricing-table tbody tr:hover { background: var(--charcoal); }
-
+ 
   .pricing-table td {
     padding: 24px;
     font-size: 14px;
     font-weight: 300;
     color: var(--silver);
   }
-
+ 
   .pricing-table td:first-child {
     font-family: 'Cormorant Garamond', serif;
     font-size: 18px;
     font-weight: 400;
     color: var(--white);
   }
-
+ 
   .pricing-table td:last-child {
     text-align: right;
     font-family: 'Cormorant Garamond', serif;
     font-size: 20px;
     color: var(--gold);
   }
-
+ 
   .tier-badge {
     display: inline-block;
     font-size: 9px;
@@ -582,12 +743,11 @@
     margin-left: 12px;
     vertical-align: middle;
   }
-
-  .tier-badge.standard { border-color: #555555; color: #999999; }
+ 
   .tier-badge.essential { border-color: var(--mist); color: var(--mist); }
   .tier-badge.grand { border-color: var(--gold-dark); color: var(--gold); }
   .tier-badge.prestige { border-color: var(--gold); color: var(--gold); background: rgba(184,149,106,0.08); }
-
+ 
   .pricing-note {
     margin-top: 32px;
     text-align: center;
