@@ -1237,453 +1237,603 @@ input[type="date"] {
     <span>♻</span>
     <span>Eco Steam Technology — 97% less water than traditional car wash</span>
   </div>
- 
-  <!-- TABS -->
-  <div class="service-tabs">
-    <button class="service-tab active" onclick="showTab('exterior', event)">Exterior</button>
-    <button class="service-tab" onclick="showTab('interior', event)">Interior</button>
-    <button class="service-tab" onclick="showTab('combined', event)">Combined Packages</button>
-    <button class="service-tab" onclick="showTab('protection', event)">Protection</button>
-    <button class="service-tab" onclick="showTab('addons', event)">Add-Ons</button>
-    <button class="service-tab" onclick="showTab('environment', event)">Environmental Objects</button>
-  </div>
- 
-  <!-- EXTERIOR -->
-  <div id="tab-exterior" class="service-panel active">
-    <div class="services-grid">
-      <div class="service-card">
-        <span class="service-number">01</span>
-        <span class="service-icon">✦</span>
-        <h3 class="service-name">Express Steam Wash</h3>
-        <p class="service-desc">A rapid exterior refresh using our steam station. Bodywork, windows, and door jambs — pristine in under an hour.</p>
-        <ul class="service-includes">
-          <li>Steam body wash (all panels)</li>
-          <li>Window and glass cleaning</li>
-          <li>Door jamb steam clean</li>
-          <li>Tyre dressing</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€65</span>
+ import { useState, useMemo } from "react";
+
+const SERVICES = [
+  { id: "ext-express",   cat: "Exterior",   tier: "Essential", name: "Express Steam Wash",      duration: "45–60 min", lo: 65,   hi: 95,   desc: "Steam body wash, windows, door jambs & tyre dressing." },
+  { id: "ext-atelier",   cat: "Exterior",   tier: "Atelier",   name: "Exterior Atelier",         duration: "3–4 h",     lo: 190,  hi: 280,  desc: "Decontamination, clay bar, single-stage machine polish & rims." },
+  { id: "ext-prestige",  cat: "Exterior",   tier: "Prestige",  name: "Exterior Prestige",        duration: "5–7 h",     lo: 320,  hi: 480,  desc: "2-stage correction, engine bay, exhaust polish & QD sealant." },
+  { id: "int-express",   cat: "Interior",   tier: "Essential", name: "Interior Express",         duration: "1 h",       lo: 75,   hi: 95,   desc: "Full vacuum, wipe-down, interior glass & door pockets." },
+  { id: "int-sanctum",   cat: "Interior",   tier: "Atelier",   name: "Interior Sanctum",         duration: "3–5 h",     lo: 150,  hi: 220,  desc: "Full steam clean, leather conditioning & odour treatment." },
+  { id: "int-prestige",  cat: "Interior",   tier: "Prestige",  name: "Interior Prestige",        duration: "5–7 h",     lo: 260,  hi: 380,  desc: "Full steam + leather restore + disinfection + bespoke fragrance." },
+  { id: "pkg-essenz",    cat: "Packages",   tier: "Essential", name: "Essenziale",               duration: "2–3 h",     lo: 120,  hi: 160,  desc: "Express Exterior + Interior Express + all glass." },
+  { id: "pkg-grand",     cat: "Packages",   tier: "Atelier",   name: "Grand Détail",             duration: "Full day",  lo: 580,  hi: 820,  desc: "Exterior Atelier + Interior Sanctum + engine bay + QD sealant." },
+  { id: "pkg-prestige",  cat: "Packages",   tier: "Prestige",  name: "Grand Prestige",           duration: "2 days",    lo: 1150, hi: 1600, desc: "Exterior Prestige + Interior Prestige + Ceramic 2yr + leather." },
+  { id: "pkg-argento",   cat: "Packages",   tier: "Essential", name: "Membership — Argento",     duration: "Monthly",   lo: 380,  hi: 380,  desc: "Monthly exterior + quarterly Grand Détail. Single vehicle." },
+  { id: "pkg-oro",       cat: "Packages",   tier: "Prestige",  name: "Membership — Oro",         duration: "Monthly",   lo: 850,  hi: 850,  desc: "Monthly exterior + quarterly Grand Détail. Up to 3 vehicles." },
+  { id: "pro-glass",     cat: "Protection", tier: "Essential", name: "Glass Hydrophobic",        duration: "2 h",       lo: 180,  hi: 180,  desc: "Nano water-repellent on all exterior glass. 2yr durability." },
+  { id: "pro-cer2",      cat: "Protection", tier: "Atelier",   name: "Ceramic Armour 2yr",       duration: "1–2 days",  lo: 980,  hi: 1400, desc: "Prep + single-stage polish + ceramic coating + 2yr warranty." },
+  { id: "pro-cer5",      cat: "Protection", tier: "Prestige",  name: "Ceramic Armour 5yr",       duration: "2 days",    lo: 1800, hi: 2400, desc: "Full 2-stage correction + multi-layer ceramic system." },
+  { id: "pro-ppf-p",     cat: "Protection", tier: "Prestige",  name: "PPF Partial",              duration: "1 day",     lo: 1400, hi: 1900, desc: "Self-healing film: bonnet, bumper, mirrors, door edges." },
+  { id: "pro-ppf-f",     cat: "Protection", tier: "Prestige",  name: "PPF Full Body",            duration: "3–5 days",  lo: 4200, hi: 6500, desc: "Complete vehicle coverage + 10yr film warranty." },
+  { id: "add-bonnet",    cat: "Add-Ons",    tier: "Add-On",    name: "Bonnet Detail",            duration: "1 h",       lo: 45,   hi: 45,   desc: "Polish + sealant on bonnet panel only." },
+  { id: "add-headlight", cat: "Add-Ons",    tier: "Add-On",    name: "Headlight Restoration",    duration: "1–2 h",     lo: 70,   hi: 70,   desc: "Machine polish foggy lenses + UV coating applied." },
+  { id: "add-wheel",     cat: "Add-Ons",    tier: "Add-On",    name: "Wheel & Tyre Detail",      duration: "1 h",       lo: 60,   hi: 60,   desc: "Steam blast, iron removal, caliper brush & tyre dressing." },
+  { id: "add-leather",   cat: "Add-Ons",    tier: "Add-On",    name: "Leather Restoration",      duration: "2 h",       lo: 120,  hi: 120,  desc: "Deep clean, colour refresh & conditioner for aged hides." },
+  { id: "add-odour",     cat: "Add-Ons",    tier: "Add-On",    name: "Odour Ozone Treatment",    duration: "2–3 h",     lo: 90,   hi: 90,   desc: "Ozone neutralises embedded odours at molecular level." },
+  { id: "add-fabric",    cat: "Add-Ons",    tier: "Add-On",    name: "Fabric & Carpet Shampoo",  duration: "2 h",       lo: 110,  hi: 110,  desc: "Hot water extraction — deep staining & allergen removal." },
+  { id: "add-pet",       cat: "Add-Ons",    tier: "Add-On",    name: "Pet Hair Removal",         duration: "1 h",       lo: 50,   hi: 50,   desc: "Specialist tool extraction from all upholstery surfaces." },
+  { id: "add-engine",    cat: "Add-Ons",    tier: "Add-On",    name: "Engine Bay Steam Clean",   duration: "1 h",       lo: 60,   hi: 60,   desc: "High-pressure steam degreasing of full engine compartment." },
+  { id: "add-dashboard", cat: "Add-Ons",    tier: "Add-On",    name: "Dashboard UV Protectant",  duration: "30 min",    lo: 30,   hi: 30,   desc: "UV-blocking coat on all plastics, vinyl & interior trim." },
+  { id: "add-boot",      cat: "Add-Ons",    tier: "Add-On",    name: "Boot & Luggage Detail",    duration: "30 min",    lo: 40,   hi: 40,   desc: "Steam clean, vacuum & liner shampoo of boot & spare tyre bay." },
+];
+
+const TABS = [
+  { id: "All",        label: "All" },
+  { id: "Exterior",   label: "Exterior" },
+  { id: "Interior",   label: "Interior" },
+  { id: "Packages",   label: "Packages" },
+  { id: "Protection", label: "Protection" },
+  { id: "Add-Ons",    label: "Add-Ons" },
+];
+
+const VEHICLES = [
+  { id: "compact",  label: "Compact",  sub: "Hatchback / City", mul: 1.00 },
+  { id: "saloon",   label: "Saloon",   sub: "Sedan / Coupé",    mul: 1.05 },
+  { id: "suv",      label: "SUV",      sub: "4×4 / Estate",     mul: 1.20 },
+  { id: "supercar", label: "Supercar", sub: "Exotic / GT",      mul: 1.25 },
+];
+
+const TIER_BADGE = {
+  Essential: "essential",
+  Atelier:   "grand",
+  Prestige:  "prestige",
+  "Add-On":  "essential",
+};
+
+function filterServices(services, tabId) {
+  if (tabId === "All") return services;
+  return services.filter(s => s.cat === tabId);
+}
+
+function fmt(n) {
+  return n.toLocaleString("de-DE");
+}
+
+const CSS = `
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500&display=swap');
+
+  .bh-root {
+    --gold:       #B8956A;
+    --gold-light: #D4AF86;
+    --gold-dark:  #8C6940;
+    --obsidian:   #0A0A0A;
+    --charcoal:   #141414;
+    --smoke:      #1E1E1E;
+    --ash:        #2A2A2A;
+    --mist:       #6B6B6B;
+    --silver:     #A8A8A8;
+    --cream:      #F5F0EB;
+    --white:      #FAFAF8;
+    font-family: 'Barlow', sans-serif;
+    background:  var(--obsidian);
+    color:       var(--cream);
+    min-height:  100vh;
+    padding-bottom: 100px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .bh-header {
+    text-align: center;
+    padding: 72px 24px 56px;
+    border-bottom: 1px solid var(--ash);
+    position: relative;
+  }
+  .bh-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 2px;
+    background: var(--gold);
+  }
+  .bh-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .bh-wordmark em { font-style: italic; color: var(--cream); }
+  .bh-tagline {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+  .bh-page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .bh-page-title em { font-style: italic; color: var(--gold); }
+
+  .bh-section-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .bh-veh-section { padding: 56px 40px 0; max-width: 1180px; margin: 0 auto; }
+  .bh-vehicles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .bh-veh-btn {
+    background: var(--smoke);
+    border: none;
+    border-top: 2px solid transparent;
+    padding: 24px 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s, border-color 0.3s;
+    font-family: 'Barlow', sans-serif;
+  }
+  .bh-veh-btn:hover { background: var(--ash); }
+  .bh-veh-btn.active { background: var(--charcoal); border-top-color: var(--gold); }
+  .bh-veh-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400;
+    color: var(--white); display: block; margin-bottom: 4px;
+  }
+  .bh-veh-btn.active .bh-veh-name { color: var(--gold); }
+  .bh-veh-sub { font-size: 11px; font-weight: 300; color: var(--mist); display: block; }
+  .bh-veh-sup {
+    font-family: 'Barlow', sans-serif;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold-dark); display: block; margin-top: 12px; font-weight: 400;
+  }
+  .bh-veh-btn.active .bh-veh-sup { color: var(--gold); }
+
+  .bh-tabs-wrap {
+    max-width: 1180px; margin: 48px auto 0;
+    padding: 0 40px; border-bottom: 1px solid var(--ash);
+  }
+  .bh-tabs { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .bh-tabs::-webkit-scrollbar { display: none; }
+  .bh-tab {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--mist); background: none; border: none;
+    padding: 16px 28px; cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    white-space: nowrap; transition: color 0.3s, border-color 0.3s;
+  }
+  .bh-tab:hover  { color: var(--silver); }
+  .bh-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .bh-tab-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--gold); color: var(--obsidian);
+    font-family: 'Barlow', sans-serif; font-size: 9px; font-weight: 500;
+    width: 16px; height: 16px; border-radius: 50%; margin-left: 8px;
+  }
+
+  .bh-layout {
+    display: grid; grid-template-columns: 1fr 296px;
+    gap: 2px; max-width: 1180px;
+    margin: 2px auto 0; padding: 0 40px; align-items: start;
+  }
+  .bh-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+
+  .bh-card {
+    background: var(--smoke); padding: 40px 28px;
+    position: relative; overflow: hidden; cursor: pointer;
+    transition: background 0.4s; display: flex; flex-direction: column;
+    border: none; border-top: 2px solid transparent;
+    text-align: left; color: inherit;
+    font-family: 'Barlow', sans-serif; width: 100%;
+  }
+  .bh-card::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s;
+  }
+  .bh-card:hover { background: var(--ash); }
+  .bh-card:hover::after { transform: scaleX(1); }
+  .bh-card.selected {
+    background: var(--charcoal);
+    border-top-color: var(--gold);
+  }
+  .bh-card.selected::after { display: none; }
+
+  .bh-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; font-weight: 300; color: var(--ash);
+    position: absolute; top: 14px; right: 20px; line-height: 1;
+    pointer-events: none; transition: color 0.4s; user-select: none;
+  }
+  .bh-card:hover .bh-card-num { color: var(--smoke); }
+  .bh-card.selected .bh-card-num { color: var(--smoke); }
+
+  .bh-check {
+    position: absolute; top: 16px; left: 16px;
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 1px solid var(--ash); display: flex;
+    align-items: center; justify-content: center;
+    transition: all 0.25s; background: transparent;
+  }
+  .bh-card.selected .bh-check { background: var(--gold); border-color: var(--gold); }
+  .bh-check-tick { display: none; }
+  .bh-card.selected .bh-check-tick { display: block; }
+
+  .bh-tier-wrap { margin: 32px 0 16px; }
+  .tier-badge {
+    display: inline-block; font-family: 'Barlow', sans-serif;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 3px 10px; border: 1px solid;
+  }
+  .tier-badge.essential { border-color: var(--mist);      color: var(--mist); }
+  .tier-badge.grand     { border-color: var(--gold-dark); color: var(--gold); }
+  .tier-badge.prestige  { border-color: var(--gold);      color: var(--gold); background: rgba(184,149,106,0.08); }
+
+  .bh-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400;
+    color: var(--white); margin-bottom: 10px; line-height: 1.2;
+  }
+  .bh-card-desc {
+    font-size: 12px; font-weight: 300; color: var(--mist);
+    line-height: 1.8; flex: 1; margin-bottom: 20px;
+  }
+  .bh-card:hover .bh-card-desc,
+  .bh-card.selected .bh-card-desc { color: var(--silver); }
+
+  .bh-card-footer {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-top: 1px solid var(--ash); padding-top: 16px; margin-top: auto;
+  }
+  .bh-duration { font-size: 10px; letter-spacing: 0.1em; color: var(--mist); font-weight: 300; }
+  .bh-price { text-align: right; }
+  .bh-price-label {
+    display: block; font-family: 'Barlow', sans-serif;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--mist); margin-bottom: 2px; font-weight: 400;
+  }
+  .bh-price-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: var(--gold); line-height: 1;
+  }
+  .bh-price-hi {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; color: var(--mist);
+  }
+
+  .bh-summary {
+    background: var(--charcoal); border-left: 1px solid var(--ash);
+    position: sticky; top: 0; align-self: start;
+  }
+  .bh-sum-head {
+    padding: 24px 24px 18px; border-bottom: 1px solid var(--ash);
+    border-top: 2px solid var(--gold-dark);
+  }
+  .bh-sum-head-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; color: var(--white); margin-bottom: 4px;
+  }
+  .bh-sum-head-sub { font-size: 11px; font-weight: 300; color: var(--mist); }
+  .bh-sum-body { padding: 0 24px; }
+  .bh-sum-empty {
+    font-size: 12px; font-weight: 300; font-style: italic;
+    color: var(--mist); text-align: center; padding: 28px 0;
+  }
+  .bh-sum-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--ash);
+  }
+  .bh-sum-row-name { font-size: 12px; font-weight: 300; color: var(--silver); flex: 1; line-height: 1.4; }
+  .bh-sum-row-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; color: var(--gold); white-space: nowrap;
+  }
+  .bh-sum-remove {
+    background: none; border: none; color: var(--ash);
+    cursor: pointer; font-size: 16px; padding: 0 0 0 8px;
+    line-height: 1; transition: color 0.2s; font-family: 'Barlow', sans-serif;
+  }
+  .bh-sum-remove:hover { color: var(--silver); }
+
+  .bh-sum-total { padding: 20px 24px; border-top: 1px solid var(--gold-dark); }
+  .bh-sum-total-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--mist); margin-bottom: 8px; font-weight: 400; display: block;
+  }
+  .bh-sum-total-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px;
+  }
+  .bh-sum-total-range { font-size: 11px; font-weight: 300; color: var(--mist); font-style: italic; }
+  .bh-sum-note {
+    font-size: 10px; font-weight: 300; color: var(--mist); font-style: italic;
+    line-height: 1.6; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--ash);
+  }
+  .bh-sum-cta {
+    display: block; width: 100%; margin-top: 16px; padding: 15px;
+    background: var(--gold); color: var(--obsidian);
+    font-family: 'Barlow', sans-serif; font-size: 10px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    text-align: center; border: none; cursor: pointer;
+    transition: background 0.3s, transform 0.2s; font-weight: 400;
+  }
+  .bh-sum-cta:hover:not(:disabled) { background: var(--gold-light); transform: translateY(-1px); }
+  .bh-sum-cta:disabled { background: var(--ash); color: var(--mist); cursor: default; }
+
+  .bh-mobile-bar {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--charcoal); border-top: 1px solid var(--gold-dark); z-index: 100;
+  }
+  .bh-mobile-bar-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; cursor: pointer;
+  }
+  .bh-mobile-count {
+    font-family: 'Barlow', sans-serif; font-size: 9px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--mist); display: block; margin-bottom: 2px; font-weight: 400;
+  }
+  .bh-mobile-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; color: var(--gold);
+  }
+  .bh-mobile-cta {
+    background: var(--gold); color: var(--obsidian); border: none;
+    padding: 12px 20px; font-family: 'Barlow', sans-serif;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.3s; font-weight: 400;
+  }
+  .bh-mobile-cta:disabled { background: var(--ash); color: var(--mist); cursor: default; }
+  .bh-mobile-panel { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .bh-mobile-panel.open { max-height: 55vh; overflow-y: auto; }
+  .bh-mobile-panel-inner { padding: 0 24px 24px; border-top: 1px solid var(--ash); }
+
+  @media (max-width: 900px) {
+    .bh-layout { grid-template-columns: 1fr; padding: 0 20px; }
+    .bh-grid   { grid-template-columns: repeat(2, 1fr); }
+    .bh-summary { display: none; }
+    .bh-mobile-bar { display: block; }
+    .bh-veh-section { padding: 40px 20px 0; }
+    .bh-tabs-wrap   { padding: 0 20px; }
+  }
+  @media (max-width: 560px) {
+    .bh-grid { grid-template-columns: 1fr; }
+    .bh-vehicles { grid-template-columns: repeat(2, 1fr); }
+  }
+`;
+
+export default function BheronConfigurator() {
+  const [activeTab, setActiveTab] = useState("All");
+  const [vehicle,   setVehicle]   = useState("saloon");
+  const [selected,  setSelected]  = useState(new Set());
+  const [expanded,  setExpanded]  = useState(false);
+
+  const mul      = VEHICLES.find(v => v.id === vehicle).mul;
+  const filtered = useMemo(() => filterServices(SERVICES, activeTab), [activeTab]);
+
+  const toggle = id => setSelected(prev => {
+    const next = new Set(prev);
+    next.has(id) ? next.delete(id) : next.add(id);
+    return next;
+  });
+
+  const selServices = SERVICES.filter(s => selected.has(s.id));
+  const totalLo = selServices.reduce((a, s) => a + Math.round(s.lo * mul), 0);
+  const totalHi = selServices.reduce((a, s) => a + Math.round(s.hi * mul), 0);
+
+  const countFor = tabId =>
+    filterServices(SERVICES, tabId).filter(s => selected.has(s.id)).length;
+
+  const vehObj   = VEHICLES.find(v => v.id === vehicle);
+  const supLabel = m => m === 1.00 ? "Standard rate" : `+${Math.round((m - 1) * 100)}% supplement`;
+
+  const ServiceCard = ({ svc, idx }) => {
+    const sel   = selected.has(svc.id);
+    const pLo   = Math.round(svc.lo * mul);
+    const pHi   = Math.round(svc.hi * mul);
+    const badge = TIER_BADGE[svc.tier] ?? "essential";
+    const num   = String(idx + 1).padStart(2, "0");
+
+    return (
+      <button
+        className={`bh-card${sel ? " selected" : ""}`}
+        onClick={() => toggle(svc.id)}
+        role="checkbox"
+        aria-checked={sel}
+      >
+        <span className="bh-card-num" aria-hidden="true">{num}</span>
+        <span className="bh-check" aria-hidden="true">
+          <svg className="bh-check-tick" width="8" height="8" viewBox="0 0 8 8" fill="none">
+            <path d="M1 4l2.5 2.5L7 1.5" stroke="#0A0A0A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+        <div className="bh-tier-wrap">
+          <span className={`tier-badge ${badge}`}>{svc.tier}</span>
         </div>
-      </div>
-      <div class="service-card">
-        <span class="service-number">02</span>
-        <span class="service-icon">◇</span>
-        <h3 class="service-name">Exterior Atelier</h3>
-        <p class="service-desc">Full decontamination, iron fallout removal, clay bar treatment, and single-stage machine polish. Your paint, renewed.</p>
-        <ul class="service-includes">
-          <li>Pre-wash foam & contact wash</li>
-          <li>Iron fallout + tar removal</li>
-          <li>Clay bar decontamination</li>
-          <li>Single-stage machine polish</li>
-          <li>Wheel arch steam clean</li>
-          <li>Tyre and rim dressing</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€190</span>
-        </div>
-      </div>
-      <div class="service-card featured">
-        <span class="service-number">03</span>
-        <span class="service-icon">◈</span>
-        <h3 class="service-name">Exterior Prestige</h3>
-        <p class="service-desc">Our most thorough exterior treatment. Two-stage paint correction with compound and polish, leaving flawless depth and gloss.</p>
-        <ul class="service-includes">
-          <li>Everything in Exterior Atelier</li>
-          <li>2-stage machine correction</li>
-          <li>Engine bay steam cleaning</li>
-          <li>Exhaust tip polish</li>
-          <li>Final detail inspection under light</li>
-          <li>QD sealant layer applied</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€320</span>
-        </div>
-      </div>
-    </div>
-    <!-- Hood / headlights / wheels breakdown -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2px;">
-      <div class="addon-card">
-        <p class="addon-name">Bonnet & Hood Detailing</p>
-        <p class="addon-desc">Steam clean, polish, and sealant application on bonnet panel only. Removes light oxidation and tree-sap contamination.</p>
-        <span class="addon-price">€45</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Headlight Restoration</p>
-        <p class="addon-desc">Machine polish foggy or yellowed polycarbonate lenses back to crystal clarity. UV coating applied to prevent re-hazing.</p>
-        <span class="addon-price">€70</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Wheel & Tyre Detail</p>
-        <p class="addon-desc">Steam blast, iron remover, brush clean of spokes and calipers, tyre conditioner. Per set of four wheels.</p>
-        <span class="addon-price">€60</span>
-      </div>
-    </div>
-  </div>
- 
-  <!-- INTERIOR -->
-  <div id="tab-interior" class="service-panel">
-    <div class="services-grid">
-      <div class="service-card">
-        <span class="service-number">01</span>
-        <span class="service-icon">◯</span>
-        <h3 class="service-name">Interior Express</h3>
-        <p class="service-desc">A quick but thorough cabin refresh — vacuum, wipe-down, and glass clean. Ideal as a regular maintenance service.</p>
-        <ul class="service-includes">
-          <li>Full vacuum (seats, mats, boot)</li>
-          <li>Dashboard and console wipe</li>
-          <li>Interior glass clean</li>
-          <li>Door pocket clean-out</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€75</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <span class="service-number">02</span>
-        <span class="service-icon">☽</span>
-        <h3 class="service-name">Interior Sanctum</h3>
-        <p class="service-desc">Deep steam cleaning of every cabin surface. Brushes, microfibre, and steam nozzles access every crease and vent.</p>
-        <ul class="service-includes">
-          <li>Full steam clean of all surfaces</li>
-          <li>Seat seam and crevice cleaning</li>
-          <li>Air vent steam purification</li>
-          <li>Pedal and footwell clean</li>
-          <li>Leather conditioning (if applicable)</li>
-          <li>Odour neutralisation treatment</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€150</span>
-        </div>
-      </div>
-      <div class="service-card featured">
-        <span class="service-number">03</span>
-        <span class="service-icon">⬡</span>
-        <h3 class="service-name">Interior Prestige</h3>
-        <p class="service-desc">The complete interior transformation. Full disinfection, leather treatment system, fragrance, and UV protection throughout.</p>
-        <ul class="service-includes">
-          <li>Everything in Interior Sanctum</li>
-          <li>Leather deep clean + conditioner</li>
-          <li>Alcantara & fabric steam lift</li>
-          <li>Dashboard UV protectant</li>
-          <li>Bespoke cabin fragrance</li>
-          <li>Full cabin disinfection (antibacterial)</li>
-          <li>Boot liner and spare tyre bay</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€260</span>
-        </div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2px;">
-      <div class="addon-card">
-        <p class="addon-name">Leather Restoration</p>
-        <p class="addon-desc">Multi-step deep clean, colour refresh, and conditioner for aged or cracked hides. Restores suppleness and lustre.</p>
-        <span class="addon-price">€120</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Odour Elimination</p>
-        <p class="addon-desc">Ozone treatment neutralises embedded odours (smoke, pet, mildew) at molecular level. 2–3 hour treatment cycle.</p>
-        <span class="addon-price">€90</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Fabric & Carpet Shampoo</p>
-        <p class="addon-desc">Hot water extraction on all fabric seats and carpets. Removes deep staining, allergens, and ingrained soiling.</p>
-        <span class="addon-price">€110</span>
-      </div>
-    </div>
-  </div>
- 
-  <!-- COMBINED PACKAGES -->
-  <div id="tab-combined" class="service-panel">
-    <div class="services-grid">
-      <div class="service-card">
-        <span class="service-number">01</span>
-        <span class="service-icon">◇</span>
-        <h3 class="service-name">Essenziale</h3>
-        <p class="service-desc">Our entry combination package. Exterior steam wash and interior express clean — the perfect weekly or bi-weekly rhythm.</p>
-        <ul class="service-includes">
-          <li>Express Steam Wash (exterior)</li>
-          <li>Interior Express (vacuum & wipe)</li>
-          <li>Window clean inside & out</li>
-          <li>Tyre dressing</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€120</span>
-        </div>
-      </div>
-      <div class="service-card featured">
-        <span class="service-number">02</span>
-        <span class="service-icon">✦</span>
-        <h3 class="service-name">Grand Détail</h3>
-        <p class="service-desc">Our signature full-day service. Exterior Atelier + Interior Sanctum with final hand inspection by our lead detailer.</p>
-        <ul class="service-includes">
-          <li>Full Exterior Atelier service</li>
-          <li>Full Interior Sanctum service</li>
-          <li>Engine bay steam clean</li>
-          <li>All glass inside & out</li>
-          <li>Tyre, rim & caliper detail</li>
-          <li>QD sealant layer</li>
-          <li>Final multi-point inspection</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€580</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <span class="service-number">03</span>
-        <span class="service-icon">◈</span>
-        <h3 class="service-name">Grand Prestige</h3>
-        <p class="service-desc">Our maximum two-day immersion. Full 2-stage correction, Interior Prestige, and ceramic coating — a complete transformation.</p>
-        <ul class="service-includes">
-          <li>Full Exterior Prestige (2-stage)</li>
-          <li>Full Interior Prestige service</li>
-          <li>Headlight restoration</li>
-          <li>Leather restoration treatment</li>
-          <li>Ceramic coating (2yr protection)</li>
-          <li>Photo documentation</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€1,150</span>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top:40px;padding:40px;background:var(--charcoal);border-left:2px solid var(--gold-dark);">
-      <p class="section-label" style="margin-bottom:12px;">Monthly Membership</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:16px;">A retainer for your <em style="color:var(--gold)">collection.</em></h3>
-      <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.8;max-width:680px;margin-bottom:24px;">Priority scheduling, a dedicated detailer, and a structured maintenance calendar. Choose from Argento (1 vehicle) or Oro (up to 3 vehicles). Includes monthly exterior, quarterly Grand Détail, and annual protection inspection.</p>
-      <div style="display:flex;gap:32px;align-items:center;flex-wrap:wrap;">
-        <div>
-          <p style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--mist);margin-bottom:4px;">Argento — 1 vehicle</p>
-          <span style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);">€380<span style="font-size:16px;color:var(--mist);">/mo</span></span>
-        </div>
-        <div style="width:1px;height:48px;background:var(--ash);"></div>
-        <div>
-          <p style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--mist);margin-bottom:4px;">Oro — up to 3 vehicles</p>
-          <span style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);">€850<span style="font-size:16px;color:var(--mist);">/mo</span></span>
-        </div>
-        <a href="#contact" class="btn-primary" style="margin-left:auto;">Enquire About Membership</a>
-      </div>
-    </div>
-  </div>
- 
-  <!-- PROTECTION -->
-  <div id="tab-protection" class="service-panel">
-    <div class="services-grid">
-      <div class="service-card">
-        <span class="service-number">01</span>
-        <span class="service-icon">⬡</span>
-        <h3 class="service-name">Ceramic Armour 2yr</h3>
-        <p class="service-desc">Entry nano-ceramic coating. Hydrophobic, self-cleaning surface with UV resistance. Requires paint in good condition.</p>
-        <ul class="service-includes">
-          <li>Paint preparation + decontamination</li>
-          <li>Single-stage polish</li>
-          <li>Professional ceramic coating</li>
-          <li>2-year protection warranty</li>
-          <li>Aftercare kit included</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€980</span>
-        </div>
-      </div>
-      <div class="service-card featured">
-        <span class="service-number">02</span>
-        <span class="service-icon">◈</span>
-        <h3 class="service-name">Ceramic Armour 5yr</h3>
-        <p class="service-desc">Professional-grade multi-layer ceramic system with full 2-stage correction preparation. Exceptional depth and long-term protection.</p>
-        <ul class="service-includes">
-          <li>Full 2-stage paint correction</li>
-          <li>Multi-layer ceramic system</li>
-          <li>Wheel ceramic coating</li>
-          <li>Glass hydrophobic coating</li>
-          <li>5-year protection warranty</li>
-          <li>Annual inspection included</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€1,800</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <span class="service-number">03</span>
-        <span class="service-icon">☽</span>
-        <h3 class="service-name">PPF Partial</h3>
-        <p class="service-desc">Paint protection film on high-impact zones. Self-healing, optically clear — invisible armour against stone chips and road debris.</p>
-        <ul class="service-includes">
-          <li>Front bonnet (full or partial)</li>
-          <li>Front bumper</li>
-          <li>Door edge guards</li>
-          <li>Wing mirrors</li>
-          <li>A-pillar sections</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€1,400</span>
-        </div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2px;">
-      <div class="service-card">
-        <span class="service-number">04</span>
-        <span class="service-icon">✦</span>
-        <h3 class="service-name">PPF Full Body</h3>
-        <p class="service-desc">Complete vehicle coverage in self-healing paint protection film. The ultimate defence for cars that demand perfection.</p>
-        <ul class="service-includes">
-          <li>Entire painted surface coverage</li>
-          <li>Custom computer-cut patterns</li>
-          <li>Headlamp and lens coverage</li>
-          <li>10-year film warranty</li>
-          <li>Ceramic coating over PPF (optional)</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€4,200</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <span class="service-number">05</span>
-        <span class="service-icon">◯</span>
-        <h3 class="service-name">Glass & Window Coating</h3>
-        <p class="service-desc">Hydrophobic nano-coating applied to all exterior glass. Rain beads and disperses at speed — dramatically improving visibility.</p>
-        <ul class="service-includes">
-          <li>All exterior glass surfaces</li>
-          <li>Windscreen, side, rear windows</li>
-          <li>Hydrophobic nano-coating</li>
-          <li>Improves night driving safety</li>
-          <li>2-year durability</li>
-        </ul>
-        <div class="service-price">
-          <span class="price-from">From</span>
-          <span class="price-amount">€180</span>
-        </div>
-      </div>
-    </div>
-  </div>
- 
-  <!-- ADD-ONS -->
-  <div id="tab-addons" class="service-panel">
-    <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.8;margin-bottom:36px;max-width:620px;">
-      All add-on services can be combined with any main package. Simply note your requirements at booking and we will confirm inclusion.
-    </p>
-    <div class="addons-grid">
-      <div class="addon-card">
-        <p class="addon-name">Engine Bay Steam Clean</p>
-        <p class="addon-desc">High-pressure steam degreasing and detailing of the engine compartment.</p>
-        <span class="addon-price">€60</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Headlight Restoration</p>
-        <p class="addon-desc">Polish + UV coat for yellowed or foggy polycarbonate headlight lenses.</p>
-        <span class="addon-price">€70</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Wheel & Caliper Detail</p>
-        <p class="addon-desc">Steam blast, iron removal, brush detail of spokes and painted calipers.</p>
-        <span class="addon-price">€60</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Tyre Dressing</p>
-        <p class="addon-desc">Long-lasting satin-finish tyre conditioner. Protects against cracking and UV.</p>
-        <span class="addon-price">€20</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Leather Conditioning</p>
-        <p class="addon-desc">pH-balanced deep conditioner for all leather seating and trim surfaces.</p>
-        <span class="addon-price">€55</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Odour Ozone Treatment</p>
-        <p class="addon-desc">2-hour ozone neutralisation. Eliminates smoke, pet, and mildew odours.</p>
-        <span class="addon-price">€90</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Fabric Shampoo</p>
-        <p class="addon-desc">Hot water extraction on fabric seats and carpets. Deep stain removal.</p>
-        <span class="addon-price">€110</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Dashboard UV Protection</p>
-        <p class="addon-desc">UV-blocking protectant applied to all plastics and vinyl trim surfaces.</p>
-        <span class="addon-price">€30</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Boot & Luggage Compartment</p>
-        <p class="addon-desc">Steam clean, vacuum, and liner shampoo of boot area and spare tyre bay.</p>
-        <span class="addon-price">€40</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Glass Hydrophobic Coating</p>
-        <p class="addon-desc">Nano water-repellent on all exterior glass for improved all-weather clarity.</p>
-        <span class="addon-price">€80</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Pet Hair Removal</p>
-        <p class="addon-desc">Specialist tool extraction of embedded pet hair from all upholstery surfaces.</p>
-        <span class="addon-price">€50</span>
-      </div>
-      <div class="addon-card">
-        <p class="addon-name">Gift Certificate</p>
-        <p class="addon-desc">Any service or fixed amount. Presented in our luxury BHERON envelope.</p>
-        <span class="addon-price" style="color:var(--silver);font-size:15px;">Custom</span>
-      </div>
-    </div>
-  </div>
- 
-  <!-- ENVIRONMENTAL OBJECTS -->
-  <div id="tab-environment" class="service-panel">
-    <p style="font-size:14px;font-weight:300;color:var(--silver);line-height:1.9;margin-bottom:12px;max-width:680px;">
-      BHERON's steam operators service more than vehicles. Our mobile steam stations are deployed for the cleaning and disinfection of outdoor and urban infrastructure — ideal for property managers, municipalities, and businesses.
-    </p>
-    <p style="font-size:13px;font-weight:300;color:var(--mist);line-height:1.7;margin-bottom:40px;max-width:600px;font-style:italic;">
-      We come to your location within our Italy and Switzerland service areas. All quotes for environmental services are custom — please contact us for a site visit.
-    </p>
-    <div class="env-grid">
-      <ul class="env-list">
-        <li>Advertising and signage stands — steam clean of branded display units, light boxes, and outdoor panels</li>
-        <li>EV charging points — safe steam disinfection of public and private vehicle charging stations</li>
-        <li>Poles, bollards and road signs — removal of grime, graffiti residue, and weathering from metal and composite structures</li>
-        <li>Solar panels — gentle steam cleaning to restore energy output efficiency without abrasives</li>
-        <li>Outdoor furniture and terraces — hotels, restaurants, and private estates</li>
-        <li>Garage floors and parking structures — degreasing and steam clean of concrete and sealed surfaces</li>
-      </ul>
-      <div>
-        <div style="background:var(--charcoal);padding:36px;border-top:2px solid var(--gold-dark);">
-          <p class="section-label" style="margin-bottom:16px;">Why Steam?</p>
-          <div style="display:flex;flex-direction:column;gap:16px;">
-            <div style="display:flex;gap:16px;align-items:flex-start;">
-              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
-              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">Only 3 litres of water per wash.</strong> Steam cleaning consumes a fraction of the water of pressure washers or hoses.</p>
-            </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;">
-              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
-              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">No chemical runoff.</strong> Steam is the cleaning agent — no detergents or chemicals required for most applications.</p>
-            </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;">
-              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
-              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">Disinfection included.</strong> Steam at 160°C eliminates bacteria, mould, and pathogens on contact surfaces.</p>
-            </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;">
-              <span style="color:var(--gold);font-size:18px;flex-shrink:0;">◈</span>
-              <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;"><strong style="color:var(--cream);font-weight:400;">Safe on delicate surfaces.</strong> Electronics, coatings, vinyl graphics, and sensors are all safe under our controlled steam technique.</p>
-            </div>
+        <div className="bh-card-name">{svc.name}</div>
+        <div className="bh-card-desc">{svc.desc}</div>
+        <div className="bh-card-footer">
+          <span className="bh-duration">{svc.duration}</span>
+          <div className="bh-price">
+            <span className="bh-price-label">{pLo === pHi ? "Fixed" : "From"}</span>
+            <span className="bh-price-val">€{fmt(pLo)}</span>
+            {pHi > pLo && <span className="bh-price-hi"> – €{fmt(pHi)}</span>}
           </div>
         </div>
-        <a href="#contact" class="btn-primary" style="display:block;text-align:center;margin-top:16px;padding:18px;">Request Site Quote</a>
+      </button>
+    );
+  };
+
+  const SummaryLines = () =>
+    selServices.length === 0
+      ? <p className="bh-sum-empty">No services selected yet</p>
+      : selServices.map(s => {
+          const pLo = Math.round(s.lo * mul);
+          const pHi = Math.round(s.hi * mul);
+          return (
+            <div key={s.id} className="bh-sum-row">
+              <span className="bh-sum-row-name">{s.name}</span>
+              <span className="bh-sum-row-price">
+                {pLo === pHi ? `€${fmt(pLo)}` : `€${fmt(pLo)}–${fmt(pHi)}`}
+              </span>
+              <button
+                className="bh-sum-remove"
+                onClick={e => { e.stopPropagation(); toggle(s.id); }}
+                aria-label={`Remove ${s.name}`}
+              >×</button>
+            </div>
+          );
+        });
+
+  return (
+    <div className="bh-root">
+      <style>{CSS}</style>
+
+      <header className="bh-header">
+        <div className="bh-wordmark">BHER<em>ON</em></div>
+        <p className="bh-tagline">Luxury Detailing · Italy &amp; Switzerland</p>
+        <h1 className="bh-page-title">Service <em>Configurator</em></h1>
+      </header>
+
+      <div className="bh-veh-section">
+        <p className="bh-section-label">Select your vehicle class</p>
+        <div className="bh-vehicles">
+          {VEHICLES.map(v => (
+            <button
+              key={v.id}
+              className={`bh-veh-btn${vehicle === v.id ? " active" : ""}`}
+              onClick={() => setVehicle(v.id)}
+            >
+              <span className="bh-veh-name">{v.label}</span>
+              <span className="bh-veh-sub">{v.sub}</span>
+              <span className="bh-veh-sup">{supLabel(v.mul)}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bh-tabs-wrap">
+        <div className="bh-tabs" role="tablist">
+          {TABS.map(tab => {
+            const c = countFor(tab.id);
+            return (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                className={`bh-tab${activeTab === tab.id ? " active" : ""}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+                {c > 0 && <span className="bh-tab-count">{c}</span>}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="bh-layout">
+        <div className="bh-grid" role="group" aria-label="Services">
+          {filtered.map((s, i) => (
+            <ServiceCard key={s.id} svc={s} idx={i} />
+          ))}
+        </div>
+
+        <aside className="bh-summary">
+          <div className="bh-sum-head">
+            <div className="bh-sum-head-title">Your Selection</div>
+            <div className="bh-sum-head-sub">
+              {vehObj.label} · {selServices.length} service{selServices.length !== 1 ? "s" : ""}
+            </div>
+          </div>
+          <div className="bh-sum-body">
+            <SummaryLines />
+          </div>
+          <div className="bh-sum-total">
+            <span className="bh-sum-total-label">Estimated Total</span>
+            <div className="bh-sum-total-val">
+              {selServices.length === 0 ? "—" : `€${fmt(totalLo)}`}
+            </div>
+            {selServices.length > 0 && totalHi > totalLo && (
+              <div className="bh-sum-total-range">up to €{fmt(totalHi)} depending on condition</div>
+            )}
+            <p className="bh-sum-note">
+              Final quote confirmed at booking based on vehicle condition &amp; location.
+            </p>
+            <button
+              className="bh-sum-cta"
+              disabled={selServices.length === 0}
+              onClick={() => window.open("https://b-heron.vercel.app/#contact", "_blank")}
+            >
+              Request Quote
+            </button>
+          </div>
+        </aside>
+      </div>
+
+      <div className="bh-mobile-bar">
+        <div className={`bh-mobile-panel${expanded ? " open" : ""}`} onClick={e => e.stopPropagation()}>
+          <div className="bh-mobile-panel-inner">
+            <SummaryLines />
+            {selServices.length > 0 && (
+              <div style={{ borderTop: "1px solid #2A2A2A", paddingTop: 14, marginTop: 4 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                  <span style={{ fontFamily: "'Barlow',sans-serif", fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: "#6B6B6B", fontWeight: 400 }}>
+                    Estimated Total
+                  </span>
+                  <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 28, fontWeight: 300, color: "#B8956A" }}>
+                    €{fmt(totalLo)}
+                  </span>
+                </div>
+                {totalHi > totalLo && (
+                  <div style={{ textAlign: "right", fontSize: 11, color: "#6B6B6B", fontStyle: "italic", fontWeight: 300 }}>
+                    up to €{fmt(totalHi)}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="bh-mobile-bar-row" onClick={() => setExpanded(e => !e)}>
+          <div>
+            <span className="bh-mobile-count">
+              {selServices.length === 0
+                ? "No services selected"
+                : `${selServices.length} service${selServices.length !== 1 ? "s" : ""} · ${expanded ? "▼ hide" : "▲ view"}`}
+            </span>
+            <span className="bh-mobile-price">
+              {selServices.length === 0 ? "—" : `From €${fmt(totalLo)}`}
+            </span>
+          </div>
+          <button
+            className="bh-mobile-cta"
+            disabled={selServices.length === 0}
+            onClick={e => { e.stopPropagation(); window.open("https://b-heron.vercel.app/#contact", "_blank"); }}
+          >
+            Request Quote
+          </button>
+        </div>
       </div>
     </div>
-  </div>
- 
-</section>
+  );
+}
  
 <!-- PRICING TABLE -->
 <section class="pricing" id="pricing">
