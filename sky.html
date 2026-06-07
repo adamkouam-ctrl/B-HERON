@@ -444,6 +444,64 @@
 
   <a href="index.html#contact" class="nav-cta">Book Now</a>
 
+  /* In your CSS */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--gold);
+}
+.mobile-menu {
+  display: none; position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10,10,10,0.98);
+  z-index: 200; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 32px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 20px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cream);
+  text-decoration: none;
+}
+.mobile-close {
+  position: absolute; top: 28px; right: 24px;
+  background: none; border: none;
+  color: var(--gold); font-size: 28px; cursor: pointer;
+}
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+}
+
+/* In your HTML, inside <nav> */
+<button class="hamburger" onclick="openMenu()">
+  <span></span><span></span><span></span>
+</button>
+
+/* After <nav> */
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">×</button>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+/* In your <script> */
+function openMenu() {
+  document.getElementById('mobileMenu').classList.add('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
 </nav>
 
 
