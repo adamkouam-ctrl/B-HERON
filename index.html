@@ -1782,13 +1782,31 @@ input[type="date"] {
     const pHi   = Math.round(svc.hi * mul);
     const badge = TIER_BADGE[svc.tier] || "essential";
     const num   = String(idx + 1).padStart(2, "0");
-    const img   = SERVICE_IMAGES[svc.id] || '';   // ← new
+    const img   = SERVICE_IMAGES[svc.id] || '';
     return `
       <button class="bh-card${sel ? ' selected' : ''}"
         onclick="toggle('${svc.id}')"
         role="checkbox" aria-checked="${sel}"
-        style="${img ? `background-image: url('${img}'); background-size: cover; background-position: center;` : ''}">
-        ...rest of card HTML unchanged...
+        ${img ? `style="background-image: url('${img}'); background-size: cover; background-position: center;"` : ''}>
+        <span class="bh-card-num" aria-hidden="true">${num}</span>
+        <span class="bh-check" aria-hidden="true">
+          <svg class="bh-check-tick" width="8" height="8" viewBox="0 0 8 8" fill="none">
+            <path d="M1 4l2.5 2.5L7 1.5" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="bh-tier-wrap">
+          <span class="tier-badge ${badge}">${svc.tier}</span>
+        </div>
+        <div class="bh-card-name">${svc.name}</div>
+        <div class="bh-card-desc">${svc.desc}</div>
+        <div class="bh-card-footer">
+          <span class="bh-duration">${svc.duration}</span>
+          <div class="bh-price">
+            <span class="bh-price-label">${pLo === pHi ? 'Fixed' : 'From'}</span>
+            <span class="bh-price-val">€${fmt(pLo)}</span>
+            ${pHi > pLo ? `<span class="bh-price-hi"> – €${fmt(pHi)}</span>` : ''}
+          </div>
+        </div>
       </button>
     `;
   }).join('');
