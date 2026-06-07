@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BHERON Home — Luxury Residence Cleaning & Detailing. Italy & Switzerland.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8956A;
+    --gold-light: #D4AF86;
+    --gold-dark: #8C6940;
+    --obsidian: #0A0A0A;
+    --charcoal: #141414;
+    --smoke: #1E1E1E;
+    --ash: #2A2A2A;
+    --mist: #6B6B6B;
+    --silver: #A8A8A8;
+    --cream: #F5F0EB;
+    --white: #FAFAF8;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--obsidian); color: var(--cream); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 60px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; letter-spacing: 0.25em; color: var(--gold); text-decoration: none; }
+  .nav-logo span { font-style: italic; color: var(--cream); }
+  .nav-logo sup { font-size: 11px; letter-spacing: 0.2em; color: var(--mist); vertical-align: super; margin-left: 4px; font-family: 'Barlow', sans-serif; font-weight: 300; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-back { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mist); text-decoration: none; border-bottom: 1px solid var(--ash); padding-bottom: 3px; transition: color 0.3s, border-color 0.3s; }
+  .nav-back:hover { color: var(--gold); border-color: var(--gold); }
+  .nav-cta { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--obsidian); background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.3s; }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 160px 80px 80px 60px; position: relative; z-index: 2; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 5.5vw, 76px); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 32px; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 14px; font-weight: 300; color: var(--silver); line-height: 1.8; max-width: 420px; margin-bottom: 56px; }
+  .hero-buttons { display: flex; gap: 16px; align-items: center; }
+  .btn-primary { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--obsidian); background: var(--gold); padding: 16px 36px; text-decoration: none; transition: all 0.3s; display: inline-block; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-ghost { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); border-bottom: 1px solid var(--ash); text-decoration: none; padding-bottom: 4px; transition: color 0.3s, border-color 0.3s; }
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: brightness(0.6) saturate(0.6); }
+  .hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--obsidian) 0%, transparent 40%); }
+  .hero-badge { position: absolute; bottom: 60px; left: 60px; z-index: 3; border-left: 2px solid var(--gold); padding-left: 20px; }
+  .hero-badge p { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: var(--silver); line-height: 1.7; }
+
+  .gold-rule { height: 1px; background: linear-gradient(to right, transparent, var(--gold-dark), transparent); margin: 0 60px; }
+
+  /* PROPERTY STRIP */
+  .prop-strip { display: flex; align-items: center; justify-content: center; background: var(--charcoal); }
+  .prop-item { display: flex; align-items: center; gap: 14px; padding: 28px 40px; border-right: 1px solid var(--ash); }
+  .prop-item:last-child { border-right: none; }
+  .prop-icon { font-size: 20px; }
+  .prop-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); }
+
+  /* SHARED */
+  .section-label { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.15; color: var(--white); margin-bottom: 28px; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body { font-size: 14px; font-weight: 300; color: var(--silver); line-height: 1.9; margin-bottom: 20px; }
+
+  /* ABOUT */
+  .about { padding: 140px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+  .about-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; filter: brightness(0.7) saturate(0.6); }
+  .about-promise { background: var(--charcoal); border-left: 2px solid var(--gold-dark); padding: 28px 32px; margin-top: 24px; }
+  .about-promise p { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--silver); line-height: 1.7; }
+
+  /* SERVICES */
+  .services { padding: 140px 60px; background: var(--charcoal); }
+  .services-header { text-align: center; margin-bottom: 80px; }
+  .service-tabs { display: flex; margin-bottom: 56px; border-bottom: 1px solid var(--ash); overflow-x: auto; scrollbar-width: none; }
+  .service-tabs::-webkit-scrollbar { display: none; }
+  .service-tab { font-family: 'Barlow', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mist); background: none; border: none; padding: 16px 28px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: color 0.3s, border-color 0.3s; }
+  .service-tab:hover { color: var(--silver); }
+  .service-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .service-panel { display: none; }
+  .service-panel.active { display: block; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .services-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+
+  .service-card { background: var(--smoke); padding: 48px 36px; position: relative; overflow: hidden; transition: background 0.4s; display: flex; flex-direction: column; }
+  .service-card.featured { background: var(--charcoal); border-top: 2px solid var(--gold); }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .service-card.featured::before { display: none; }
+  .service-card:hover { background: var(--ash); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-number { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 300; color: var(--ash); position: absolute; top: 20px; right: 32px; line-height: 1; transition: color 0.4s; }
+  .service-card:hover .service-number { color: var(--smoke); }
+  .service-icon { font-size: 26px; margin-bottom: 28px; display: block; }
+  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 12px; }
+  .service-desc { font-size: 13px; font-weight: 300; color: var(--mist); line-height: 1.8; margin-bottom: 20px; flex: 1; }
+  .service-includes { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 7px; }
+  .service-includes li { font-size: 12px; font-weight: 300; color: var(--silver); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+  .service-includes li::before { content: '—'; color: var(--gold-dark); flex-shrink: 0; }
+  .service-price { display: flex; align-items: baseline; gap: 6px; margin-top: auto; }
+  .price-from { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mist); }
+  .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--gold); }
+  .price-suffix { font-size: 13px; color: var(--mist); }
+
+  .addons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 2px; }
+  .addon-card { background: var(--charcoal); padding: 28px 24px; border-top: 1px solid var(--ash); transition: background 0.3s; }
+  .addon-card:hover { background: var(--smoke); }
+  .addon-name { font-size: 13px; font-weight: 400; color: var(--cream); margin-bottom: 6px; }
+  .addon-desc { font-size: 11px; font-weight: 300; color: var(--mist); line-height: 1.6; margin-bottom: 14px; }
+  .addon-price { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold); }
+
+  .tier-badge { display: inline-block; font-family: 'Barlow', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 10px; border: 1px solid; margin-left: 10px; vertical-align: middle; }
+  .tier-badge.essential { border-color: var(--mist); color: var(--mist); }
+  .tier-badge.grand { border-color: var(--gold-dark); color: var(--gold); }
+  .tier-badge.prestige { border-color: var(--gold); color: var(--gold); background: rgba(184,149,106,0.08); }
+
+  /* MEMBERSHIPS */
+  .memberships { padding: 140px 60px; }
+  .memberships-header { text-align: center; margin-bottom: 80px; }
+  .mem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .mem-card { padding: 56px 40px; background: var(--charcoal); position: relative; }
+  .mem-card.featured { background: var(--smoke); border-top: 2px solid var(--gold); }
+  .mem-card-label { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .mem-card-name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--white); margin-bottom: 12px; }
+  .mem-card-desc { font-size: 13px; font-weight: 300; color: var(--mist); line-height: 1.8; margin-bottom: 28px; }
+  .mem-includes { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 36px; }
+  .mem-includes li { font-size: 12px; font-weight: 300; color: var(--silver); display: flex; gap: 10px; }
+  .mem-includes li::before { content: '—'; color: var(--gold-dark); flex-shrink: 0; }
+  .mem-price { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--gold); }
+  .mem-price small { font-size: 16px; color: var(--mist); font-family: 'Barlow', sans-serif; font-weight: 300; }
+
+  /* PRICING */
+  .pricing { padding: 140px 60px; background: var(--charcoal); }
+  .pricing-header { text-align: center; margin-bottom: 80px; }
+  .pricing-cat-label { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; font-family: 'Barlow', sans-serif; }
+  .pricing-table { width: 100%; border-collapse: collapse; margin-bottom: 44px; }
+  .pricing-table thead tr { border-bottom: 1px solid var(--ash); }
+  .pricing-table th { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); padding: 14px 24px; text-align: left; font-weight: 400; }
+  .pricing-table th:last-child { text-align: right; }
+  .pricing-table tbody tr { border-bottom: 1px solid var(--ash); transition: background 0.2s; }
+  .pricing-table tbody tr:hover { background: var(--smoke); }
+  .pricing-table td { padding: 22px 24px; font-size: 13px; font-weight: 300; color: var(--silver); }
+  .pricing-table td:first-child { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--white); }
+  .pricing-table td:last-child { text-align: right; font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--gold); }
+  .pricing-note { margin-top: 16px; text-align: center; font-size: 12px; font-weight: 300; color: var(--mist); font-style: italic; line-height: 1.7; }
+
+  /* CONTACT */
+  .contact { padding: 140px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mist); }
+  .form-group input, .form-group select, .form-group textarea { background: var(--smoke); border: 1px solid var(--ash); color: var(--cream); padding: 14px 20px; font-family: 'Barlow', sans-serif; font-size: 13px; outline: none; transition: border-color 0.3s; appearance: none; }
+  .form-group select option { background: var(--smoke); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold-dark); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .contact-info .info-block { padding: 32px 0; border-bottom: 1px solid var(--ash); }
+  .contact-info .info-block:first-child { border-top: 1px solid var(--ash); }
+  .info-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .info-value { font-size: 14px; font-weight: 300; color: var(--silver); line-height: 1.7; }
+
+  footer { padding: 60px; background: var(--obsidian); border-top: 1px solid var(--ash); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 40px; }
+  .footer-left p { font-size: 12px; font-weight: 300; color: var(--mist); line-height: 1.7; }
+  .footer-logo { text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; letter-spacing: 0.3em; color: var(--gold); }
+  .footer-logo span { display: block; font-size: 10px; letter-spacing: 0.35em; color: var(--mist); margin-top: 4px; font-family: 'Barlow', sans-serif; }
+  .footer-right { display: flex; justify-content: flex-end; gap: 32px; }
+  .footer-right a { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.3s; }
+  .footer-right a:hover { color: var(--gold); }
+
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links, .nav-cta { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 24px 60px; }
+    .about, .contact { grid-template-columns: 1fr; gap: 60px; padding: 80px 24px; }
+    .services, .pricing, .memberships { padding: 80px 24px; }
+    .services-grid, .services-grid-2 { grid-template-columns: 1fr; }
+    .addons-grid { grid-template-columns: 1fr 1fr; }
+    .mem-grid { grid-template-columns: 1fr; }
+    .prop-strip { flex-wrap: wrap; }
+    footer { grid-template-columns: 1fr; text-align: center; padding: 40px 24px; }
+    .footer-right { justify-content: center; }
+    .pricing-table th:nth-child(2), .pricing-table td:nth-child(2) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">BHER<span>ON</span><sup>Home</sup></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#memberships">Memberships</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <a href="index.html" class="nav-back">← Auto Detailing</a>
+    <a href="#contact" class="nav-cta">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">BHERON Home · Italy &amp; Switzerland</p>
+    <h1 class="hero-title">
+      Your residence.<br>
+      <em>Flawless.</em>
+    </h1>
+    <p class="hero-sub">From Milan penthouses to Geneva villas, BHERON Home delivers discreet, atelier-level cleaning and detailing to the most exceptional private residences in Italy and Switzerland.</p>
+    <div class="hero-buttons">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#memberships" class="btn-ghost">Memberships →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80" alt="Luxury residence interior">
+  </div>
+  <div class="hero-badge">
+    <p>Concierge cleaning<br>for exceptional homes.</p>
+  </div>
+</section>
+
+<!-- PROPERTY STRIP -->
+<div class="prop-strip">
+  <div class="prop-item"><span class="prop-icon">🏛</span><span class="prop-label">Villas & Estates</span></div>
+  <div class="prop-item"><span class="prop-icon">🏢</span><span class="prop-label">Penthouses</span></div>
+  <div class="prop-item"><span class="prop-icon">🏡</span><span class="prop-label">Private Residences</span></div>
+  <div class="prop-item"><span class="prop-icon">🏨</span><span class="prop-label">Luxury Apartments</span></div>
+  <div class="prop-item"><span class="prop-icon">⛷</span><span class="prop-label">Chalet & Alpine</span></div>
+</div>
+
+<div class="gold-rule"></div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div>
+    <p class="section-label">Our Philosophy</p>
+    <h2 class="section-title">A home that<br>reflects your <em>standards.</em></h2>
+    <p class="section-body">BHERON Home operates on the same principles as our automotive division — methodical, perfectionist, and completely discreet. Our household teams are vetted, uniformed, and trained in the care of exceptional materials: Calacatta marble, aged parquet, silk drapes, and handmade ceramics.</p>
+    <p class="section-body">We serve private residences, villas, chalets, and high-specification apartments across Milan, Rome, Florence, Geneva, and Zürich. Every visit is supervised by a senior team leader. Nothing is rushed. Nothing is overlooked.</p>
+    <div class="about-promise">
+      <p>"Our teams carry only professional-grade, residue-free products — pH-neutral on natural stone, solvent-free on antique furniture, and certifiably non-toxic throughout."</p>
+    </div>
+  </div>
+  <div>
+    <img class="about-img" src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&q=80" alt="Luxury interior cleaning">
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Home <em>Services</em></h2>
+    <p class="section-body" style="max-width:560px;margin:0 auto;text-align:center;">Fully insured teams, vetted and uniformed. We bring all equipment and use only pH-neutral, residue-free professional products throughout.</p>
+  </div>
+
+  <div class="service-tabs">
+    <button class="service-tab active" onclick="showTab('regular',this)">Regular Cleaning</button>
+    <button class="service-tab" onclick="showTab('deep',this)">Deep Cleaning</button>
+    <button class="service-tab" onclick="showTab('specialist',this)">Specialist Surfaces</button>
+    <button class="service-tab" onclick="showTab('occasions',this)">Occasion Services</button>
+    <button class="service-tab" onclick="showTab('addons',this)">Add-Ons</button>
+  </div>
+
+  <!-- REGULAR -->
+  <div id="tab-regular" class="service-panel active">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">◇</span>
+        <h3 class="service-name">Essential Visit</h3>
+        <p class="service-desc">Our standard scheduled clean. All living areas, kitchen, bathrooms, and bedrooms — systematic, thorough, and discreet.</p>
+        <ul class="service-includes">
+          <li>All living room surfaces dusted &amp; wiped</li>
+          <li>Kitchen surfaces, appliance fronts, sink</li>
+          <li>Bathroom &amp; WC scrub and disinfect</li>
+          <li>Bedroom dusting &amp; hoovering</li>
+          <li>All floors mopped or vacuumed</li>
+          <li>Interior glass wipe</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€180</span></div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">02</span>
+        <span class="service-icon">✦</span>
+        <h3 class="service-name">Grand Visit</h3>
+        <p class="service-desc">Our full scheduled clean with enhanced attention to all surfaces, fittings, and hard-to-reach areas. The standard for regular premium service.</p>
+        <ul class="service-includes">
+          <li>Everything in Essential Visit</li>
+          <li>Inside cabinet fronts &amp; handles</li>
+          <li>Skirting boards &amp; architraves</li>
+          <li>Light fittings &amp; switches</li>
+          <li>Full bathroom grout clean</li>
+          <li>Balcony or terrace sweep</li>
+          <li>Wardrobe exterior &amp; mirror polish</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€280</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">03</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Prestige Visit</h3>
+        <p class="service-desc">Our most comprehensive scheduled service. Grand Visit with specialist surface treatment, laundry set, and bed linen change.</p>
+        <ul class="service-includes">
+          <li>Everything in Grand Visit</li>
+          <li>Marble &amp; stone surface treatment</li>
+          <li>Silver &amp; metalwork polish</li>
+          <li>Linen change &amp; bed remake</li>
+          <li>Full laundry and fold service</li>
+          <li>Fresh flower arrangement (optional)</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€420</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEEP CLEANING -->
+  <div id="tab-deep" class="service-panel">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">⬡</span>
+        <h3 class="service-name">Full Deep Clean</h3>
+        <p class="service-desc">A systematic, room-by-room immersion clean. Every surface, every cavity, every fitting — ideal for move-in, move-out, or post-renovation.</p>
+        <ul class="service-includes">
+          <li>Inside all kitchen cabinets &amp; drawers</li>
+          <li>Oven, fridge, and all appliances inside</li>
+          <li>Steam clean all tile &amp; grout lines</li>
+          <li>Behind furniture moved &amp; replaced</li>
+          <li>Inside wardrobes and storage</li>
+          <li>Full window glass inside</li>
+          <li>All blinds and shutters</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€580</span></div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">02</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Post-Renovation Clean</h3>
+        <p class="service-desc">Specialist clean removing construction dust, plaster residue, adhesive, paint overspray, and all trace of building work. Delivered in white-glove condition.</p>
+        <ul class="service-includes">
+          <li>Construction dust removal (all surfaces)</li>
+          <li>Adhesive &amp; silicone residue treatment</li>
+          <li>New floor protective clean</li>
+          <li>Window frame &amp; glass clean</li>
+          <li>All surfaces wiped to white-glove standard</li>
+          <li>Final air purification treatment</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€780</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">03</span>
+        <span class="service-icon">☽</span>
+        <h3 class="service-name">Seasonal Deep Clean</h3>
+        <p class="service-desc">Twice-yearly intensive clean to refresh the entire residence. Ideal at the start of Spring and Autumn — or before/after long absences.</p>
+        <ul class="service-includes">
+          <li>Full Deep Clean scope</li>
+          <li>Upholstery steam clean</li>
+          <li>Curtain &amp; drape steam treatment</li>
+          <li>Mattress steam &amp; sanitisation</li>
+          <li>All rugs and carpets shampooed</li>
+          <li>Terrace or garden furniture clean</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€950</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECIALIST SURFACES -->
+  <div id="tab-specialist" class="service-panel">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">◇</span>
+        <h3 class="service-name">Marble & Stone Care</h3>
+        <p class="service-desc">Specialist pH-neutral cleaning, stain treatment, and protective sealing for Calacatta, Carrara, travertine, and all natural stone surfaces.</p>
+        <ul class="service-includes">
+          <li>pH-neutral deep clean</li>
+          <li>Stain and etch treatment</li>
+          <li>Machine polishing (where applicable)</li>
+          <li>Impregnating sealant applied</li>
+          <li>Grout line colour restoration</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€280</span></div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">02</span>
+        <span class="service-icon">✦</span>
+        <h3 class="service-name">Parquet & Wood Floor</h3>
+        <p class="service-desc">Specialist clean, nourishment, and light buffing for parquet, herringbone, and solid wood floors. Restores depth of colour and protective sheen.</p>
+        <ul class="service-includes">
+          <li>Dry dust and tack cloth clean</li>
+          <li>pH-neutral wood floor wash</li>
+          <li>Oil or wax nourishment</li>
+          <li>Buffing and light polish</li>
+          <li>Grout line &amp; board gap clean</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€320</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">03</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Upholstery & Fabric</h3>
+        <p class="service-desc">Hot water extraction and steam treatment for sofas, armchairs, headboards, and all upholstered furniture. Allergen and odour removal.</p>
+        <ul class="service-includes">
+          <li>Pre-treatment stain inspection</li>
+          <li>Hot water extraction clean</li>
+          <li>Steam sanitisation</li>
+          <li>Fabric protector applied</li>
+          <li>Odour neutralisation</li>
+          <li>Velvet &amp; delicate fabric option available</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€240</span></div>
+      </div>
+    </div>
+    <div class="services-grid" style="margin-top:2px;">
+      <div class="service-card">
+        <span class="service-number">04</span>
+        <span class="service-icon">◯</span>
+        <h3 class="service-name">Carpet & Rug Clean</h3>
+        <p class="service-desc">Hot water extraction or dry clean method (selected per material) for all carpets and rugs. Antique and hand-knotted rugs handled individually.</p>
+        <ul class="service-includes">
+          <li>Material assessment before treatment</li>
+          <li>Pre-treatment of stained areas</li>
+          <li>Hot water extraction or dry clean</li>
+          <li>Pile direction reset</li>
+          <li>Protective spray applied</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€180</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">05</span>
+        <span class="service-icon">⬡</span>
+        <h3 class="service-name">Silver & Metalwork</h3>
+        <p class="service-desc">Hand-polishing of silverware, brass, bronze, and all decorative metalwork using museum-grade, residue-free compounds.</p>
+        <ul class="service-includes">
+          <li>Surface assessment and cleaning</li>
+          <li>Tarnish and oxidation removal</li>
+          <li>Museum-grade polishing compounds</li>
+          <li>Protective coating if applicable</li>
+          <li>White-glove finish inspection</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€150</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-number">06</span>
+        <span class="service-icon">☽</span>
+        <h3 class="service-name">Curtain & Drape Steam</h3>
+        <p class="service-desc">In-situ steam treatment of all curtains, drapes, and blinds. Removes dust, allergens, and odours without unhooking.</p>
+        <ul class="service-includes">
+          <li>In-situ steam (no removal needed)</li>
+          <li>All fabrics inspected before treatment</li>
+          <li>Crease and dust removal</li>
+          <li>Odour neutralisation treatment</li>
+          <li>Final fall and shape adjustment</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€120</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OCCASION SERVICES -->
+  <div id="tab-occasions" class="service-panel">
+    <div class="services-grid-2">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">✦</span>
+        <h3 class="service-name">Pre-Event Preparation</h3>
+        <p class="service-desc">Same-day or next-day white-glove clean to prepare your residence for dinner parties, private events, or important guests.</p>
+        <ul class="service-includes">
+          <li>Full Grand Visit clean</li>
+          <li>All glass and mirror polish</li>
+          <li>Entrance and reception area focus</li>
+          <li>Table and surface arrangement</li>
+          <li>Bathroom amenity staging</li>
+          <li>Final sweep 2 hours before event</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€380</span></div>
+      </div>
+      <div class="service-card featured">
+        <span class="service-number">02</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Post-Event Restoration</h3>
+        <p class="service-desc">Comprehensive clean and restoration following events, gatherings, or short-term rentals. Returns the property to pristine condition.</p>
+        <ul class="service-includes">
+          <li>Full waste removal and recycling</li>
+          <li>All surfaces and floors restored</li>
+          <li>Kitchen and catering area deep clean</li>
+          <li>Bathroom deep clean &amp; restock</li>
+          <li>Soft furnishing inspection &amp; steam</li>
+          <li>Stain treatment on all surfaces</li>
+          <li>Linen change and laundry</li>
+        </ul>
+        <div class="service-price"><span class="price-from">From</span><span class="price-amount">€480</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:2px;">
+      <div class="addon-card">
+        <p class="addon-name">Move-In / Move-Out Clean</p>
+        <p class="addon-desc">Full deep clean for incoming or outgoing tenants and owners. All rooms, storage, and appliances to handover standard.</p>
+        <span class="addon-price">From €680</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Holiday Home Opening</p>
+        <p class="addon-desc">Arrival preparation for seasonal residences — airing, dust removal, linen preparation, and full clean before your arrival.</p>
+        <span class="addon-price">From €320</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD-ONS -->
+  <div id="tab-addons" class="service-panel">
+    <p style="font-size:13px;font-weight:300;color:var(--silver);line-height:1.8;margin-bottom:36px;max-width:640px;">All add-ons can be combined with any scheduled visit or one-off service. Note requirements at booking.</p>
+    <div class="addons-grid">
+      <div class="addon-card">
+        <p class="addon-name">Inside Fridge Clean</p>
+        <p class="addon-desc">Full empty, wash, and sanitise of refrigerator interior. Includes compartments and drawers.</p>
+        <span class="addon-price">€35</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Oven Deep Clean</p>
+        <p class="addon-desc">Specialist oven degreaser treatment on interior, racks, glass door, and seals.</p>
+        <span class="addon-price">€55</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Interior Window Clean</p>
+        <p class="addon-desc">Streak-free polish on all interior glass surfaces, including skylights and bifold doors.</p>
+        <span class="addon-price">€60</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Exterior Window Clean</p>
+        <p class="addon-desc">Professional pole system clean on all accessible exterior glass. Includes frames and sills.</p>
+        <span class="addon-price">€80</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Balcony / Terrace Scrub</p>
+        <p class="addon-desc">Steam or pressure clean of stone, tile, or composite terrace and balcony surfaces.</p>
+        <span class="addon-price">€70</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Linen Change & Laundry</p>
+        <p class="addon-desc">Fresh bed linen made up, used linen washed, dried, pressed, and stored — all on-site.</p>
+        <span class="addon-price">€45</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Ironing Service</p>
+        <p class="addon-desc">Professional pressing of shirts, blouses, trousers, and household linen. Per 10 items.</p>
+        <span class="addon-price">€40</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Air Purification</p>
+        <p class="addon-desc">HEPA air purifier deployment for 3 hours. Removes dust, allergens, VOCs, and odours.</p>
+        <span class="addon-price">€60</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Garage Floor Clean</p>
+        <p class="addon-desc">Steam degrease and wash of sealed or concrete garage floor. Tyre marks and oil removed.</p>
+        <span class="addon-price">€90</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Plant & Flower Watering</p>
+        <p class="addon-desc">Care visit for indoor plants and cut flowers during cleaning visit.</p>
+        <span class="addon-price">€20</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Antique Furniture Polish</p>
+        <p class="addon-desc">Hand application of museum-grade wax on antique wood furniture, frames, and period pieces.</p>
+        <span class="addon-price">€80</span>
+      </div>
+      <div class="addon-card">
+        <p class="addon-name">Gift Certificate</p>
+        <p class="addon-desc">Any service or fixed value. Presented in BHERON Home packaging — ideal for property gifts.</p>
+        <span class="addon-price" style="color:var(--silver);font-size:15px;">Custom</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- MEMBERSHIPS -->
+<section class="memberships" id="memberships">
+  <div class="memberships-header">
+    <p class="section-label">Regular Service</p>
+    <h2 class="section-title">Membership <em>Plans</em></h2>
+    <p class="section-body" style="max-width:520px;margin:0 auto;text-align:center;">A dedicated team, a fixed schedule, and a single point of contact — our memberships ensure your residence is always in perfect condition without any management from you.</p>
+  </div>
+  <div class="mem-grid">
+    <div class="mem-card">
+      <p class="mem-card-label">Essenziale</p>
+      <h3 class="mem-card-name">Fortnightly</h3>
+      <p class="mem-card-desc">Perfect for pied-à-terres, holiday apartments, and second homes. A professional Grand Visit every two weeks.</p>
+      <ul class="mem-includes">
+        <li>Grand Visit every 14 days</li>
+        <li>Dedicated team of 2</li>
+        <li>Priority emergency booking</li>
+        <li>Monthly summary report</li>
+      </ul>
+      <div class="mem-price">€280<small>/visit</small></div>
+    </div>
+    <div class="mem-card featured">
+      <p class="mem-card-label">Grand — Most Popular</p>
+      <h3 class="mem-card-name">Weekly</h3>
+      <p class="mem-card-desc">Our signature residential programme. Weekly Grand Visit plus a quarterly seasonal deep clean — your home in perpetual perfection.</p>
+      <ul class="mem-includes">
+        <li>Grand Visit every 7 days</li>
+        <li>Quarterly Seasonal Deep Clean included</li>
+        <li>Dedicated team of 2–3</li>
+        <li>Priority same-day bookings</li>
+        <li>Key-hold and entry management</li>
+        <li>Monthly condition report</li>
+      </ul>
+      <div class="mem-price">€980<small>/mo</small></div>
+    </div>
+    <div class="mem-card">
+      <p class="mem-card-label">Prestige</p>
+      <h3 class="mem-card-name">Daily Concierge</h3>
+      <p class="service-desc" style="font-size:13px;font-weight:300;color:var(--mist);line-height:1.8;margin-bottom:28px;">Daily presence for principal residences, estates, and properties with full household management requirements.</p>
+      <ul class="mem-includes">
+        <li>Daily or 5×/week presence</li>
+        <li>Full Prestige Visit each session</li>
+        <li>Laundry, linen &amp; wardrobe management</li>
+        <li>Grocery ordering coordination</li>
+        <li>Pre-arrival preparation for all travel returns</li>
+        <li>Seasonal deep cleans included</li>
+        <li>Dedicated household manager</li>
+      </ul>
+      <div class="mem-price" style="font-size:24px;">Bespoke<small style="font-size:14px;"> / enquire</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header">
+    <p class="section-label">Transparent Pricing</p>
+    <h2 class="section-title">Investment in <em>Excellence</em></h2>
+    <p class="section-body" style="max-width:520px;margin:0 auto;text-align:center;">Prices shown for properties up to 150m². Larger residences are quoted individually. All prices include travel within service areas. CHF pricing available.</p>
+  </div>
+
+  <p class="pricing-cat-label">Regular Cleaning</p>
+  <table class="pricing-table">
+    <thead><tr><th>Service</th><th>Scope</th><th>Duration</th><th>Price (€)</th></tr></thead>
+    <tbody>
+      <tr><td>Essential Visit <span class="tier-badge essential">Essential</span></td><td>All rooms, kitchen, bathrooms, floors</td><td>2–3 h</td><td>€ 180 – 240</td></tr>
+      <tr><td>Grand Visit <span class="tier-badge grand">Grand</span></td><td>Full clean + skirtings, lights, fittings</td><td>3–4 h</td><td>€ 280 – 360</td></tr>
+      <tr><td>Prestige Visit <span class="tier-badge prestige">Prestige</span></td><td>Grand + marble treatment, linen, laundry</td><td>4–6 h</td><td>€ 420 – 580</td></tr>
+    </tbody>
+  </table>
+
+  <p class="pricing-cat-label">Deep Cleaning</p>
+  <table class="pricing-table">
+    <thead><tr><th>Service</th><th>Scope</th><th>Duration</th><th>Price (€)</th></tr></thead>
+    <tbody>
+      <tr><td>Full Deep Clean <span class="tier-badge grand">Grand</span></td><td>All rooms inside out, appliances, glass</td><td>1 day</td><td>€ 580 – 820</td></tr>
+      <tr><td>Post-Renovation Clean <span class="tier-badge prestige">Prestige</span></td><td>Construction dust, residues, white-glove</td><td>1–2 days</td><td>€ 780 – 1,100</td></tr>
+      <tr><td>Seasonal Deep Clean <span class="tier-badge prestige">Prestige</span></td><td>Full deep + upholstery, carpets, terrace</td><td>1–2 days</td><td>€ 950 – 1,400</td></tr>
+    </tbody>
+  </table>
+
+  <p class="pricing-cat-label">Specialist Surfaces</p>
+  <table class="pricing-table">
+    <thead><tr><th>Service</th><th>Scope</th><th>Duration</th><th>Price (€)</th></tr></thead>
+    <tbody>
+      <tr><td>Marble &amp; Stone Care <span class="tier-badge grand">Grand</span></td><td>Clean, stain treat, polish, seal</td><td>3–5 h</td><td>€ 280 – 480</td></tr>
+      <tr><td>Parquet &amp; Wood Floor <span class="tier-badge grand">Grand</span></td><td>Wash, nourish, buff</td><td>3–4 h</td><td>€ 320 – 520</td></tr>
+      <tr><td>Upholstery &amp; Fabric <span class="tier-badge essential">Essential</span></td><td>HWE + steam, per sofa/armchair</td><td>2–4 h</td><td>€ 240 – 420</td></tr>
+      <tr><td>Carpet &amp; Rug Clean <span class="tier-badge essential">Essential</span></td><td>HWE or dry clean, per room</td><td>2–3 h</td><td>€ 180 – 320</td></tr>
+      <tr><td>Silver &amp; Metalwork <span class="tier-badge grand">Grand</span></td><td>Museum-grade polish, all metalwork</td><td>2–4 h</td><td>€ 150 – 280</td></tr>
+      <tr><td>Curtain &amp; Drape Steam <span class="tier-badge essential">Essential</span></td><td>In-situ steam, all windows</td><td>2–3 h</td><td>€ 120 – 200</td></tr>
+    </tbody>
+  </table>
+
+  <p class="pricing-note">Prices for properties up to 150m². 150–300m²: +30%. 300m²+: quoted individually. All prices include travel. CHF pricing available for Swiss clients. Membership rates available — see above.</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <p class="section-label">Reserve Your Service</p>
+    <h2 class="section-title">Begin your<br><em>enquiry.</em></h2>
+    <p class="section-body">Our home concierge team will confirm availability and provide a tailored quote within 2 hours during business hours. All enquiries are fully confidential.</p>
+    <div class="contact-info" style="margin-top:56px;">
+      <div class="info-block"><p class="info-label">Italy</p><p class="info-value">Milan · Rome · Florence · Turin<br>+39 02 8734 5212<br>home.italia@bheron.com</p></div>
+      <div class="info-block"><p class="info-label">Switzerland</p><p class="info-value">Geneva · Zürich · Lugano · Gstaad<br>+41 22 900 4432<br>home.suisse@bheron.com</p></div>
+      <div class="info-block"><p class="info-label">Hours</p><p class="info-value">Monday – Saturday · 08:00 – 20:00 (CET)<br>Emergency availability for members</p></div>
+    </div>
+  </div>
+  <div>
+    <form class="contact-form" onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Sofia"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Ferretti"></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="s.ferretti@example.com"></div>
+      <div class="form-group"><label>Property Type</label>
+        <select>
+          <option value="">Select property…</option>
+          <option>Apartment / Penthouse</option><option>Villa / Estate</option>
+          <option>Alpine Chalet</option><option>Holiday Residence</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Approximate Size</label>
+        <select>
+          <option value="">Select size…</option>
+          <option>Up to 100m²</option><option>100–200m²</option>
+          <option>200–400m²</option><option>400m²+</option>
+        </select>
+      </div>
+      <div class="form-group"><label>City</label>
+        <select>
+          <option value="">Select city…</option>
+          <option>Milan</option><option>Rome</option><option>Florence</option><option>Turin</option>
+          <option>Geneva</option><option>Zürich</option><option>Lugano</option><option>Gstaad</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Service Required</label>
+        <select>
+          <option value="">Select a service…</option>
+          <option>Essential Visit</option><option>Grand Visit</option><option>Prestige Visit</option>
+          <option>Full Deep Clean</option><option>Post-Renovation Clean</option><option>Seasonal Deep Clean</option>
+          <option>Marble &amp; Stone Care</option><option>Parquet &amp; Wood Floor</option>
+          <option>Upholstery &amp; Fabric</option><option>Pre / Post Event</option>
+          <option>Membership — Fortnightly</option><option>Membership — Weekly</option>
+          <option>Membership — Daily Concierge</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Any specific requirements, access notes, or preferred scheduling…"></textarea></div>
+      <button type="submit" class="btn-primary" style="text-align:center;width:100%;padding:18px;">Submit Enquiry</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left"><p>© 2025 BHERON Home · A division of BHERON Detailing SRL<br>Luxury residence cleaning — Italy &amp; Switzerland</p></div>
+  <div class="footer-logo">BHERON<span>Home</span></div>
+  <div class="footer-right">
+    <a href="#services">Services</a><a href="#memberships">Memberships</a>
+    <a href="#pricing">Pricing</a><a href="#contact">Contact</a>
+    <a href="index.html">← Auto</a>
+  </div>
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.service-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+</script>
+</body>
+</html>
