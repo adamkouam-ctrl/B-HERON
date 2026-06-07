@@ -1620,6 +1620,41 @@ input[type="date"] {
   </div>
 
   <script>
+
+    const SERVICE_IMAGES = {
+  // Exterior
+  "ext-express":   "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70",
+  "ext-atelier":   "https://images.unsplash.com/photo-1619362280286-f1d8a712c297?w=600&q=70",
+  "ext-prestige":  "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=600&q=70",
+  // Interior
+  "int-express":   "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=70",
+  "int-sanctum":   "https://images.unsplash.com/photo-1542362567-b07e54358753?w=600&q=70",
+  "int-prestige":  "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&q=70",
+  // Packages
+  "pkg-essenz":    "https://images.unsplash.com/photo-1612544448445-b8232cff3b6c?w=600&q=70",
+  "pkg-grand":     "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=70",
+  "pkg-prestige":  "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=70",
+  "pkg-argento":   "https://images.unsplash.com/photo-1493238792000-8113da705763?w=600&q=70",
+  "pkg-oro":       "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=600&q=70",
+  // Protection
+  "pro-glass":     "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=600&q=70",
+  "pro-cer2":      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=70",
+  "pro-cer5":      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=70",
+  "pro-ppf-p":     "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=70",
+  "pro-ppf-f":     "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=600&q=70",
+  // Add-Ons
+  "add-bonnet":    "https://images.unsplash.com/photo-1562141961-b7d19f6a8e61?w=600&q=70",
+  "add-headlight": "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&q=70",
+  "add-wheel":     "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=70",
+  "add-leather":   "https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=600&q=70",
+  "add-odour":     "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=70",
+  "add-fabric":    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70",
+  "add-pet":       "https://images.unsplash.com/photo-1601758003122-53c40e686a19?w=600&q=70",
+  "add-engine":    "https://images.unsplash.com/photo-1606577924006-27d39b132ae2?w=600&q=70",
+  "add-dashboard": "https://images.unsplash.com/photo-1517153295219-3c6d23c1d58f?w=600&q=70",
+  "add-boot":      "https://images.unsplash.com/photo-1612544448445-b8232cff3b6c?w=600&q=70",
+};
+    
     const SERVICES = [
       { id: "ext-express",   cat: "Exterior",   tier: "Essential", name: "Express Steam Wash",      duration: "45–60 min", lo: 65,   hi: 95,   desc: "Steam body wash, windows, door jambs & tyre dressing." },
       { id: "ext-atelier",   cat: "Exterior",   tier: "Atelier",   name: "Exterior Atelier",         duration: "3–4 h",     lo: 190,  hi: 280,  desc: "Decontamination, clay bar, single-stage machine polish & rims." },
@@ -1727,41 +1762,27 @@ input[type="date"] {
       }).join('');
     }
 
-    function renderGrid() {
-      const mul = getMul();
-      const filtered = getFiltered();
-      const el = document.getElementById('grid');
-      el.innerHTML = filtered.map((svc, idx) => {
-        const sel   = selected.has(svc.id);
-        const pLo   = Math.round(svc.lo * mul);
-        const pHi   = Math.round(svc.hi * mul);
-        const badge = TIER_BADGE[svc.tier] || "essential";
-        const num   = String(idx + 1).padStart(2, "0");
-        return `
-          <button class="bh-card${sel ? ' selected' : ''}" onclick="toggle('${svc.id}')" role="checkbox" aria-checked="${sel}">
-            <span class="bh-card-num" aria-hidden="true">${num}</span>
-            <span class="bh-check" aria-hidden="true">
-              <svg class="bh-check-tick" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                <path d="M1 4l2.5 2.5L7 1.5" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <div class="bh-tier-wrap">
-              <span class="tier-badge ${badge}">${svc.tier}</span>
-            </div>
-            <div class="bh-card-name">${svc.name}</div>
-            <div class="bh-card-desc">${svc.desc}</div>
-            <div class="bh-card-footer">
-              <span class="bh-duration">${svc.duration}</span>
-              <div class="bh-price">
-                <span class="bh-price-label">${pLo === pHi ? 'Fixed' : 'From'}</span>
-                <span class="bh-price-val">€${fmt(pLo)}</span>
-                ${pHi > pLo ? `<span class="bh-price-hi"> – €${fmt(pHi)}</span>` : ''}
-              </div>
-            </div>
-          </button>
-        `;
-      }).join('');
-    }
+   function renderGrid() {
+  const mul = getMul();
+  const filtered = getFiltered();
+  const el = document.getElementById('grid');
+  el.innerHTML = filtered.map((svc, idx) => {
+    const sel   = selected.has(svc.id);
+    const pLo   = Math.round(svc.lo * mul);
+    const pHi   = Math.round(svc.hi * mul);
+    const badge = TIER_BADGE[svc.tier] || "essential";
+    const num   = String(idx + 1).padStart(2, "0");
+    const img   = SERVICE_IMAGES[svc.id] || '';   // ← new
+    return `
+      <button class="bh-card${sel ? ' selected' : ''}"
+        onclick="toggle('${svc.id}')"
+        role="checkbox" aria-checked="${sel}"
+        style="${img ? `background-image: url('${img}'); background-size: cover; background-position: center;` : ''}">
+        ...rest of card HTML unchanged...
+      </button>
+    `;
+  }).join('');
+}
 
     function renderSummary() {
       const mul = getMul();
