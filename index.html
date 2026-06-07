@@ -1391,19 +1391,29 @@ input[type="date"] {
       text-align: left; color: inherit;
       font-family: 'Barlow', sans-serif; width: 100%;
     }
-    .bh-card::after {
-      content: ''; position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: var(--gold); transform: scaleX(0);
-      transform-origin: left; transition: transform 0.4s;
-    }
-    .bh-card:hover { background: var(--ash); }
-    .bh-card:hover::after { transform: scaleX(1); }
-    .bh-card.selected {
-      background: var(--charcoal);
-      border-top-color: var(--gold);
-    }
-    .bh-card.selected::after { display: none; }
+    .bh-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold); transform: scaleX(0);
+  transform-origin: left; transition: transform 0.4s;
+  z-index: 2;
+}
+.bh-card::after {
+  content: ''; position: absolute;
+  inset: 0;
+  background: rgba(10,10,10,0.72);
+  transition: background 0.4s;
+  z-index: 1;
+}
+.bh-card:hover { background: var(--ash); }
+.bh-card:hover::before { transform: scaleX(1); }
+.bh-card:hover::after { background: rgba(10,10,10,0.50); }
+.bh-card.selected {
+  background: var(--charcoal);
+  border-top-color: var(--gold);
+}
+.bh-card.selected::before { display: none; }
+.bh-card.selected::after { background: rgba(10,10,10,0.60); }
 
     .bh-card-num {
       font-family: 'Cormorant Garamond', serif;
