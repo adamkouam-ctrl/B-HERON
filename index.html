@@ -3104,7 +3104,7 @@ const i18nData = {
   // Language Dropdown Selector Listener Event
   document.getElementById('langSelector').addEventListener('change', function() {
     applyLanguage(this.value);
-    const langNames = { en: 'English', it: 'Italiano', fr: 'Français', de: 'Deutsch' };
+    const langNames = { it: 'Italiano', en: 'English', fr: 'Français', de: 'Deutsch' };
     triggerNotification(`Interface localized to ${langNames[this.value]}.`);
   });
 
