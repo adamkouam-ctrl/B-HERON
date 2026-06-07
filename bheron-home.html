@@ -700,47 +700,116 @@
     </div>
   </div>
   <div>
-    <form class="contact-form" onsubmit="return false;">
-      <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" placeholder="Sofia"></div>
-        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Ferretti"></div>
-      </div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="s.ferretti@example.com"></div>
-      <div class="form-group"><label>Property Type</label>
-        <select>
-          <option value="">Select property…</option>
-          <option>Apartment / Penthouse</option><option>Villa / Estate</option>
-          <option>Alpine Chalet</option><option>Holiday Residence</option><option>Other</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Approximate Size</label>
-        <select>
-          <option value="">Select size…</option>
-          <option>Up to 100m²</option><option>100–200m²</option>
-          <option>200–400m²</option><option>400m²+</option>
-        </select>
-      </div>
-      <div class="form-group"><label>City</label>
-        <select>
-          <option value="">Select city…</option>
-          <option>Milan</option><option>Rome</option><option>Florence</option><option>Turin</option>
-          <option>Geneva</option><option>Zürich</option><option>Lugano</option><option>Gstaad</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Service Required</label>
-        <select>
-          <option value="">Select a service…</option>
-          <option>Essential Visit</option><option>Grand Visit</option><option>Prestige Visit</option>
-          <option>Full Deep Clean</option><option>Post-Renovation Clean</option><option>Seasonal Deep Clean</option>
-          <option>Marble &amp; Stone Care</option><option>Parquet &amp; Wood Floor</option>
-          <option>Upholstery &amp; Fabric</option><option>Pre / Post Event</option>
-          <option>Membership — Fortnightly</option><option>Membership — Weekly</option>
-          <option>Membership — Daily Concierge</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Message</label><textarea placeholder="Any specific requirements, access notes, or preferred scheduling…"></textarea></div>
-      <button type="submit" class="btn-primary" style="text-align:center;width:100%;padding:18px;">Submit Enquiry</button>
-    </form>
+    <form class="contact-form" id="homeEnquiryForm" action="https://formsubmit.co/ajax/adamkouam@gmail.COM" method="POST">
+  <input type="hidden" name="_subject" value="New BHERON Home Enquiry">
+  <input type="hidden" name="_template" value="box">
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" name="First Name" placeholder="Sofia" required>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" name="Last Name" placeholder="Ferretti" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="Email Address" placeholder="s.ferretti@example.com" required>
+  </div>
+
+  <div class="form-group">
+    <label>Phone / WhatsApp</label>
+    <input type="tel" name="Phone Number" placeholder="+39 02 000 0000">
+  </div>
+
+  <div class="form-group">
+    <label>Property Type</label>
+    <select name="Property Type" required>
+      <option value="">Select property…</option>
+      <option>Apartment / Penthouse</option>
+      <option>Villa / Estate</option>
+      <option>Alpine Chalet</option>
+      <option>Holiday Residence</option>
+      <option>Other</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Approximate Size</label>
+    <select name="Property Size" required>
+      <option value="">Select size…</option>
+      <option>Up to 100m²</option>
+      <option>100–200m²</option>
+      <option>200–400m²</option>
+      <option>400m²+</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>City</label>
+    <select name="Client Location" required>
+      <option value="">Select city…</option>
+      <option>Milan</option>
+      <option>Rome</option>
+      <option>Florence</option>
+      <option>Turin</option>
+      <option>Geneva</option>
+      <option>Zürich</option>
+      <option>Lugano</option>
+      <option>Gstaad</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Service Required</label>
+    <select name="Selected Service" required>
+      <option value="">Select a service…</option>
+      <option>Essential Visit</option>
+      <option>Grand Visit</option>
+      <option>Prestige Visit</option>
+      <option>Full Deep Clean</option>
+      <option>Post-Renovation Clean</option>
+      <option>Seasonal Deep Clean</option>
+      <option>Marble & Stone Care</option>
+      <option>Parquet & Wood Floor</option>
+      <option>Upholstery & Fabric</option>
+      <option>Carpet & Rug Clean</option>
+      <option>Pre-Event Preparation</option>
+      <option>Post-Event Restoration</option>
+      <option>Membership — Fortnightly</option>
+      <option>Membership — Weekly</option>
+      <option>Membership — Daily Concierge</option>
+    </select>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Preferred Date</label>
+      <input type="date" name="Preferred Date" required>
+    </div>
+    <div class="form-group">
+      <label>Preferred Time</label>
+      <select name="Preferred Time" required>
+        <option value="">Select time…</option>
+        <option>Morning (08:00–12:00)</option>
+        <option>Afternoon (12:00–16:00)</option>
+        <option>Evening (16:00–20:00)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Message</label>
+    <textarea name="Special Requirements" placeholder="Access notes, specific rooms, scheduling preferences…"></textarea>
+  </div>
+
+  <button type="submit" class="btn-primary" style="width:100%;text-align:center;display:block;padding:18px;">
+    Submit Enquiry
+  </button>
+</form>
   </div>
 </section>
 
@@ -761,6 +830,33 @@ function showTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('active');
   if (btn) btn.classList.add('active');
 }
+</script>
+  <script>
+document.getElementById('homeEnquiryForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  const btn = form.querySelector('button[type="submit"]');
+  const originalText = btn.innerText;
+  btn.disabled = true;
+  btn.innerText = '...';
+
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success === 'true' || data.success === true) {
+      alert('Thank you. Our home concierge team will contact you within 2 hours.');
+      form.reset();
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  })
+  .catch(() => alert('Connection error. Please try again.'))
+  .finally(() => { btn.disabled = false; btn.innerText = originalText; });
+});
 </script>
 </body>
 </html>
