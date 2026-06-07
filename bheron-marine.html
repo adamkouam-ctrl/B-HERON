@@ -656,39 +656,106 @@
     </div>
   </div>
   <div>
-    <form class="contact-form" onsubmit="return false;">
-      <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" placeholder="Alessandro"></div>
-        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Morano"></div>
-      </div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="a.morano@example.com"></div>
-      <div class="form-group"><label>Vessel Name & Type</label><input type="text" placeholder="e.g. Gioia — Ferretti 550"></div>
-      <div class="form-group"><label>Vessel Length</label>
-        <select>
-          <option value="">Select LOA…</option>
-          <option>Up to 9m</option><option>10–14m</option><option>15–20m</option><option>20m+</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Marina / Location</label>
-        <select>
-          <option value="">Select location…</option>
-          <option>Lake Como, Italy</option><option>Lake Garda, Italy</option><option>Lago Maggiore, Italy</option>
-          <option>Portofino / Ligurian Coast</option><option>Venice, Italy</option>
-          <option>Lake Geneva, Switzerland</option><option>Lake Zurich, Switzerland</option><option>Lake Lugano, Switzerland</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Service Required</label>
-        <select>
-          <option value="">Select a service…</option>
-          <option>Hull Express Wash</option><option>Hull Atelier</option><option>Hull Prestige</option>
-          <option>Teak Maintenance</option><option>Teak Restoration</option>
-          <option>Cabin Express</option><option>Cabin Sanctum</option><option>Winterisation Clean</option>
-          <option>Ceramic Hull Coating</option><option>Add-Ons (specify below)</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Message</label><textarea placeholder="Any specific requirements, condition notes, or preferred dates…"></textarea></div>
-      <button type="submit" class="btn-primary" style="text-align:center;width:100%;padding:18px;">Submit Enquiry</button>
-    </form>
+    <form class="contact-form" id="marineEnquiryForm" action="https://formsubmit.co/ajax/adamkouam@gmail.COM" method="POST">
+  <input type="hidden" name="_subject" value="New BHERON Marine Enquiry">
+  <input type="hidden" name="_template" value="box">
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" name="First Name" placeholder="Alessandro" required>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" name="Last Name" placeholder="Morano" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="Email Address" placeholder="a.morano@example.com" required>
+  </div>
+
+  <div class="form-group">
+    <label>Phone / WhatsApp</label>
+    <input type="tel" name="Phone Number" placeholder="+39 02 000 0000">
+  </div>
+
+  <div class="form-group">
+    <label>Vessel Name & Type</label>
+    <input type="text" name="Vessel Name and Type" placeholder="e.g. Gioia — Ferretti 550" required>
+  </div>
+
+  <div class="form-group">
+    <label>Vessel Length</label>
+    <select name="Vessel Length" required>
+      <option value="">Select LOA…</option>
+      <option>Up to 9m</option>
+      <option>10–14m</option>
+      <option>15–20m</option>
+      <option>20m+</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Marina / Location</label>
+    <select name="Client Location" required>
+      <option value="">Select location…</option>
+      <option>Lake Como, Italy</option>
+      <option>Lake Garda, Italy</option>
+      <option>Lago Maggiore, Italy</option>
+      <option>Portofino / Ligurian Coast</option>
+      <option>Venice, Italy</option>
+      <option>Lake Geneva, Switzerland</option>
+      <option>Lake Zurich, Switzerland</option>
+      <option>Lake Lugano, Switzerland</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Service Required</label>
+    <select name="Selected Service" required>
+      <option value="">Select a service…</option>
+      <option>Hull Express Wash</option>
+      <option>Hull Atelier</option>
+      <option>Hull Prestige</option>
+      <option>Deck Express</option>
+      <option>Teak Maintenance</option>
+      <option>Teak Restoration</option>
+      <option>Cabin Express</option>
+      <option>Cabin Sanctum</option>
+      <option>Winterisation Clean</option>
+      <option>Ceramic Hull 2yr</option>
+      <option>Ceramic Hull 5yr</option>
+      <option>Add-Ons (specify below)</option>
+    </select>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Preferred Date</label>
+      <input type="date" name="Preferred Date" required>
+    </div>
+    <div class="form-group">
+      <label>Preferred Time</label>
+      <select name="Preferred Time" required>
+        <option value="">Select time…</option>
+        <option>Morning (08:00–12:00)</option>
+        <option>Afternoon (12:00–16:00)</option>
+        <option>Evening (16:00–19:00)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Message</label>
+    <textarea name="Special Requirements" placeholder="Condition notes, preferred dates, access instructions…"></textarea>
+  </div>
+
+  <button type="submit" class="btn-primary" style="width:100%;text-align:center;display:block;padding:18px;">
+    Submit Enquiry
+  </button>
+</form>
   </div>
 </section>
 
@@ -709,6 +776,33 @@ function showTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('active');
   if (btn) btn.classList.add('active');
 }
+</script>
+  <script>
+document.getElementById('marineEnquiryForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  const btn = form.querySelector('button[type="submit"]');
+  const originalText = btn.innerText;
+  btn.disabled = true;
+  btn.innerText = '...';
+
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success === 'true' || data.success === true) {
+      alert('Thank you. Our marine team will contact you within 2 hours.');
+      form.reset();
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  })
+  .catch(() => alert('Connection error. Please try again.'))
+  .finally(() => { btn.disabled = false; btn.innerText = originalText; });
+});
 </script>
 </body>
 </html>
