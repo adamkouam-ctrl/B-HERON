@@ -1794,7 +1794,7 @@ input[type="date"] {
       Prestige:  "prestige",
       "Add-On":  "essential",
     };
-
+    let currentLang = 'it';
     let activeTab = "All";
     let vehicle   = "saloon";
     let selected  = new Set();
@@ -1875,8 +1875,8 @@ input[type="date"] {
         <div class="bh-tier-wrap">
           <span class="tier-badge ${badge}">${svc.tier}</span>
         </div>
-        <div class="bh-card-name">${svc.name}</div>
-        <div class="bh-card-desc">${svc.desc}</div>
+        <div class="bh-card-name">${(i18nData[currentLang] && i18nData[currentLang]['svc-'+svc.id+'-name']) || svc.name}</div>
+        <div class="bh-card-desc">${(i18nData[currentLang] && i18nData[currentLang]['svc-'+svc.id+'-desc']) || svc.desc}</div>
         <div class="bh-card-footer">
           <span class="bh-duration">${svc.duration}</span>
           <div class="bh-price">
@@ -3278,6 +3278,7 @@ const i18nData = {
 
   // Active translation driver execution
   function applyLanguage(lang) {
+    currentLang = lang; 
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (i18nData[lang] && i18nData[lang][key]) {
