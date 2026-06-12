@@ -1715,34 +1715,36 @@ input[type="date"] {
 };
     
     const SERVICES = [
-      { id: "ext-express",   cat: "Exterior",   tier: "Essential", name: "Express Steam Wash",      duration: "45–60 min", lo: 65,   hi: 95,   desc: "Steam body wash, windows, door jambs & tyre dressing." },
-      { id: "ext-atelier",   cat: "Exterior",   tier: "Atelier",   name: "Exterior Atelier",         duration: "3–4 h",     lo: 190,  hi: 280,  desc: "Decontamination, clay bar, single-stage machine polish & rims." },
-      { id: "ext-prestige",  cat: "Exterior",   tier: "Prestige",  name: "Exterior Prestige",        duration: "5–7 h",     lo: 320,  hi: 480,  desc: "2-stage correction, engine bay, exhaust polish & QD sealant." },
-      { id: "int-express",   cat: "Interior",   tier: "Essential", name: "Interior Express",         duration: "1 h",       lo: 75,   hi: 95,   desc: "Full vacuum, wipe-down, interior glass & door pockets." },
-      { id: "int-sanctum",   cat: "Interior",   tier: "Atelier",   name: "Interior Sanctum",         duration: "3–5 h",     lo: 150,  hi: 220,  desc: "Full steam clean, leather conditioning & odour treatment." },
-      { id: "int-prestige",  cat: "Interior",   tier: "Prestige",  name: "Interior Prestige",        duration: "5–7 h",     lo: 260,  hi: 380,  desc: "Full steam + leather restore + disinfection + bespoke fragrance." },
-      { id: "pkg-essenz",    cat: "Packages",   tier: "Essential", name: "Essenziale",               duration: "2–3 h",     lo: 120,  hi: 160,  desc: "Express Exterior + Interior Express + all glass." },
-      { id: "pkg-grand",     cat: "Packages",   tier: "Atelier",   name: "Grand Détail",             duration: "Full day",  lo: 580,  hi: 820,  desc: "Exterior Atelier + Interior Sanctum + engine bay + QD sealant." },
-      { id: "pkg-prestige",  cat: "Packages",   tier: "Prestige",  name: "Grand Prestige",           duration: "2 days",    lo: 1150, hi: 1600, desc: "Exterior Prestige + Interior Prestige + Ceramic 2yr + leather." },
-      { id: "pkg-argento",   cat: "Packages",   tier: "Essential", name: "Membership — Argento",     duration: "Monthly",   lo: 380,  hi: 380,  desc: "Monthly exterior + quarterly Grand Détail. Single vehicle." },
-      { id: "pkg-oro",       cat: "Packages",   tier: "Prestige",  name: "Membership — Oro",         duration: "Monthly",   lo: 850,  hi: 850,  desc: "Monthly exterior + quarterly Grand Détail. Up to 3 vehicles." },
-      { id: "pro-glass",     cat: "Protection", tier: "Essential", name: "Glass Hydrophobic",        duration: "2 h",       lo: 180,  hi: 180,  desc: "Nano water-repellent on all exterior glass. 2yr durability." },
-      { id: "pro-cer2",      cat: "Protection", tier: "Atelier",   name: "Ceramic Armour 2yr",       duration: "1–2 days",  lo: 980,  hi: 1400, desc: "Prep + single-stage polish + ceramic coating + 2yr warranty." },
-      { id: "pro-cer5",      cat: "Protection", tier: "Prestige",  name: "Ceramic Armour 5yr",       duration: "2 days",    lo: 1800, hi: 2400, desc: "Full 2-stage correction + multi-layer ceramic system." },
-      { id: "pro-ppf-p",     cat: "Protection", tier: "Prestige",  name: "PPF Partial",              duration: "1 day",     lo: 1400, hi: 1900, desc: "Self-healing film: bonnet, bumper, mirrors, door edges." },
-      { id: "pro-ppf-f",     cat: "Protection", tier: "Prestige",  name: "PPF Full Body",            duration: "3–5 days",  lo: 4200, hi: 6500, desc: "Complete vehicle coverage + 10yr film warranty." },
-      { id: "add-bonnet",    cat: "Add-Ons",    tier: "Add-On",    name: "Bonnet Detail",            duration: "1 h",       lo: 45,   hi: 45,   desc: "Polish + sealant on bonnet panel only." },
-      { id: "add-headlight", cat: "Add-Ons",    tier: "Add-On",    name: "Headlight Restoration",    duration: "1–2 h",     lo: 70,   hi: 70,   desc: "Machine polish foggy lenses + UV coating applied." },
-      { id: "add-wheel",     cat: "Add-Ons",    tier: "Add-On",    name: "Wheel & Tyre Detail",      duration: "1 h",       lo: 60,   hi: 60,   desc: "Steam blast, iron removal, caliper brush & tyre dressing." },
-      { id: "add-leather",   cat: "Add-Ons",    tier: "Add-On",    name: "Leather Restoration",      duration: "2 h",       lo: 120,  hi: 120,  desc: "Deep clean, colour refresh & conditioner for aged hides." },
-      { id: "add-odour",     cat: "Add-Ons",    tier: "Add-On",    name: "Odour Ozone Treatment",    duration: "2–3 h",     lo: 90,   hi: 90,   desc: "Ozone neutralises embedded odours at molecular level." },
-      { id: "add-fabric",    cat: "Add-Ons",    tier: "Add-On",    name: "Fabric & Carpet Shampoo",  duration: "2 h",       lo: 110,  hi: 110,  desc: "Hot water extraction — deep staining & allergen removal." },
-      { id: "add-pet",       cat: "Add-Ons",    tier: "Add-On",    name: "Pet Hair Removal",         duration: "1 h",       lo: 50,   hi: 50,   desc: "Specialist tool extraction from all upholstery surfaces." },
-      { id: "add-engine",    cat: "Add-Ons",    tier: "Add-On",    name: "Engine Bay Steam Clean",   duration: "1 h",       lo: 60,   hi: 60,   desc: "High-pressure steam degreasing of full engine compartment." },
-      { id: "add-dashboard", cat: "Add-Ons",    tier: "Add-On",    name: "Dashboard UV Protectant",  duration: "30 min",    lo: 30,   hi: 30,   desc: "UV-blocking coat on all plastics, vinyl & interior trim." },
-      { id: "add-boot",      cat: "Add-Ons",    tier: "Add-On",    name: "Boot & Luggage Detail",    duration: "30 min",    lo: 40,   hi: 40,   desc: "Steam clean, vacuum & liner shampoo of boot & spare tyre bay." },
-    ];
+  // EXTERIOR
+  { id: "ext-express",  cat: "Exterior",   tier: "Essential", name: "Express Steam Wash",     duration: "45–60 min", lo: 38,   hi: 38,   desc: "Steam body wash, windows, door jambs & tyre dressing." },
+  { id: "ext-atelier",  cat: "Exterior",   tier: "Atelier",   name: "Exterior Atelier",       duration: "3–4 h",     lo: 118,  hi: 118,  desc: "Decontamination, clay bar, single-stage machine polish & rims." },
+  { id: "ext-prestige", cat: "Exterior",   tier: "Prestige",  name: "Exterior Prestige",      duration: "5–7 h",     lo: 280,  hi: 280,  desc: "2-stage correction, engine bay, exhaust polish & QD sealant." },
 
+  // INTERIOR
+  { id: "int-express",  cat: "Interior",   tier: "Essential", name: "Interior Express",       duration: "1 h",       lo: 48,   hi: 48,   desc: "Full vacuum, wipe-down, interior glass & door pockets." },
+  { id: "int-sanctum",  cat: "Interior",   tier: "Atelier",   name: "Interior Sanctum",       duration: "3–5 h",     lo: 128,  hi: 128,  desc: "Full steam clean, leather conditioning & odour treatment." },
+  { id: "int-prestige", cat: "Interior",   tier: "Prestige",  name: "Interior Prestige",      duration: "5–7 h",     lo: 240,  hi: 240,  desc: "Full steam + leather restore + disinfection + bespoke fragrance." },
+
+  // PACKAGES
+  { id: "pkg-essenz",   cat: "Packages",   tier: "Essential", name: "Essenziale",             duration: "2–3 h",     lo: 85,   hi: 85,   desc: "Express Exterior + Interior Express + all glass." },
+  { id: "pkg-grand",    cat: "Packages",   tier: "Atelier",   name: "Grand Détail",           duration: "Full day",  lo: 380,  hi: 380,  desc: "Exterior Atelier + Interior Sanctum + engine bay + QD sealant." },
+  { id: "pkg-prestige", cat: "Packages",   tier: "Prestige",  name: "Grand Prestige",         duration: "2 days",    lo: 950,  hi: 950,  desc: "Exterior Prestige + Interior Prestige + Ceramic 2yr + leather." },
+
+  // PROTECTION
+  { id: "pro-glass",    cat: "Protection", tier: "Essential", name: "Glass Hydrophobic",      duration: "2 h",       lo: 130,  hi: 130,  desc: "Nano water-repellent on all exterior glass. 2yr durability." },
+  { id: "pro-cer2",     cat: "Protection", tier: "Atelier",   name: "Ceramic Armour 2yr",     duration: "1–2 days",  lo: 950,  hi: 950,  desc: "Prep + single-stage polish + ceramic coating + 2yr warranty." },
+  { id: "pro-cer5",     cat: "Protection", tier: "Prestige",  name: "Ceramic Armour 5yr",     duration: "2 days",    lo: 1800, hi: 1800, desc: "Full 2-stage correction + multi-layer ceramic system." },
+  { id: "pro-ppf-f",    cat: "Protection", tier: "Prestige",  name: "PPF Full Body",          duration: "3–5 days",  lo: 3500, hi: 3500, desc: "Complete vehicle coverage + 10yr film warranty." },
+
+  // ADD-ONS
+  { id: "add-headlight",cat: "Add-Ons",    tier: "Add-On",    name: "Headlight Restoration",  duration: "1–2 h",     lo: 55,   hi: 55,   desc: "Machine polish foggy lenses + UV coating applied." },
+  { id: "add-wheel",    cat: "Add-Ons",    tier: "Add-On",    name: "Wheel & Tyre Detail",    duration: "1 h",       lo: 45,   hi: 45,   desc: "Steam blast, iron removal, caliper brush & tyre dressing." },
+  { id: "add-leather",  cat: "Add-Ons",    tier: "Add-On",    name: "Leather Restoration",    duration: "2 h",       lo: 90,   hi: 90,   desc: "Deep clean, colour refresh & conditioner for aged hides." },
+  { id: "add-odour",    cat: "Add-Ons",    tier: "Add-On",    name: "Odour Ozone Treatment",  duration: "2–3 h",     lo: 65,   hi: 65,   desc: "Ozone neutralises embedded odours at molecular level." },
+  { id: "add-engine",   cat: "Add-Ons",    tier: "Add-On",    name: "Engine Bay Steam Clean", duration: "1 h",       lo: 45,   hi: 45,   desc: "High-pressure steam degreasing of full engine compartment." },
+];
+
+    
     const TABS = [
       { id: "All",        label: "All" },
       { id: "Exterior",   label: "Exterior" },
